@@ -17,5 +17,11 @@
     along with rustronomy.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+//Module structure
+mod keyword_vals;
+mod header_data_unit;
+mod io;
+
+//tests
 #[cfg(test)]
 mod test;

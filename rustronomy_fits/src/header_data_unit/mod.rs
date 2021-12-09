@@ -16,3 +16,15 @@
     You should have received a copy of the GNU General Public License
     along with rustronomy.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+//Imports go here
+use std::collections::HashMap;
+use crate::keyword_vals::KeyWordVal;
+
+pub struct HeaderDataUnit{
+    header_blocks: Vec<HeaderBlock>
+}
+
+struct HeaderBlock {
+    keywords: HashMap<String, KeyWordVal>
+}
