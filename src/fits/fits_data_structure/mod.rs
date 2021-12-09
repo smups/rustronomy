@@ -1,3 +1,7 @@
+use self::keyword::{Keyword};
+
+mod keyword;
+
 /*
     This module contains a list of basic (read: NO implementations)
     data structures found in a FITS file. These are defined as per
@@ -12,7 +16,7 @@
 
     Traits must are specified below the structure that they apply to
 */
-pub struct DataBlock <'life> {
+pub struct DataBlock {
     /*
         This struct contains borrows 2880 bytes of data
         from somewhere (implementation specific source
@@ -24,7 +28,7 @@ pub struct DataBlock <'life> {
         the ParseDataBlock trait.
     */
 
-    data: &'life [u8; 2880]
+    data: Box<[u8; 2880]>
 }
 
 trait ParseDataBlock {
@@ -48,7 +52,7 @@ trait ParseDataBlock {
             the HDU. These are characters 0x20 to 0x7e
 
 */
-pub static HDU_allowed_ASCII: [u8; 96] = [
+pub static HDU_ALLOWED_ASCII: [u8; 96] = [
     32, 33, 34, 35, 36, 37, 38, 39, 40, 41,
     42, 43, 44, 45, 46, 47, 48, 49, 50, 51,
     52, 53, 54, 55, 56, 57, 58, 59, 60, 61,
@@ -58,18 +62,14 @@ pub static HDU_allowed_ASCII: [u8; 96] = [
     92, 93, 94, 95, 96, 97, 98, 99, 100, 101,
     102, 103, 104, 105, 106, 107, 108, 109, 110, 111,
     112, 113, 114, 115, 116, 117, 118, 119, 120, 121,
-    122, 123, 124, 125, 126, 127,
- ];
+    122, 123, 124, 125, 126, 127
+];
 
 pub struct HeaderDataUnit {
-    simple: KeyWord<bool>,
-    bitpix: KeyWord<i64>,
-    n_axis: KeyWord<i64>,
-    n_axis_N: Option<Vec<KeyWord<i64>>>,
-    other: Option<Vec<KeyWord<>>
-}
-
-pub struct KeyWord<Type> {
-    name: String,
-    val: Type
+    simple: Keyword,
+    bitpix: Keyword,
+    n_axis: Keyword,
+    n_axis_n: Option<Vec<Keyword>>,
+    other: Option<Vec<Keyword>>,
+    comment: Option<Vec<Keyword>>
 }
