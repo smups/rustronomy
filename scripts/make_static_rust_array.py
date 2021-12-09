@@ -1,6 +1,7 @@
 import numpy as np
 
 # Simple script that creates a static rust array because there is no easy way to do this in rust
+# (which is dumb)
 
 code = f"static {input('array name:')}: [{input('array primitive type:')}; &] = [\n"
 start = int(input("array start (inclusive):"))
