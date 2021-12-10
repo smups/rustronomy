@@ -1,4 +1,26 @@
 /*
+    Copyright (C) 2021 Raúl Wolters
+    
+    This file is part of rustronomy-fits.
+    
+    rustronomy is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    
+    rustronomy is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+    
+    You should have received a copy of the GNU General Public License
+    along with rustronomy.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+//Module structure
+pub mod complex;
+
+/*
     This module specifies decoding and encoding trait implementations all SADF
     supported data types. Most of these implementations use the byteorder crate
     to simplify things. All allowed data types from the FITS v4.1 standard are
@@ -26,6 +48,12 @@ pub trait Decode {
 /*
     Encode implementations for basic types
 */
+
+impl Encode for bool {
+    fn to_bytes(&self) -> Vec<u8> {
+        todo!()
+    }
+}
 
 impl Encode for u16 {
     fn to_bytes(&self) -> Vec<u8> {
@@ -100,6 +128,12 @@ impl Encode for String {
 /*
     Decode implementations for basic types
 */
+
+impl Decode for bool {
+    fn from_bytes(data: &Vec<u8>) -> Self {
+        todo!()
+    }
+}
 
 impl Decode for u16 {
     fn from_bytes(data: &Vec<u8>) -> Self {

@@ -1,0 +1,209 @@
+--------------------------------------------------------------------------------
+++++++++++++++++++++++++ SIMPLE ASTRONOMICAL DATA FORMAT +++++++++++++++++++++++
+--------------------------------------------------------------------------------
+Version 1.0
+Creation date: 01/12/2021
+
+--------------------------------------------------------------------------------
++++ Data Types, abbreviations and other conventions used in this document +++
+
+[Code]	[Abbreviation]	[Description]
+//Unsigned Integers
+0x0008	u08				unsigned 8-bit integer
+0x0016 	u16				unsigned 16-bit integer
+0x0032 	u32				unsigned 32-bit integer
+0x0064 	u64				unsigned 64-bit integer
+0x0128  u128            [reserved]
+//Signed Integers
+0x0010 	i16				signed 16-bit integer
+0x0020 	i32				signed 32-bit integer
+0x0040 	i64				signed 64-bit integer
+0x0080  i128            [reserved]
+//Signed floats
+0x0f32 	f32				signed 32-bit float (IEEE compliant)
+0x0f64 	f64				signed 64-bit float (IEEE compliant)
+0xf128  f128            [reserved]
+//Character Arrays
+0xca08 	utf8			UTF-8 encoded charachter array
+0xca16  utf16           UTF-16 encoded charachter array
+//Pointer
+0xa064	ptr 			64-bit pointer
+//User defined types
+0xb___  ...             (1) reserved for personal use
+
+A range, written as x-y, includes x but excludes y.
+
+(1) Users may define their own types in the 0xb___ range. These type definitions
+    are not supported guaranteed to exist in standard-conforming implementations
+    and hence must be implemented by the user themself.
+
+--------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
++++ Global File Structure +++
+
+A SADF file contains no padding of any kind, nor any fixed length blocks.
+
+- Header (mandatory)
+- Data Block #1: metadata (mandatory, may be null)
+- Data Block #2 to #n: any valid data block (optional)
+
+--------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
++++ Header +++
+
+The header is nothing more than an indexing table for a SADF File.
+
+The header starts off with a u16 integer listing the number of data blocks,
+followed by an unordered list of Header Index Blocks (HIB's). Note that each HIB
+is 20 bytes long.
+
+The header table must always contain a HID pointing to a metadata block at ID
+0x0000. If the file contains no metadata, an HID with a metadata identifier must
+still be specified at ID 0x0000. In this case, both the length and starting
+adress of the metadata block must be set to 0x0000•0000•0000•0000.
+
+A header can, theoretically, hold 65•535 entries. This means that the maximum
+header size is 1•310•702 bytes, or about 1.3MB. Hence, 1•310•702 bytes must
+always be avaliable for header decoding in programs implementing SADF reading
+functionality, unless the total file size is smaller than 1•310•702 bytes, in
+which case the entire file must be loaded in one buffer in order to guarantee
+the entire header is avaliable. Note: this buffer need not be thrown away and
+can be re-used by the  implementation to parse the remaining file contents.
+
+Note: Since the length of the data blocks is specified in the header, the 
+required buffer size to read the data blocks is always known and no memory needs
+to go to waste when copying the data blocks into memory, unlike in the header
+reading process listed above.
+
+[byte]	[field]
+0-2		number of indexed data blocks
+2-22	HIB #1 -> metadata
+22-42	HIB #2 -> can point to anything (optional)
+...		...    -> can point to anything (optional)
+x-x+20	Final HIB
+
+--------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
++++ Header Index Block +++
+
+A Header Index Block (HIB) points to a data block in the file. They are
+used exclusively in the header part of the file. An HIB is always 20 bytes long.
+
+[byte]	[type]	[field]
+0,1		u16 	identification number of data block (IDN)
+2-10	ptr		data block start (DBS)
+10-18	u64		data block length (DBL)
+18,19	u16		data block type identifier (DBTI)
+
+The identification number (IDN) of a data block serves for internal refrences;
+i.e. when data blocks must refrence eachother. The Data Block Start (DBS)
+pointer points to the byte index at which the data block in question starts.
+The data block length (DBL) field specifies the length of the data blocks in
+bytes.
+
+Finally, the data block type identifier (DBTI) specifies the format that was
+used to store the data block. The following DBTI values have specific meanings:
+
+[value] [function]
+0x0000  text file
+0x0001  (1) 1-dimensional array
+0x0002  (1) 2-dimensional array (image)
+...     (1) n-dimensional array
+0x000f  (1) 16-dimensional array
+0x00f0  (2) table
+0xc___  user defined
+0xffff  metadata
+
+(1) Arrays may only consist of one data type. For more information, see the 
+    "Array Data Block (0x0001-0x000f)" section of this document.
+(2) Tables may contain keyword - value pairs of arbitrary type, although all
+    keywords and all values must have the same type
+
+--------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
++++ Data Block (general specification) +++
+
+Data Blocks hold the data of the ADF file. 'Data' refers to both metadata and
+normal data. Each data block has the following structure:
+
+[byte]	[type]	[field]
+0,1		u16 	index of metadata inside the metadata data block
+2,3     u16     data compression algorithm
+4-n     ...     data
+
+If a data block is linked to certain metadata (for instance, an image may be 
+associated with a metadata block containing the telescope, location, time,
+instrument etc...), then the position of the metadata that is associated with
+the data block within the metadata index table contained within the metadata
+data block shall be specified in the first to bytes of the data block.
+
+The metadata block is always located at IDN 0x0001 (as per the "header" section)
+
+This index is called the metadata index (MDI). The following values of the MDI
+have special meanings:
+
+#Reserved MDI values
+[value] [function]
+0x0000  data block has no metadata associated with it
+0x0001  data block has default metadata (specified at MDI 0x0001)
+0x___f  data block uses default data, except for fields specified at the index
+        specified at 0x___0 (fill in the blanks)
+0x000_  reserved for future use
+
+If data compression is used, the type of data compression is specified in the 
+third and fourth bytes of the data block. The meaning of the data compression
+field is data block type specific, except for certain values. User defined DCA's
+are also possible, as long as they do not interfere with reserved values:
+
+#Reserved DCA values
+[value] [meaning]
+0x0000  no compression
+0x00__  [reserved]
+
+See specific implemetations of the Data Block type for mor information.
+
+--------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
++++ Metadata Data Block (DBTI: 0xffff) +++
+
+A metadata Data Block starts with an index table, containing metadata index
+blocks (MIB's)
+
+[byte]	[type]	[field]
+0,1     u16     number of metadata tables
+2-20    MIB #1  first entry in the index table
+...     MIB #n  last entry in the index table
+...     MDT #1  first metadata table
+...     MDT #n  last metadata table
+
+
+--------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
++++ Metadata Index Block +++
+
+The MIB is always 18 bytes long.
+
+[byte]	[type]	[field]
+0,1     u16     IDN of data block that this table refers to
+2-10	ptr		table start
+10-18	u64		table length
+
+--------------------------------------------------------------------------------
