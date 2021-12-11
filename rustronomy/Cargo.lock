@@ -80,6 +80,9 @@ dependencies = [
 [[package]]
 name = "rustronomy_core"
 version = "0.1.0"
+dependencies = [
+ "byteorder",
+]
 
 [[package]]
 name = "rustronomy_fits"
@@ -92,7 +95,6 @@ dependencies = [
 name = "rustronomy_sadf"
 version = "0.1.0"
 dependencies = [
- "byteorder",
  "rand",
  "rustronomy_core",
 ]

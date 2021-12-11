@@ -19,7 +19,6 @@
 
 //Module structure
 mod header;
-mod io_utils_impl;
 
 //tests
 #[cfg(test)]

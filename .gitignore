@@ -1,4 +1,4 @@
 /target
 /Cargo.lock
 /.vscode
-/rustronomy_fits.vscode
+/SADF/.vscode

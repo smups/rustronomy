@@ -1,7 +1,6 @@
 //This line imports the encoding/decoding trait implementations specified in the
 //data_types module!
 
-use crate::io_utils_impl::*;
 use rustronomy_core::data_type_traits::io_utils::*;
 
 //Length of the encoded HID

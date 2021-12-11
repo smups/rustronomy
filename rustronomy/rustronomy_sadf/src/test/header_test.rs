@@ -3,8 +3,8 @@ use std::{env, fs::File, io::Write};
 use rand::{Rng, prelude::ThreadRng};
 use crate::{
     header::{header_index_block::HeaderIndexBlock, Header},
-    data_types::{EncodeAndConsume, Decode}
 };
+use rustronomy_core::data_type_traits::io_utils::*;
 
 /*
     This file provides tests for headers
