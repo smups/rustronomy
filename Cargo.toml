@@ -1,7 +1,0 @@
-[workspace]
-
-members = [
-    "rustronomy",
-    "rustronomy_fits",
-    "rustronomy_sadf"
-]
