@@ -34,24 +34,11 @@
 \usepackage{fancyvrb}
 \fvset{fontsize=\normalsize}
 
-% Prints argument within hanging parentheses (i.e., parentheses that take
-% up no horizontal space).  Useful in tabular environments.
-\newcommand{\hangp}[1]{\makebox[0pt][r]{(}#1\makebox[0pt][l]{)}}
-
+\newcommand{\hlred}[1]{\textcolor{Maroon}{#1}}% prints in red
 \newcommand{\hex}[1]{\hlred{\texttt{#1}}\label{clsopt:#1}\index{#1 class option@\texttt{#1} class option}\index{class options!#1@\texttt{#1}}}% hex field formatting
-
-% Prints an asterisk that takes up no horizontal space.
-% Useful in tabular environments.
-\newcommand{\hangstar}{\makebox[0pt][l]{*}}
 
 % Prints a trailing space in a smart way.
 \usepackage{xspace}
-
-\newcommand{\hlred}[1]{\textcolor{Maroon}{#1}}% prints in red
-\newcommand{\hangleft}[1]{\makebox[0pt][r]{#1}}
-\newcommand{\hquad}{\hskip0.5em\relax}% half quad space
-\newcommand{\TODO}{\textcolor{red}{\bf TODO!}\xspace}
-\newcommand{\na}{\quad--}% used in tables for N/A cells
 
 % Prints the month name (e.g., January) and the year (e.g., 2008)
 \newcommand{\monthyear}{%
@@ -134,7 +121,7 @@ The metadata block contains a lot of critical information about a SADF file. Eac
 
 The SADF standard natively supports encryption, digital signing of data and compression algorithms. If a data block is encrypted, signed or compressed, the type of compression, type of encryption and signature are all stored in the metadata block associated with the data block in question. The metadata(1) part of the metadata block associated with a data block shall be appended to the data block before signing/encrypting the pair, but after compressing the data block itself, since data block compression must always take place before signing.
 
-Data blocks (including metadata blocks) may appear in any order in a SADF file (although none may appear before the header). Therefore, data blocks that refer to other data blocks must do so using the data block identification number (DB\_ID). The header provides an index linking these DB\_IDs to actual positions 
+Data blocks (including metadata blocks) may appear in any order in a SADF file (although none may appear before the header). Therefore, data blocks that refer to other data blocks must do so using the data block identification number (DB-ID). The header provides an index linking these DB-IDs to actual positions 
 in the file using the ptr data type.
 
 Finally, an example is shown of a possible SADF file:
@@ -225,9 +212,9 @@ In addition to the types specified in the standard, users may define data types 
 		\quad \hex{0xb000-=0xbfff} & (...) & unsized & user defined types\\
 		\bottomrule
 	\end{tabular}
-	~\label{tab:data_type_codes}
+	\label{tab:data_type_codes}
 	\caption[List of supported data types in the SADF standard, together with
-	their sizes and abbreviations.][-210mm]{List of supported data types in the SADF standard, together with their sizes and abbreviations.\emph{ The raw, character array and ALL user defined types are unsized. Hence, the length of fields using these data types MUST be specified explicitly. Users may define their own types in the \hex{0xb000-=0xbfff} range. These type definitions are not supported guaranteed to exist in standard-conforming implementations and hence must be implemented by the user themself.}}
+	their sizes and abbreviations.][-210mm]{List of supported data types in the SADF standard, together with their sizes and abbreviations.\emph{ The raw, character array and ALL user defined types are unsized. Hence, the length of fields using these data types MUST be specified explicitly. Users may define their own types in the 0xb000-=0xbfff range. These type definitions are not supported guaranteed to exist in standard-conforming implementations and hence must be implemented by the user themself.}}
 \end{table*}
 
 \chapter{The SADF Header}
@@ -272,10 +259,10 @@ The HIB layout is specified in table \ref{tab:hib_fields}.
 		\toprule
 		bytes & data type & field\\
 		\midrule
-		0,1 & u16 & data block identification number (DB\_ID)\\
-		2-10 & ptr & data block start (DB\_ST)\\
-		10-18 & u64 & data block length (DB\_SI)\\
-		18,19 & u16 & data block type identifier (DB\_TY)\\
+		0,1 & u16 & data block identification number (DB-ID)\\
+		2-10 & ptr & data block start (DB-ST)\\
+		10-18 & u64 & data block length (DB-SI)\\
+		18,19 & u16 & data block type identifier (DB-TY)\\
 		\bottomrule
 	\end{tabular}
 	~\label{tab:hib_fields}
@@ -283,10 +270,10 @@ The HIB layout is specified in table \ref{tab:hib_fields}.
 \end{table}
 \vspace{5mm}
 
-The identification number (DB\_ID) of a data block serves for internal refrences; i.e. when data blocks must refrence eachother. The Data Block Start (DB\_ST) pointer points to the byte index at which the data block in question starts. The data block length (DB\_SI) field specifies the length of the data blocks in bytes.
+The identification number (DB-ID) of a data block serves for internal refrences; i.e. when data blocks must refrence eachother. The Data Block Start (DB-ST) pointer points to the byte index at which the data block in question starts. The data block length (DB-SI) field specifies the length of the data blocks in bytes.
 
-Finally, the data block type identifier (DB\_TY) specifies the format that was
-used to store the data block. Table \ref{tab:data_block_type_codes} defines standard values for DB\_TY as well as the user-extendable range.
+Finally, the data block type identifier (DB-TY) specifies the format that was
+used to store the data block. Table \ref{tab:data_block_type_codes} defines standard values for DB-TY as well as the user-extendable range.
 
 \begin{table}[ht]
 	\centering
@@ -305,7 +292,7 @@ used to store the data block. Table \ref{tab:data_block_type_codes} defines stan
 		\bottomrule
 	\end{tabular}
 	~\label{tab:data_block_type_codes}
-	\caption{Data Block Type Identifyer (DB\_TY) codes}
+	\caption{Data Block Type Identifyer (DB-TY) codes}
 \end{table}
 \vspace{5mm}
 
@@ -324,32 +311,32 @@ Data Blocks hold the data of the SADF file.  `Data' refers to both metadata and 
 		\toprule
 		bytes & data type & field\\
 		\midrule
-		0,1 & u16 & data block type identifier (DB\_TY)\\
-		2,3 & u16 & data block identification number (DB\_ID)\\
-		4,5 & u16 & DB\_ID of associated metadata block (MD\_ID)\\
+		0,1 & u16 & data block type identifier (DB-TY)\\
+		2,3 & u16 & data block identification number (DB-ID)\\
+		4,5 & u16 & DB-ID of associated metadata block (MD-ID)\\
 		... & raw & data or further formatting\\
 		\bottomrule
 	\end{tabular}
 	~\label{tab:db_required_fields}
-	\caption{Required fields for all data blocks.}	
+	\caption{Data layout for required fields shared by all data blocks, regardless of their type.}	
 \end{table}
 \vspace{5mm}
 
 If a data block is linked to certain metadata (for instance, an image may be 
-associated with a metadata block containing the telescope, location, time, instrument etc...), then the data block identification number (DB\_ID) of the metadata block will be specified in the MD\_ID field.
+associated with a metadata block containing the telescope, location, time, instrument etc...), then the data block identification number (DB-ID) of the metadata block will be specified in the MD-ID field.
 
-If a data block has no metadata associated with it, the MD\_ID field shall be set to \hex{0x0000} \footnote{The MD\_ID value of \hex{0x0000} is reserved for this use only. A SADF file may never contain an actual metadata block with DB\_ID \hex{0x0000}.}.
+If a data block has no metadata associated with it, the MD-ID field shall be set to \hex{0x0000} \footnote{The MD-ID value of \hex{0x0000} is reserved for this use only. A SADF file may never contain an actual metadata block with DB-ID \hex{0x0000}.}.
 
 Data block encoding, encrypting and signing is handled by the metadata block
 associated with the data block. (see section 1.2). Further information can be
 found in the metadata data block.
 
-\section{Metadata [\hex{DB\_TY:0xffff}]}
-\index{metadata}\label{DB_TY:0xffff}
+\section{Metadata [\hex{DB-TY:0xffff}]}
+\index{metadata}\label{DBTY:0xffff}
 A metadata Data Block starts with the standard (mandatory) fields, followed by (mandatory) metadata extension, as specified in table \ref{tab:metadata_fields}. The following restrictions apply to these mandatory fields:
 \begin{enumerate}
-	\item The DB\_ID field of any data block, including metadata blocks, may never be set to \hex{0x0000}. See Section 3.1 for details.
-	\item The MD\_ID field of a metadata block may be set to \hex{0x0000} or to its own DB\_ID to indicate that no metadata other metadata blocks are connected to this metadata block. The MD\_ID field may never be set to the DB\_ID of one of the data blocks pointing to the metadata block. Setting the MD\_ID field to	any other value indicates is currently not standard-compliant, but may be used in the future to implement metadata inheritance.
+	\item The DB-ID field of any data block, including metadata blocks, may never be set to \hex{0x0000}. See Section 3.1 for details.
+	\item The MD-ID field of a metadata block may be set to \hex{0x0000} or to its own DB-ID to indicate that no metadata other metadata blocks are connected to this metadata block. The MD-ID field may never be set to the DB-ID of one of the data blocks pointing to the metadata block. Setting the MD-ID field to	any other value indicates is currently not standard-compliant, but may be used in the future to implement metadata inheritance.
 \end{enumerate}
 
 \begin{table}[ht]
@@ -359,25 +346,25 @@ A metadata Data Block starts with the standard (mandatory) fields, followed by (
 		\toprule
 		bytes & data type & field\\
 		\midrule
-		0,1 & u16 & data block type identifier (DB\_TY)\\
-		2,3 & u16 & data block identification number (DB\_ID)\\
-		4,5 & u16 & DB\_ID of associated metadata block (MD\_ID)\\
+		0,1 & u16 & data block type identifier (DB-TY)\\
+		2,3 & u16 & data block identification number (DB-ID)\\
+		4,5 & u16 & DB-ID of associated metadata block (MD-ID)\\
 		6,7 & u16 & compression type\\
 		8,9 & u16 & encryption type\\
-		10 & bool & signature present (MD\_SGND)\\
+		10 & bool & signature present (MD-SGND)\\
 		... & ... & ...\\
 		\bottomrule
 	\end{tabular}
 	~\label{tab:metadata_fields}
-	\caption{Required fields for all data blocks of the metadata type.}	
+	\caption{Data layout for required fields of metadata blocks}	
 \end{table}
 \vspace{5mm}
 
-Depending on the value of the MD\_SGND field, more required fields may\footnote{To clarify: if the signed field is set to true, the signature fields \smallcaps{must} be specified. If the signed field is set to false, then the signature fields \smallcaps{must} be omitted.} follow. We distinghuish the following cases:
+Depending on the value of the MD-SGND field, more required fields may\footnote{To clarify: if the signed field is set to true, the signature fields \smallcaps{must} be specified. If the signed field is set to false, then the signature fields \smallcaps{must} be omitted.} follow. We distinghuish the following cases:
 
 \begin{enumerate}
-	\item MD\_SGND = true. In this case, more fields must follow the fields defined in table \ref{tab:metadata_fields}. These fields are specified in table \ref{tab:metadata_optional_fields}.
-	\item MD\_SGND = false. In this case, no additonal fields are required.
+	\item MD-SGND = true. In this case, more fields must follow the fields defined in table \ref{tab:metadata_fields}. These fields are specified in table \ref{tab:metadata_optional_fields}.
+	\item MD-SGND = false. In this case, no additonal fields are required.
 \end{enumerate}
 
 \begin{table}[ht]
@@ -387,17 +374,17 @@ Depending on the value of the MD\_SGND field, more required fields may\footnote{
 		\toprule
 		bytes & data type & field\\
 		\midrule
-		11-15 & u32 & signature type (MD\_SG\_TY)\\
-		15,16 & u16 & signature length (MD\_SG\_SI)\\
-		... & raw & signature (MD\_SG)\\
+		11-15 & u32 & signature type (MD-SG-TY)\\
+		15,16 & u16 & signature length (MD-SG-SI)\\
+		... & raw & signature (MD-SG)\\
 		\bottomrule
 	\end{tabular}
 	~\label{tab:metadata_optional_fields}
-	\caption{Optional fields for data blocks of the metadata type.}	
+	\caption{Data layout for optional fields of metadata blocks.}	
 \end{table}
 \vspace{5mm}
 
-Encryption and digital signatures are discussed in section [REE]. This section covers the use and meaning of the MD\_SGND, MD\_SG, MD\_SG\_TY and MD\_SG\_SI fields.
+Encryption and digital signatures are discussed in section [REE]. This section covers the use and meaning of the MD-SGND, MD-SG, MD-SG-TY and MD-SG-SI fields.
 
 The value of the compression type field indicates the type of compression used for the data block(s) \footnote{If multiple data blocks point to a single metadata block, all \smallcaps{must} be compressed in the same way, namely according to the compression type specified in the shared metadata block.}. Users may use the user-reserved range of the compression type field to define their own compression algorithms. The values specified in table \ref{tab:compression_types}
 
@@ -456,7 +443,7 @@ A Metadata Entry is essentially a keyword-value pair (inspired by the keyword-va
 		\bottomrule
 	\end{tabular}
 	~\label{tab:metadata_entry_fields}
-	\caption{Metadata Entry layout}	
+	\caption{Metadata Entry data layout}	
 \end{table}
 \vspace{5mm}
 The following restrictions apply to fields specified in table \ref{tab:metadata_entry_fields}:
@@ -468,10 +455,98 @@ The following restrictions apply to fields specified in table \ref{tab:metadata_
     up more space than this maximum size, the use of separate data blocks is required.
 \end{enumerate}
 
-\section{Plain text [\hex{DB\_TY:0xffff}]}
-\index{metadata}\label{DB_TY:0xffff}
+\section{Plain text [\hex{DB-TY:0x0000}]}
+\index{plain text}\label{DBTY:0x0000}
+A plain text Data Block starts with the standard (mandatory) fields, followed by (mandatory) plain text extension, as specified in table \ref{tab:plain_text_fields}. The following restrictions apply to these mandatory fields:
+\begin{enumerate}
+	\item the value of the data type field must be either \hex{0xca08} or \hex{0xca16} indicating the use of UTF-8 and UTF-16 encoding for the text data.
+\end{enumerate}
+
+\begin{table}[ht]
+	\centering
+	\fontfamily{ppl}\selectfont
+	\begin{tabular}{lcl}
+		\toprule
+		bytes & data type & field\\
+		\midrule
+		0,1 & u16 & data block type identifier (DB-TY)\\
+		2,3 & u16 & data block identification number (DB-ID)\\
+		4,5 & u16 & DB-ID of associated metadata block (MD-ID)\\
+		6,7 & u16 & data type\\
+ 		(...) & raw & (data)\\
+		\bottomrule
+	\end{tabular}
+	~\label{tab:plain_text_fields}
+	\caption{Data layout for required fields of plain text data blocks}	
+\end{table}
+\vspace{5mm}
+
+\section{Arrays [\hex{DB-TY:0x0001-=0x000f}]}
+\index{arrays}\label{DBTY:0x000x}
+A array Data Block starts with the standard (mandatory) fields, followed by (mandatory) plain text extension, as specified in table \ref{tab:array_text_fields}. The following restrictions apply to these mandatory fields:
+\begin{enumerate}
+	\item the value of the data type field must indicate a numeric data type. Integers (both signed and unsigned), floats and complex numbers are allowed as numeric types. User defined types may also be put in an array, provided that the user implements the required encoding steps.
+	\item the number of axis length (AR-SI-x) fields is determined by the data block type of the array. For example, a 1-dimensional array (DB-TY:\hex{0x0001}) \smallcaps{must} specify only one axis length field. Moreover, the axis length fields must appear in order\footnote{Implementations of the SADF standard \smallcaps{must} assume that the axis lengths provided in the axis length fields are in order when decoding an array data block.}. 
+\end{enumerate}
+\emph{\smallcaps{Note on axis order when encoding and decoding arrays}: when encoding an array, the last axis provided in the axis length parameters \smallcaps{must be iterated over first}\footnote{Implementations must know all the axis lengths before decoding the array, since the axis lengths are provided in the order 1 to n, and are required for decoding in the order n to 1.}, followed by the penultimate axis (etc.) until the first axis is reached. Hence element (0,0,...,0) in the array is the first element to appear in the encoded binary, followed by element (0,0,...,1) etc. until element (ax-len-n, ax-len-n-1, ..., ax-len-1) is reached.}
+
+\begin{table}[ht]
+	\centering
+	\fontfamily{ppl}\selectfont
+	\begin{tabular}{lcl}
+		\toprule
+		bytes & data type & field\\
+		\midrule
+		0,1 & u16 & data block type identifier (DB-TY)\\
+		2,3 & u16 & data block identification number (DB-ID)\\
+		4,5 & u16 & DB-ID of associated metadata block (MD-ID)\\
+		6,7 & u16 & data type\\
+ 		8-12 & u32 & length of axis \#1 (AR-SI-1)\\
+ 		...	& u32 & length of axes \#2 through \#(n-1)\\
+ 		n-n+4 & u32 & length of axis \#n (AR-SI-n)\\
+ 		... & raw & data\\
+		\bottomrule
+	\end{tabular}
+	~\label{tab:array_text_fields}
+	\caption[Data layout for required fields of array data blocks]{Data layout for required fields of array data blocks. \emph{Note that the number of axis length fields included in the data block depends on the data block type. A d-dimensional array \smallcaps{must} have d axis lengths. Furthermore, the axes are always ordered.}	
+\end{table}
+\vspace{5mm}
+
+\section{Table [\hex{DB-TY:0x00f0}]}
+\index{table}\label{DBTY:0x00f0}
+The table data block maps keys to values. All keys must be of the same type and all values must be of the same type, but keys and values can have different types. This is different from an array, since all entries in an array must have the same data type.
+
+All keywords must have the same length and all values must have the same length, but keywords and values may have differing lengths. The maximum keyword length is 65,535 bytes (66kB) and the maximum value length is 4,294,967,295 bytes (4.3GB).
+
+A table Data Block starts with the standard (mandatory) fields, followed by (mandatory) plain text extension, as specified in table \ref{tab:table_fields}.
+
+\begin{table}[ht]
+	\centering
+	\fontfamily{ppl}\selectfont
+	\begin{tabular}{lcl}
+		\toprule
+		bytes & data type & field\\
+		\midrule
+		0,1 & u16 & data block type identifier (DB-TY)\\
+		2,3 & u16 & data block identification number (DB-ID)\\
+		4,5 & u16 & DB-ID of associated metadata block (MD-ID)\\
+		6,7 & u16 & keyword type\\
+		8,9 & u16 & keyword length\\
+		10,11 & u16 & value type\\
+		12-16 & u32 & value length\\
+		16-24 & u64 & number of entries in the table\\
+ 		(...) & raw & (data)\\
+		\bottomrule
+	\end{tabular}
+	~\label{tab:table_fields}
+	\caption{Data layout for required fields of plain text data blocks}	
+\end{table}
+\vspace{5mm}
+
+In the data section of the table data block, keywords always come directly in front of their associated values. There is no padding between keywords and/or values.
 
 \backmatter
+\bibliography
 \printindex
 
 \end{document}
