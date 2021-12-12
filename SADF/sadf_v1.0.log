@@ -1,183 +1,187 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021 - Flatpak) (preloaded format=pdflatex 2021.10.11)  12 DEC 2021 20:03
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12.10) (preloaded format=pdflatex 2021.12.12)  12 DEC 2021 22:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**sadf_v1.0.tex
-(./sadf_v1.0.tex
-LaTeX2e <2020-10-01> patch level 4
-L3 programming layer <2021-02-18>
-(/app/texlive/texmf-dist/tex/latex/tufte-latex/tufte-book.cls
+**./sadf_v1.0.tex
+(sadf_v1.0.tex
+LaTeX2e <2021-11-15> patch level 1
+L3 programming layer <2021-11-22>
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/tufte-latex\tufte-book.
+cls
 Document Class: tufte-book 2015/06/21 v3.5.2 Tufte-book class
-(/app/texlive/texmf-dist/tex/latex/tufte-latex/tufte-common.def
+
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/tufte-latex\tufte-commo
+n.def
 File: tufte-common.def 2015/06/21 v3.5.2 Common code for the Tufte-LaTeX styles
 
 
-(/app/texlive/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/xkeyval\xkeyval.sty
 Package: xkeyval 2020/11/20 v2.8 package option processing (HA)
 
-(/app/texlive/texmf-dist/tex/generic/xkeyval/xkeyval.tex
-(/app/texlive/texmf-dist/tex/generic/xkeyval/xkvutils.tex
-\XKV@toks=\toks15
-\XKV@tempa@toks=\toks16
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/generic/xkeyval\xkeyval.tex
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/generic/xkeyval\xkvutils.tex
+\XKV@toks=\toks16
+\XKV@tempa@toks=\toks17
 
-(/app/texlive/texmf-dist/tex/generic/xkeyval/keyval.tex))
-\XKV@depth=\count179
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/generic/xkeyval\keyval.tex))
+\XKV@depth=\count183
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
-))
-(/app/texlive/texmf-dist/tex/latex/xifthen/xifthen.sty
+)) (C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/xifthen\xifthen.sty
 Package: xifthen 2015/11/05 v1.4.0 Extended ifthen features
 
-(/app/texlive/texmf-dist/tex/latex/tools/calc.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/tools\calc.sty
 Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count180
-\calc@Bcount=\count181
+\calc@Acount=\count184
+\calc@Bcount=\count185
 \calc@Adimen=\dimen138
 \calc@Bdimen=\dimen139
 \calc@Askip=\skip47
 \calc@Bskip=\skip48
 LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count182
+\calc@Ccount=\count186
 \calc@Cskip=\skip49
 )
-(/app/texlive/texmf-dist/tex/latex/base/ifthen.sty
-Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/base\ifthen.sty
+Package: ifthen 2020/11/24 v1.1c Standard LaTeX ifthen package (DPC)
 )
-(/app/texlive/texmf-dist/tex/latex/ifmtarg/ifmtarg.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/ifmtarg\ifmtarg.sty
 Package: ifmtarg 2018/04/16 v1.2b check for an empty argument
 ))
-(/app/texlive/texmf-dist/tex/latex/hardwrap/hardwrap.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/hardwrap\hardwrap.sty
 Package: hardwrap 2011/02/12 v0.2 Hard wrap messages
 
-(/app/texlive/texmf-dist/tex/latex/ifplatform/ifplatform.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/ifplatform\ifplatform.s
+ty
 Package: ifplatform 2017/10/13 v0.4a Testing for the operating system
-
-(/app/texlive/texmf-dist/tex/latex/tools/shellesc.sty
+ (C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/tools\shellesc.sty
 Package: shellesc 2019/11/08 v1.0c unified shell escape interface for LaTeX
 Package shellesc Info: Restricted shell escape enabled on input line 77.
 )
-(/app/texlive/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/generic/pdftexcmds\pdftexcmds
+.sty
 Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
 )
 
-(/app/texlive/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/generic/infwarerr\infwarerr.s
+ty
 Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
-)
-(/app/texlive/texmf-dist/tex/generic/iftex/iftex.sty
+) (C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/generic/iftex\iftex.sty
 Package: iftex 2020/03/06 v1.0d TeX engine tests
 )
-(/app/texlive/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty
 Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
 )
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
 )
-(/app/texlive/texmf-dist/tex/generic/catchfile/catchfile.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/generic/catchfile\catchfile.s
+ty
 Package: catchfile 2019/12/09 v1.8 Catch the contents of a file (HO)
 
-(/app/texlive/texmf-dist/tex/generic/etexcmds/etexcmds.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/generic/etexcmds\etexcmds.sty
 Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
-))
-(/app/texlive/texmf-dist/tex/generic/iftex/ifluatex.sty
+)) (C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifluatex.sty
 Package: ifluatex 2019/10/25 v1.5 ifluatex legacy package. Use iftex instead.
 )
 
 Package ifplatform Warning: 
     shell escape is disabled, so I can only detect \ifwindows.
 
-) (/app/texlive/texmf-dist/tex/generic/iftex/ifxetex.sty
+) (C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifxetex.sty
 Package: ifxetex 2019/10/25 v0.7 ifxetex legacy package. Use iftex instead.
 )
-\hw@charcount=\count183
-\hw@wordcount=\count184
-\hw@maxprintline=\count185
-
-(|kpsewhich -var-value=max_print_line))
+\hw@charcount=\count187
+\hw@wordcount=\count188
+\hw@maxprintline=\count189
+)
 Class tufte-book Info: Passing pagesize=a4 to the `book' class.
 Class tufte-book Info: Loading the base class `book'
-
-(/app/texlive/texmf-dist/tex/latex/base/book.cls
-Document Class: book 2020/04/10 v1.4m Standard LaTeX document class
-(/app/texlive/texmf-dist/tex/latex/base/bk10.clo
-File: bk10.clo 2020/04/10 v1.4m Standard LaTeX file (size option)
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/base\book.cls
+Document Class: book 2021/10/04 v1.4n Standard LaTeX document class
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/base\bk10.clo
+File: bk10.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
 )
-\c@part=\count186
-\c@chapter=\count187
-\c@section=\count188
-\c@subsection=\count189
-\c@subsubsection=\count190
-\c@paragraph=\count191
-\c@subparagraph=\count192
-\c@figure=\count193
-\c@table=\count194
+\c@part=\count190
+\c@chapter=\count191
+\c@section=\count192
+\c@subsection=\count193
+\c@subsubsection=\count194
+\c@paragraph=\count195
+\c@subparagraph=\count196
+\c@figure=\count197
+\c@table=\count198
 \abovecaptionskip=\skip50
 \belowcaptionskip=\skip51
 \bibindent=\dimen140
 )
-(/app/texlive/texmf-dist/tex/generic/iftex/ifpdf.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifpdf.sty
 Package: ifpdf 2019/10/25 v3.4 ifpdf legacy package. Use iftex instead.
 )
-(/app/texlive/texmf-dist/tex/latex/titlesec/titlesec.sty
-Package: titlesec 2019/10/16 v2.13 Sectioning titles
-\ttl@box=\box47
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/titlesec\titlesec.sty
+Package: titlesec 2021/07/05 v2.14 Sectioning titles
+\ttl@box=\box50
 \beforetitleunit=\skip52
 \aftertitleunit=\skip53
 \ttl@plus=\dimen141
 \ttl@minus=\dimen142
-\ttl@toksa=\toks17
+\ttl@toksa=\toks18
 \titlewidth=\dimen143
 \titlewidthlast=\dimen144
 \titlewidthfirst=\dimen145
 )
-(/app/texlive/texmf-dist/tex/latex/titlesec/titletoc.sty
-Package: titletoc 2019/10/16 v2.13 TOC entries
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/titlesec\titletoc.sty
+Package: titletoc 2021/07/05 v2.14 TOC entries
 \ttl@leftsep=\dimen146
 )
-(/app/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
-Package: hyperref 2021-02-27 v7.00k Hypertext links for LaTeX
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
+Package: hyperref 2021-06-07 v7.00m Hypertext links for LaTeX
 
-(/app/texlive/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/generic/kvsetkeys\kvsetkeys.s
+ty
 Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
 )
-(/app/texlive/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/generic/kvdefinekeys\kvdefine
+keys.sty
 Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
 )
-(/app/texlive/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/generic/pdfescape\pdfescape.s
+ty
 Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
-)
-(/app/texlive/texmf-dist/tex/latex/hycolor/hycolor.sty
+) (C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/hycolor\hycolor.sty
 Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
 )
-(/app/texlive/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/letltxmacro\letltxmacro
+.sty
 Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
 )
-(/app/texlive/texmf-dist/tex/latex/auxhook/auxhook.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/auxhook\auxhook.sty
 Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
 )
-(/app/texlive/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/kvoptions\kvoptions.sty
 Package: kvoptions 2020-10-07 v3.14 Key value format for package options (HO)
 )
 \@linkdim=\dimen147
-\Hy@linkcounter=\count195
-\Hy@pagecounter=\count196
-
-(/app/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def
-File: pd1enc.def 2021-02-27 v7.00k Hyperref: PDFDocEncoding definition (HO)
+\Hy@linkcounter=\count199
+\Hy@pagecounter=\count266
+ (C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1enc.def
+File: pd1enc.def 2021-06-07 v7.00m Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
 )
-(/app/texlive/texmf-dist/tex/latex/hyperref/hyperref-langpatches.def
-File: hyperref-langpatches.def 2021-02-27 v7.00k Hyperref: patches for babel la
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref-langp
+atches.def
+File: hyperref-langpatches.def 2021-06-07 v7.00m Hyperref: patches for babel la
 nguages
 )
-(/app/texlive/texmf-dist/tex/generic/intcalc/intcalc.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/generic/intcalc\intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 )
-\Hy@SavedSpaceFactor=\count197
+\Hy@SavedSpaceFactor=\count267
 
-(/app/texlive/texmf-dist/tex/latex/hyperref/puenc.def
-File: puenc.def 2021-02-27 v7.00k Hyperref: PDF Unicode definition (HO)
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\puenc.def
+File: puenc.def 2021-06-07 v7.00m Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
 ... no UTF-8 mapping file for font encoding PU
 )
@@ -190,60 +194,61 @@ Package hyperref Info: Plain pages OFF on input line 4207.
 Package hyperref Info: Backreferencing OFF on input line 4212.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4445.
-\c@Hy@tempcnt=\count198
+\c@Hy@tempcnt=\count268
 
-(/app/texlive/texmf-dist/tex/latex/url/url.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty
 \Urlmuskip=\muskip16
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4804.
 \XeTeXLinkMargin=\dimen148
 
-(/app/texlive/texmf-dist/tex/generic/bitset/bitset.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/generic/bitset\bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
 
-(/app/texlive/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/generic/bigintcalc\bigintcalc
+.sty
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
 )
 ))
-\Fld@menulength=\count199
+\Fld@menulength=\count269
 \Field@Width=\dimen149
 \Fld@charsize=\dimen150
-Package hyperref Info: Hyper figures OFF on input line 6075.
-Package hyperref Info: Link nesting OFF on input line 6080.
-Package hyperref Info: Hyper index ON on input line 6083.
-Package hyperref Info: backreferencing OFF on input line 6090.
-Package hyperref Info: Link coloring OFF on input line 6095.
-Package hyperref Info: Link coloring with OCG OFF on input line 6100.
-Package hyperref Info: PDF/A mode OFF on input line 6105.
-LaTeX Info: Redefining \ref on input line 6145.
-LaTeX Info: Redefining \pageref on input line 6149.
+Package hyperref Info: Hyper figures OFF on input line 6076.
+Package hyperref Info: Link nesting OFF on input line 6081.
+Package hyperref Info: Hyper index ON on input line 6084.
+Package hyperref Info: backreferencing OFF on input line 6091.
+Package hyperref Info: Link coloring OFF on input line 6096.
+Package hyperref Info: Link coloring with OCG OFF on input line 6101.
+Package hyperref Info: PDF/A mode OFF on input line 6106.
+LaTeX Info: Redefining \ref on input line 6146.
+LaTeX Info: Redefining \pageref on input line 6150.
 
-(/app/texlive/texmf-dist/tex/latex/base/atbegshi-ltx.sty
-Package: atbegshi-ltx 2020/08/17 v1.0a Emulation of the original atbegshi packa
-ge
-with kernel methods
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/base\atbegshi-ltx.sty
+Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
+package with kernel methods
 )
-\Hy@abspage=\count266
-\c@Item=\count267
+\Hy@abspage=\count270
+\c@Item=\count271
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hpdftex.def
+File: hpdftex.def 2021-06-07 v7.00m Hyperref driver for pdfTeX
 
-(/app/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def
-File: hpdftex.def 2021-02-27 v7.00k Hyperref driver for pdfTeX
-
-(/app/texlive/texmf-dist/tex/latex/base/atveryend-ltx.sty
-Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atvery packag
-e
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/base\atveryend-ltx.sty
+Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend pac
+kage
 with kernel methods
 )
-\Fld@listcount=\count268
-\c@bookmark@seq@number=\count269
+\Fld@listcount=\count272
+\c@bookmark@seq@number=\count273
 
-(/app/texlive/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/rerunfilecheck\rerunfil
+echeck.sty
 Package: rerunfilecheck 2019/12/05 v1.9 Rerun checks for auxiliary files (HO)
 
-(/app/texlive/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/generic/uniquecounter\uniquec
+ounter.sty
 Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 )
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
@@ -251,13 +256,8 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip54
 )
-(/app/texlive/texmf-dist/tex/latex/ragged2e/ragged2e.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/ragged2e\ragged2e.sty
 Package: ragged2e 2021/02/05 v3.0 ragged2e Package
-
-(/app/texlive/texmf-dist/tex/latex/everysel/everysel.sty
-Package: everysel 2021/01/20 v2.1 EverySelectfont Package (MS)
-
-(/app/texlive/texmf-dist/tex/latex/everysel/everysel-2011-10-28.sty))
 \CenteringLeftskip=\skip55
 \RaggedLeftLeftskip=\skip56
 \RaggedRightLeftskip=\skip57
@@ -273,15 +273,15 @@ Package: everysel 2021/01/20 v2.1 EverySelectfont Package (MS)
 \RaggedRightParindent=\skip67
 \JustifyingParindent=\skip68
 )
-(/app/texlive/texmf-dist/tex/latex/geometry/geometry.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
 
-(/app/texlive/texmf-dist/tex/generic/iftex/ifvtex.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
-\Gm@cnth=\count270
-\Gm@cntv=\count271
-\c@Gm@tempcnt=\count272
+\Gm@cnth=\count274
+\Gm@cntv=\count275
+\c@Gm@tempcnt=\count276
 \Gm@bindingoffset=\dimen151
 \Gm@wd@mp=\dimen152
 \Gm@odd@mp=\dimen153
@@ -290,114 +290,116 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 \Gm@layoutheight=\dimen156
 \Gm@layouthoffset=\dimen157
 \Gm@layoutvoffset=\dimen158
-\Gm@dimlist=\toks18
-)
-(/app/texlive/texmf-dist/tex/latex/changepage/changepage.sty
+\Gm@dimlist=\toks19
+
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.cfg))
+
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/changepage\changepage.s
+ty
 Package: changepage 2009/10/20 v1.0c check page and change page layout
-\c@cp@cntr=\count273
-\cp@tempcnt=\count274
+\c@cp@cntr=\count277
+\cp@tempcnt=\count278
 )
 \@tufte@overhang=\skip69
 \@tufte@fullwidth=\skip70
 \@tufte@caption@fill=\skip71
 
-(/app/texlive/texmf-dist/tex/latex/paralist/paralist.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/paralist\paralist.sty
 Package: paralist 2017/01/22 v2.7 Extended list environments
 \pltopsep=\skip72
 \plpartopsep=\skip73
 \plitemsep=\skip74
 \plparsep=\skip75
-\pl@lab=\toks19
+\pl@lab=\toks20
 )
-(/app/texlive/texmf-dist/tex/latex/textcase/textcase.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/textcase\textcase.sty
 Package: textcase 2019/09/14 v1.00 Text only upper/lower case changing (DPC)
 )
-(/app/texlive/texmf-dist/tex/latex/microtype/letterspace.sty
-Package: letterspace 2021/03/14 v2.8c Robust letterspacing (RS)
-LaTeX Info: Redefining \lsstyle on input line 346.
-LaTeX Info: Redefining \lslig on input line 347.
-LaTeX Info: Redefining \textls on input line 372.
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/microtype\letterspace.s
+ty
+Package: letterspace 2021/12/02 v3.0a Robust letterspacing (RS)
+LaTeX Info: Redefining \lsstyle on input line 340.
+LaTeX Info: Redefining \lslig on input line 341.
+LaTeX Info: Redefining \textls on input line 366.
 \MT@outer@kern=\dimen159
 )
-(/app/texlive/texmf-dist/tex/latex/setspace/setspace.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/setspace\setspace.sty
 Package: setspace 2011/12/19 v6.7a set line spacing
 )
-(/app/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
-Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolor.sty
+Package: xcolor 2021/10/31 v2.13 LaTeX color extensions (UK)
 
-(/app/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
-Package xcolor Info: Package option `usenames' ignored on input line 216.
-Package xcolor Info: Driver file: pdftex.def on input line 225.
+Package xcolor Info: Package option `usenames' ignored on input line 218.
+Package xcolor Info: Driver file: pdftex.def on input line 227.
 
-(/app/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
 File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
 )
-Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
-Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1352.
-Package xcolor Info: Model `RGB' extended on input line 1364.
-Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
-Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
-Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
-Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
-Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
-Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
-
-(/app/texlive/texmf-dist/tex/latex/graphics/dvipsnam.def
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1352.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1356.
+Package xcolor Info: Model `RGB' extended on input line 1368.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1370.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1371.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1372.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1373.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1374.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1375.
+ (C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/graphics\dvipsnam.def
 File: dvipsnam.def 2016/06/17 v3.0m Driver-dependent file (DPC,SPQR)
-)
-(/app/texlive/texmf-dist/tex/latex/xcolor/svgnam.def
-File: svgnam.def 2016/05/11 v2.12 Predefined colors according to SVG 1.1 (UK)
+) (C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\svgnam.def
+File: svgnam.def 2021/10/31 v2.13 Predefined colors according to SVG 1.1 (UK)
 ))
-(/app/texlive/texmf-dist/tex/latex/natbib/natbib.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/natbib\natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibhang=\skip76
 \bibsep=\skip77
 LaTeX Info: Redefining \cite on input line 694.
-\c@NAT@ctr=\count275
+\c@NAT@ctr=\count279
 )
-(/app/texlive/texmf-dist/tex/latex/natbib/bibentry.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/natbib\bibentry.sty
 Package: bibentry 2007/10/30 1.5 (PWD)
-) (./sadf_v1.0.bbl)
-\c@@tufte@num@bibkeys=\count276
-
-(/app/texlive/texmf-dist/tex/latex/sauerj/optparams.sty
+)
+No file sadf_v1.0.bbl.
+\c@@tufte@num@bibkeys=\count280
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/sauerj\optparams.sty
 Package: optparams 2004/08/14 v0.9 multiple optional parameters in macros
 )
 \@tufte@sidenote@vertical@offset=\skip78
 
-(/app/texlive/texmf-dist/tex/latex/placeins/placeins.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/placeins\placeins.sty
 Package: placeins 2005/04/18  v 2.2
 )
-\@tufte@margin@floatbox=\box48
-\@tufte@figure@box=\box49
-\@tufte@caption@box=\box50
+\@tufte@margin@floatbox=\box51
+\@tufte@figure@box=\box52
+\@tufte@caption@box=\box53
 \@tufte@caption@vertical@offset=\skip79
 \@tufte@float@contents@width=\skip80
 
-(/app/texlive/texmf-dist/tex/latex/psnfss/mathpazo.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\mathpazo.sty
 Package: mathpazo 2020/03/25 PSNFSS-v9.3 Palatino w/ Pazo Math (D.Puga, WaS) 
 \symupright=\mathgroup4
 )
-(/app/texlive/texmf-dist/tex/latex/psnfss/helvet.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\helvet.sty
 Package: helvet 2020/03/25 PSNFSS-v9.3 (WaS) 
 )
-(/app/texlive/texmf-dist/tex/latex/bera/beramono.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/bera\beramono.sty
 Package: beramono 2004/01/31 (WaS)
 )
-(/app/texlive/texmf-dist/tex/latex/base/fontenc.sty
-Package: fontenc 2020/08/10 v2.0s Standard LaTeX package
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty
+Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
 LaTeX Font Info:    Trying to load font information for T1+pplj on input line 1
 12.
 
-(/app/texlive/texmf-dist/tex/latex/psnfss/t1pplj.fd
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1pplj.fd
 File: t1pplj.fd 2004/09/06 font definitions for T1/pplj.
 ))
-(/app/texlive/texmf-dist/tex/latex/base/textcomp.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/base\textcomp.sty
 Package: textcomp 2020/02/02 v2.0n Standard LaTeX package
 )
-(/app/texlive/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/fancyhdr\fancyhdr.sty
 Package: fancyhdr 2021/01/28 v4.0.1 Extensive control of page headers and foote
 rs
 \f@nch@headwidth=\skip81
@@ -412,32 +414,29 @@ rs
 )
 \tufteskipamount=\skip90
 
-(/app/texlive/texmf-dist/tex/latex/tools/multicol.sty
-Package: multicol 2019/12/09 v1.8y multicolumn formatting (FMi)
-\c@tracingmulticols=\count277
-\mult@box=\box51
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/tools\multicol.sty
+Package: multicol 2021/10/28 v1.9b multicolumn formatting (FMi)
+\c@tracingmulticols=\count281
+\mult@box=\box54
 \multicol@leftmargin=\dimen160
-\c@unbalance=\count278
-\c@collectmore=\count279
-\doublecol@number=\count280
-\multicoltolerance=\count281
-\multicolpretolerance=\count282
+\c@unbalance=\count282
+\c@collectmore=\count283
+\doublecol@number=\count284
+\multicoltolerance=\count285
+\multicolpretolerance=\count286
 \full@width=\dimen161
 \page@free=\dimen162
 \premulticols=\dimen163
 \postmulticols=\dimen164
 \multicolsep=\skip91
 \multicolbaselineskip=\skip92
-\partial@page=\box52
-\last@line=\box53
+\partial@page=\box55
+\last@line=\box56
 \maxbalancingoverflow=\dimen165
-\mult@rightbox=\box54
-\mult@grightbox=\box55
-\mult@gfirstbox=\box56
-\mult@firstbox=\box57
-\@tempa=\box58
-\@tempa=\box59
-\@tempa=\box60
+\mult@rightbox=\box57
+\mult@grightbox=\box58
+\mult@firstbox=\box59
+\mult@gfirstbox=\box60
 \@tempa=\box61
 \@tempa=\box62
 \@tempa=\box63
@@ -472,36 +471,41 @@ Package: multicol 2019/12/09 v1.8y multicolumn formatting (FMi)
 \@tempa=\box92
 \@tempa=\box93
 \@tempa=\box94
-\c@minrows=\count283
-\c@columnbadness=\count284
-\c@finalcolumnbadness=\count285
+\@tempa=\box95
+\@tempa=\box96
+\c@minrows=\count287
+\c@columnbadness=\count288
+\c@finalcolumnbadness=\count289
 \last@try=\dimen166
 \multicolovershoot=\dimen167
 \multicolundershoot=\dimen168
-\mult@nat@firstbox=\box95
-\colbreak@box=\box96
-\mc@col@check@num=\count286
+\mult@nat@firstbox=\box97
+\colbreak@box=\box98
+\mc@col@check@num=\count290
 )))
 Package hyperref Info: Option `colorlinks' set `true' on input line 4.
 
-(/app/texlive/texmf-dist/tex/latex/lipsum/lipsum.sty
-(/app/texlive/texmf-dist/tex/latex/l3kernel/expl3.sty
-Package: expl3 2021-02-18 L3 programming layer (loader) 
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/lipsum\lipsum.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/l3packages/l3keys2e\l3k
+eys2e.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/l3kernel\expl3.sty
+Package: expl3 2021-11-22 L3 programming layer (loader) 
 
-(/app/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
-File: l3backend-pdftex.def 2021-03-18 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count287
-\l__pdf_internal_box=\box97
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
+tex.def
+File: l3backend-pdftex.def 2021-10-18 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count291
+\l__pdf_internal_box=\box99
 ))
-(/app/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
-(/app/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse-2020-10-01.sty
-(/app/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse-generic.tex)))
-Package: lipsum 2021-03-03 v2.3 150 paragraphs of Lorem Ipsum dummy text
+Package: l3keys2e 2021-11-12 LaTeX2e option processing using LaTeX3 keys
+)
+Package: lipsum 2021-09-20 v2.7 150 paragraphs of Lorem Ipsum dummy text
+\g__lipsum_par_int=\count292
+\l__lipsum_a_int=\count293
+\l__lipsum_b_int=\count294
 
-(/app/texlive/texmf-dist/tex/latex/lipsum/lipsum.ltd.tex
-File: lipsum.ltd.tex 2021-03-03 v2.3 The Lorem ipsum dummy text
-))
-(/app/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/lipsum\lipsum.ltd.tex))
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/booktabs\booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \heavyrulewidth=\dimen169
 \lightrulewidth=\dimen170
@@ -513,54 +517,56 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \cmidrulesep=\dimen176
 \cmidrulekern=\dimen177
 \defaultaddspace=\dimen178
-\@cmidla=\count288
-\@cmidlb=\count289
+\@cmidla=\count295
+\@cmidlb=\count296
 \@aboverulesep=\dimen179
 \@belowrulesep=\dimen180
-\@thisruleclass=\count290
-\@lastruleclass=\count291
+\@thisruleclass=\count297
+\@lastruleclass=\count298
 \@thisrulewidth=\dimen181
 )
-(/app/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
-Package: graphicx 2020/09/09 v1.2b Enhanced LaTeX Graphics (DPC,SPQR)
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
 
-(/app/texlive/texmf-dist/tex/latex/graphics/graphics.sty
-Package: graphics 2020/08/30 v1.4c Standard LaTeX Graphics (DPC,SPQR)
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
+Package: graphics 2021/03/04 v1.4d Standard LaTeX Graphics (DPC,SPQR)
 
-(/app/texlive/texmf-dist/tex/latex/graphics/trig.sty
-Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
+Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
 )
-(/app/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics.c
+fg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
-Package graphics Info: Driver file: pdftex.def on input line 105.
+Package graphics Info: Driver file: pdftex.def on input line 107.
 )
 \Gin@req@height=\dimen182
 \Gin@req@width=\dimen183
 )
-(/app/texlive/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
-Package: fancyvrb 2021/01/20 v3.7 verbatim text (tvz,hv)
-\FV@CodeLineNo=\count292
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/fancyvrb\fancyvrb.sty
+Package: fancyvrb 2021/11/24\nobreakspace {} 4.1a\nobreakspace {}verbatim text 
+(tvz,hv)
+\FV@CodeLineNo=\count299
 \FV@InFile=\read2
-\FV@TabBox=\box98
-\c@FancyVerbLine=\count293
-\FV@StepNumber=\count294
+\FV@TabBox=\box100
+\c@FancyVerbLine=\count300
+\FV@StepNumber=\count301
 \FV@OutFile=\write3
 )
-(/app/texlive/texmf-dist/tex/latex/tools/xspace.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/tools\xspace.sty
 Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
 )
-(/app/texlive/texmf-dist/tex/latex/units/units.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/units\units.sty
 Package: units 1998/08/04 v0.9b Typesetting units
 
-(/app/texlive/texmf-dist/tex/latex/units/nicefrac.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/units\nicefrac.sty
 Package: nicefrac 1998/08/04 v0.9b Nice fractions
 \L@UnitsRaiseDisplaystyle=\skip93
 \L@UnitsRaiseTextstyle=\skip94
 \L@UnitsRaiseScriptstyle=\skip95
 ))
-(/app/texlive/texmf-dist/tex/latex/base/makeidx.sty
-Package: makeidx 2014/09/29 v1.0m Standard LaTeX package
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/base\makeidx.sty
+Package: makeidx 2021/10/04 v1.0m Standard LaTeX package
 )
 \@indexfile=\write4
 \openout4 = `sadf_v1.0.idx'.
@@ -569,13 +575,19 @@ Package: makeidx 2014/09/29 v1.0m Standard LaTeX package
 Writing index file sadf_v1.0.idx
 
 LaTeX Warning: Unused global option(s):
-    [pagesize=a4].
+    [pagesize=a4,pagesize].
 
-(./sadf_v1.0.aux
+(sadf_v1.0.aux
+
+LaTeX Warning: Label `clsopt:0x0000' multiply defined.
+
+
+LaTeX Warning: Label `clsopt:0x0000' multiply defined.
+
 ! Missing \endcsname inserted.
 <to be read again> 
                    \protect 
-l.53 ...ta [\hex {DB\_TY:0xffff}]}{section.3.2}{}}
+l.55 ...ta [\hex {DB\_TY:0xffff}]}{section.3.2}{}}
                                                   
 The control sequence marked <to be read again> should
 not appear between \csname and \endcsname.
@@ -583,54 +595,107 @@ not appear between \csname and \endcsname.
 ! Missing \endcsname inserted.
 <to be read again> 
                    \protect 
-l.53 ...ta [\hex {DB\_TY:0xffff}]}{section.3.2}{}}
+l.55 ...ta [\hex {DB\_TY:0xffff}]}{section.3.2}{}}
                                                   
 The control sequence marked <to be read again> should
 not appear between \csname and \endcsname.
+
+
+LaTeX Warning: Label `clsopt:0x0000' multiply defined.
+
+
+LaTeX Warning: Label `clsopt:0x0000' multiply defined.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \protect 
+l.74 ...xt [\hex {DB\_TY:0xffff}]}{section.3.3}{}}
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.74 ...xt [\hex {DB\_TY:0xffff}]}{section.3.3}{}}
+                                                  
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Extra \endcsname.
+\@ifundefined #1->\ifcsname #1\endcsname 
+                                         \@ifundefin@d@i \else \@ifundefin@d...
+l.74 ...xt [\hex {DB\_TY:0xffff}]}{section.3.3}{}}
+                                                  
+I'm ignoring this, since I wasn't doing a \csname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \protect 
+l.74 ...xt [\hex {DB\_TY:0xffff}]}{section.3.3}{}}
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+
+LaTeX Warning: Label `clsopt:DB\_TY:0xffff' multiply defined.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \protect 
+l.74 ...xt [\hex {DB\_TY:0xffff}]}{section.3.3}{}}
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+
+LaTeX Warning: Label `DB_TY:0xffff' multiply defined.
 
 )
 \openout1 = `sadf_v1.0.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 100.
-LaTeX Font Info:    ... okay on input line 100.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 100.
-LaTeX Font Info:    ... okay on input line 100.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 100.
-LaTeX Font Info:    ... okay on input line 100.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 100.
-LaTeX Font Info:    ... okay on input line 100.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 100.
-LaTeX Font Info:    ... okay on input line 100.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 100.
-LaTeX Font Info:    ... okay on input line 100.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 100.
-LaTeX Font Info:    ... okay on input line 100.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 100.
-LaTeX Font Info:    ... okay on input line 100.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 100.
-LaTeX Font Info:    ... okay on input line 100.
-Package hyperref Info: Link coloring ON on input line 100.
- (/app/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+Package hyperref Info: Link coloring ON on input line 75.
+ (C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
 
-(/app/texlive/texmf-dist/tex/latex/refcount/refcount.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/refcount\refcount.sty
 Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 )
-(/app/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/generic/gettitlestring\gettit
+lestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count295
+\c@section@level=\count302
 )
-LaTeX Info: Redefining \ref on input line 100.
-LaTeX Info: Redefining \pageref on input line 100.
-LaTeX Info: Redefining \nameref on input line 100.
-
-(./sadf_v1.0.out) (./sadf_v1.0.out)
+LaTeX Info: Redefining \ref on input line 75.
+LaTeX Info: Redefining \pageref on input line 75.
+LaTeX Info: Redefining \nameref on input line 75.
+ (sadf_v1.0.out) (sadf_v1.0.out)
 \@outlinefile=\write5
 \openout5 = `sadf_v1.0.out'.
 
- ABD: EverySelectfont initializing macros
-LaTeX Info: Redefining \selectfont on input line 100.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -666,120 +731,144 @@ LaTeX Info: Redefining \selectfont on input line 100.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-\langwohyphens=\language87
-(/app/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+\langwohyphens=\language79
+
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
+ii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count296
+\scratchcounter=\count303
 \scratchdimen=\dimen184
-\scratchbox=\box99
-\nofMPsegments=\count297
-\nofMParguments=\count298
-\everyMPshowfont=\toks20
-\MPscratchCnt=\count299
+\scratchbox=\box101
+\nofMPsegments=\count304
+\nofMParguments=\count305
+\everyMPshowfont=\toks21
+\MPscratchCnt=\count306
 \MPscratchDim=\dimen185
-\MPnumerator=\count300
-\makeMPintoPDFobject=\count301
-\everyMPtoPDFconversion=\toks21
-) (/app/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+\MPnumerator=\count307
+\makeMPintoPDFobject=\count308
+\everyMPtoPDFconversion=\toks22
+)
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
+ase.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 85.
 
-(/app/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
-e
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.c
+fg
+File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
 \big@size=\dimen186
-LaTeX Font Info:    Trying to load font information for T1+phv on input line 10
-9.
+ [1{C:/Users/rawol/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}
 
-(/app/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd
+]
+[2
+
+]
+LaTeX Font Info:    Trying to load font information for T1+phv on input line 84
+.
+ (C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1phv.fd
 File: t1phv.fd 2020/03/25 scalable font definitions for T1/phv.
 )
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 8.99994pt on input line 109.
+(Font)              scaled to size 8.99994pt on input line 84.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 16.19989pt on input line 109.
+(Font)              scaled to size 16.19989pt on input line 84.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 32.39978pt on input line 109.
+(Font)              scaled to size 32.39978pt on input line 84.
 
-Underfull \hbox (badness 10000) in paragraph at lines 109--109
+Underfull \hbox (badness 10000) in paragraph at lines 84--84
 []\T1/phv/m/n/36/200ls THE SIM-PLE 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 109--109
+Underfull \hbox (badness 10000) in paragraph at lines 84--84
 \T1/phv/m/n/36/200ls AS-TRO-NOM-I-CAL 
  []
 
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 12.59991pt on input line 109.
-[1
+(Font)              scaled to size 12.59991pt on input line 84.
 
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.84 \maketitle
+                [1
 
-
-{/app/texlive/texmf-dist/fonts/map/pdftex/updmap/pdftex.map}]
+]
 LaTeX Font Info:    Trying to load font information for TS1+pplj on input line 
-118.
+93.
 
-(/app/texlive/texmf-dist/tex/latex/psnfss/ts1pplj.fd
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1pplj.fd
 File: ts1pplj.fd 2004/09/06 font definitions for TS1/pplj.
 )
-LaTeX Font Info:    Trying to load font information for T1+fvm on input line 12
-4.
+LaTeX Font Info:    Trying to load font information for T1+fvm on input line 99
+.
 
-(/app/texlive/texmf-dist/tex/latex/bera/t1fvm.fd
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/bera\t1fvm.fd
 File: t1fvm.fd 2004/09/07 scalable font definitions for T1/fvm.
 )
 LaTeX Font Info:    Font shape `T1/fvm/m/n' will be
-(Font)              scaled to size 8.50006pt on input line 124.
+(Font)              scaled to size 8.50006pt on input line 99.
 LaTeX Font Info:    Trying to load font information for OT1+pplx on input line 
-124.
+99.
 
-(/app/texlive/texmf-dist/tex/latex/psnfss/ot1pplx.fd
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1pplx.fd
 File: ot1pplx.fd 2004/09/06 font definitions for OT1/pplx.
 )
 LaTeX Font Info:    Trying to load font information for OML+zplm on input line 
-124.
+99.
 
-(/app/texlive/texmf-dist/tex/latex/psnfss/omlzplm.fd
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\omlzplm.fd
 File: omlzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OML/zplm.
 )
 LaTeX Font Info:    Trying to load font information for OMS+zplm on input line 
-124.
+99.
 
-(/app/texlive/texmf-dist/tex/latex/psnfss/omszplm.fd
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\omszplm.fd
 File: omszplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMS/zplm.
 )
 LaTeX Font Info:    Trying to load font information for OMX+zplm on input line 
-124.
+99.
 
-(/app/texlive/texmf-dist/tex/latex/psnfss/omxzplm.fd
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\omxzplm.fd
 File: omxzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMX/zplm.
 )
 LaTeX Font Info:    Trying to load font information for OT1+zplm on input line 
-124.
+99.
 
-(/app/texlive/texmf-dist/tex/latex/psnfss/ot1zplm.fd
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1zplm.fd
 File: ot1zplm.fd 2002/09/08 Fontinst v1.914 font definitions for OT1/zplm.
-) [2
+)
+pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.111 \tableofcontents
+                       [2
 
-] (./sadf_v1.0.toc)
+] (sadf_v1.0.toc
+LaTeX Font Info:    Font shape `T1/fvm/m/it' in size <12> not available
+(Font)              Font shape `T1/fvm/m/sl' tried instead on input line 10.
+LaTeX Font Info:    Font shape `T1/fvm/m/sl' will be
+(Font)              scaled to size 10.20007pt on input line 10.
+)
 \tf@toc=\write6
 \openout6 = `sadf_v1.0.toc'.
 
-
-[3
+ [3
 
 ] [4
 
-] (./sadf_v1.0.lof)
+] (sadf_v1.0.lof)
 \tf@lof=\write7
 \openout7 = `sadf_v1.0.lof'.
 
  [5] [6
 
-] (./sadf_v1.0.lot
+]
+(sadf_v1.0.lot
 Overfull \hbox (23.13977pt too wide) in paragraph at lines 3--3
  [][] [][][]\T1/pplj/m/n/10 List of sup-ported data types in the SADF stan-dard
 , to-gether with their
@@ -799,11 +888,44 @@ Chapter 1.
 
 LaTeX Warning: Marginpar on page 10 moved.
 
-LaTeX Font Info:    Trying to load font information for T1+ppl on input line 16
-9.
-(/app/texlive/texmf-dist/tex/latex/psnfss/t1ppl.fd
+LaTeX Font Info:    Trying to load font information for T1+ppl on input line 14
+3.
+(C:\Users\rawol\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1ppl.fd
 File: t1ppl.fd 2001/06/04 font definitions for T1/ppl.
-) [10] [11] [12
+)
+[10] [11]
+
+LaTeX Warning: Reference `tab:data_type_codes' on page 12 undefined on input li
+ne 185.
+
+! Argument of \@iiminipage has an extra }.
+<inserted text> 
+                \par 
+l.231 \end{table*}
+                  
+I've run across a `}' that doesn't seem to match anything.
+For example, `\def\a#1{...}' and `\a}' would produce
+this error. If you simply proceed now, the `\par' that
+I've just inserted will cause me to report a runaway
+argument that might be the root of the problem. But if
+your `}' was spurious, just type `2' and it will go away.
+
+Runaway argument?
+{\floatalignment }{\write \@indexfile {\string \indexentry {0xb000-=0\ETC.
+! Paragraph ended before \@iiminipage was complete.
+<to be read again> 
+                   \par 
+l.231 \end{table*}
+                  
+I suspect you've forgotten a `}', causing me to apply this
+control sequence to too much text. How can we recover?
+My plan is to forget the whole thing and hope for the best.
+
+LaTeX Font Info:    Font shape `T1/fvm/m/it' in size <8> not available
+(Font)              Font shape `T1/fvm/m/sl' tried instead on input line 231.
+LaTeX Font Info:    Font shape `T1/fvm/m/sl' will be
+(Font)              scaled to size 6.80005pt on input line 231.
+[12
 
 ]
 Chapter 2.
@@ -814,13 +936,11 @@ LaTeX Warning: Marginpar on page 13 moved.
 
 ] [14]
 Chapter 3.
+LaTeX Font Info:    Font shape `T1/fvm/m/n' will be
+(Font)              scaled to size 6.80005pt on input line 341.
 
 LaTeX Warning: Marginpar on page 15 moved.
 
-LaTeX Font Info:    Font shape `T1/fvm/m/it' in size <12> not available
-(Font)              Font shape `T1/fvm/m/sl' tried instead on input line 370.
-LaTeX Font Info:    Font shape `T1/fvm/m/sl' will be
-(Font)              scaled to size 10.20007pt on input line 370.
 [15
 
 ]
@@ -830,51 +950,63 @@ LaTeX Warning: Marginpar on page 16 moved.
 
 LaTeX Warning: Marginpar on page 16 moved.
 
-[16] [17] [18
-
-] (./sadf_v1.0.ind)
+[16] [17] [18]
+No file sadf_v1.0.ind.
 
 Package bibentry Warning: You have used \nobibliography* 
 (bibentry)                without a following \bibliography.
 (bibentry)                You may not be able to run BibTeX.
 
-[19
-
-] (./sadf_v1.0.aux
+(sadf_v1.0.aux
 ! Missing \endcsname inserted.
 <to be read again> 
                    \protect 
-l.53 ...ta [\hex {DB\_TY:0xffff}]}{section.3.2}{}}
+l.55 ...ta [\hex {DB\_TY:0xffff}]}{section.3.2}{}}
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \protect 
+l.74 ...xt [\hex {DB\_TY:0xffff}]}{section.3.3}{}}
                                                   
 The control sequence marked <to be read again> should
 not appear between \csname and \endcsname.
 
 )
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `sadf_v1.0.out' has not changed.
-(rerunfilecheck)             Checksum: 2EEF4FE404738DD06F313E04CF0AB7C9;1370.
- ) 
+(rerunfilecheck)             Checksum: 9BBB7A579129A270C80E890E5EEC2DBF;1489.
+ )
+(\end occurred when \ifx on line 231 was incomplete)
+(\end occurred when \iftrue on line 231 was incomplete) 
 Here is how much of TeX's memory you used:
- 12722 strings out of 478994
- 188344 string characters out of 5859688
- 681594 words of memory out of 5000000
- 29808 multiletter control sequences out of 15000+600000
- 486490 words of font info for 121 fonts, out of 8000000 for 9000
+ 13831 strings out of 478659
+ 229108 string characters out of 2845919
+ 636007 words of memory out of 3000000
+ 31544 multiletter control sequences out of 15000+600000
+ 492806 words of font info for 132 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 105i,11n,105p,635b,430s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/app/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</app/texlive/texmf-dist
-/fonts/type1/public/fpl/fplrc8a.pfb></app/texlive/texmf-dist/fonts/type1/public
-/fpl/fplrij8a.pfb></app/texlive/texmf-dist/fonts/type1/public/bera/fvmr8a.pfb><
-/app/texlive/texmf-dist/fonts/type1/public/bera/fvmro8a.pfb></app/texlive/texmf
--dist/fonts/type1/urw/helvetic/uhvr8a.pfb></app/texlive/texmf-dist/fonts/type1/
-urw/palatino/uplb8a.pfb></app/texlive/texmf-dist/fonts/type1/urw/palatino/uplr8
-a.pfb></app/texlive/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on sadf_v1.0.pdf (19 pages, 119761 bytes).
+ 94i,11n,94p,637b,438s stack positions out of 5000i,500n,10000p,200000b,80000s
+{C:/Users/rawol/AppData/
+Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}<C:/Users/rawol/AppData/Local
+/Programs/MiKTeX/fonts/type1/public/fpl/fplrc8a.pfb><C:/Users/rawol/AppData/Loc
+al/Programs/MiKTeX/fonts/type1/public/fpl/fplrij8a.pfb><C:/Users/rawol/AppData/
+Local/Programs/MiKTeX/fonts/type1/bera/fvmr8a.pfb><C:/Users/rawol/AppData/Local
+/Programs/MiKTeX/fonts/type1/bera/fvmro8a.pfb><C:/Users/rawol/AppData/Local/Pro
+grams/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/rawol/AppData/Local/
+Programs/MiKTeX/fonts/type1/urw/palatino/uplb8a.pfb><C:/Users/rawol/AppData/Loc
+al/Programs/MiKTeX/fonts/type1/urw/palatino/uplr8a.pfb><C:/Users/rawol/AppData/
+Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplri8a.pfb>
+Output written on sadf_v1.0.pdf (20 pages, 153303 bytes).
 PDF statistics:
- 214 PDF objects out of 1000 (max. 8388607)
- 179 compressed objects within 2 object streams
- 38 named destinations out of 1000 (max. 500000)
+ 242 PDF objects out of 1000 (max. 8388607)
+ 41 named destinations out of 1000 (max. 500000)
  3673 words of extra memory for PDF output out of 10000 (max. 10000000)
 

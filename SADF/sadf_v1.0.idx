@@ -43,8 +43,10 @@
 \indexentry{class options!0xcf20@\texttt  {0xcf20}|hyperpage}{12}
 \indexentry{0xcf40 class option@\texttt  {0xcf40} class option|hyperpage}{12}
 \indexentry{class options!0xcf40@\texttt  {0xcf40}|hyperpage}{12}
-\indexentry{0xb000 - 0xbfff class option@\texttt  {0xb000 - 0xbfff} class option|hyperpage}{12}
-\indexentry{class options!0xb000 - 0xbfff@\texttt  {0xb000 - 0xbfff}|hyperpage}{12}
+\indexentry{0xb000-=0xbfff class option@\texttt  {0xb000-=0xbfff} class option|hyperpage}{12}
+\indexentry{class options!0xb000-=0xbfff@\texttt  {0xb000-=0xbfff}|hyperpage}{12}
+\indexentry{0xb000-=0xbfff class option@\texttt  {0xb000-=0xbfff} class option|hyperpage}{12}
+\indexentry{class options!0xb000-=0xbfff@\texttt  {0xb000-=0xbfff}|hyperpage}{12}
 \indexentry{header|hyperpage}{13}
 \indexentry{0x00d3 class option@\texttt  {0x00d3} class option|hyperpage}{13}
 \indexentry{class options!0x00d3@\texttt  {0x00d3}|hyperpage}{13}
@@ -56,21 +58,29 @@
 \indexentry{class options!0x0001@\texttt  {0x0001}|hyperpage}{14}
 \indexentry{0x0002 class option@\texttt  {0x0002} class option|hyperpage}{14}
 \indexentry{class options!0x0002@\texttt  {0x0002}|hyperpage}{14}
-\indexentry{0x000n-0x000f class option@\texttt  {0x000n-0x000f} class option|hyperpage}{14}
-\indexentry{class options!0x000n-0x000f@\texttt  {0x000n-0x000f}|hyperpage}{14}
+\indexentry{0x000n-=0x000f class option@\texttt  {0x000n-=0x000f} class option|hyperpage}{14}
+\indexentry{class options!0x000n-=0x000f@\texttt  {0x000n-=0x000f}|hyperpage}{14}
 \indexentry{0x00f0 class option@\texttt  {0x00f0} class option|hyperpage}{14}
 \indexentry{class options!0x00f0@\texttt  {0x00f0}|hyperpage}{14}
-\indexentry{0xb000-0xbfff class option@\texttt  {0xb000-0xbfff} class option|hyperpage}{14}
-\indexentry{class options!0xb000-0xbfff@\texttt  {0xb000-0xbfff}|hyperpage}{14}
+\indexentry{0xb000-=0xbfff class option@\texttt  {0xb000-=0xbfff} class option|hyperpage}{14}
+\indexentry{class options!0xb000-=0xbfff@\texttt  {0xb000-=0xbfff}|hyperpage}{14}
 \indexentry{0xffff class option@\texttt  {0xffff} class option|hyperpage}{14}
 \indexentry{class options!0xffff@\texttt  {0xffff}|hyperpage}{14}
 \indexentry{data block|hyperpage}{15}
 \indexentry{DB|hyperpage}{15}
+\indexentry{0x0000 class option@\texttt  {0x0000} class option|hyperpage}{15}
+\indexentry{class options!0x0000@\texttt  {0x0000}|hyperpage}{15}
+\indexentry{0x0000 class option@\texttt  {0x0000} class option|hyperpage}{15}
+\indexentry{class options!0x0000@\texttt  {0x0000}|hyperpage}{15}
+\indexentry{0x0000 class option@\texttt  {0x0000} class option|hyperpage}{15}
+\indexentry{class options!0x0000@\texttt  {0x0000}|hyperpage}{15}
 \indexentry{DB\_TY:0xffff class option@\texttt  {DB\_TY:0xffff} class option|hyperpage}{15}
 \indexentry{class options!DB\_TY:0xffff@\texttt  {DB\_TY:0xffff}|hyperpage}{15}
 \indexentry{metadata|hyperpage}{15}
 \indexentry{0x0000 class option@\texttt  {0x0000} class option|hyperpage}{15}
 \indexentry{class options!0x0000@\texttt  {0x0000}|hyperpage}{15}
+\indexentry{0x0000 class option@\texttt  {0x0000} class option|hyperpage}{16}
+\indexentry{class options!0x0000@\texttt  {0x0000}|hyperpage}{16}
 \indexentry{0x0000 class option@\texttt  {0x0000} class option|hyperpage}{17}
 \indexentry{class options!0x0000@\texttt  {0x0000}|hyperpage}{17}
 \indexentry{0x0001 class option@\texttt  {0x0001} class option|hyperpage}{17}
@@ -105,5 +115,10 @@
 \indexentry{class options!0x0104@\texttt  {0x0104}|hyperpage}{17}
 \indexentry{0x0105 class option@\texttt  {0x0105} class option|hyperpage}{17}
 \indexentry{class options!0x0105@\texttt  {0x0105}|hyperpage}{17}
-\indexentry{0xb000-0xbfff class option@\texttt  {0xb000-0xbfff} class option|hyperpage}{17}
-\indexentry{class options!0xb000-0xbfff@\texttt  {0xb000-0xbfff}|hyperpage}{17}
+\indexentry{0xb000-=0xbfff class option@\texttt  {0xb000-=0xbfff} class option|hyperpage}{17}
+\indexentry{class options!0xb000-=0xbfff@\texttt  {0xb000-=0xbfff}|hyperpage}{17}
+\indexentry{Metadata Entry|hyperpage}{17}
+\indexentry{ME|hyperpage}{17}
+\indexentry{DB\_TY:0xffff class option@\texttt  {DB\_TY:0xffff} class option|hyperpage}{18}
+\indexentry{class options!DB\_TY:0xffff@\texttt  {DB\_TY:0xffff}|hyperpage}{18}
+\indexentry{metadata|hyperpage}{18}
