@@ -21,15 +21,15 @@
 pub mod header_index_block;
 
 //Imports
-use self::header_index_block::{HeaderIndexBlock, HIB_LENGTH};
 use std::fmt;
+
+use self::header_index_block::{HeaderIndexBlock, HIB_LENGTH};
 use rustronomy_core::data_type_traits::io_utils::{EncodeAndConsume, Encode, Decode};
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Header {
     n_hibs: u16,
-    hibs: Vec<HeaderIndexBlock>,
-    metadata_present: bool
+    hibs: Vec<HeaderIndexBlock>
 }
 
 impl EncodeAndConsume for Header {
@@ -73,8 +73,7 @@ impl Decode for Header {
 
         let header = Header {
             n_hibs: n_hibs,
-            hibs: hibs,
-            metadata_present: metadata_present
+            hibs: hibs
         };
 
         //Decoding must fail for invalid header
@@ -88,19 +87,13 @@ impl Header {
     pub fn new() -> Header {
         Header {
             n_hibs: 0 as u16,
-            hibs: Vec::new(),
-            metadata_present: false
+            hibs: Vec::new()
         }
     }
 
     pub fn add_hib(&mut self, hib: HeaderIndexBlock) {
-        if hib.id == 0x0000 {self.metadata_present = true;}
         self.hibs.push(hib);
         self.n_hibs += 1;
-    }
-
-    pub fn has_metadata(&self) -> bool {
-        self.metadata_present
     }
 
     fn check_header(&self) {
@@ -150,8 +143,9 @@ impl fmt::Display for Header {
         }
 
         write!(f, "[SADF file structure]\nMetadata block present: {}\nNumber of data blocks: {}\n{}",
-            self.has_metadata(), self.n_hibs, data_blocks)
+            true, //Oops, placeholder
+            self.n_hibs,
+            data_blocks)
     }
-
     
 }
