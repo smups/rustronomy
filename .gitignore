@@ -1,4 +1,6 @@
 rustronomy/target/
 Cargo.lock
 .vscode/
-SADF/.vscode/
+SADF/
+!SADF/SADF_2021_1.tex
+!SADF/SADF_2021_1.txt
