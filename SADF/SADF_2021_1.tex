@@ -1,0 +1,477 @@
+% !TeX spellcheck = enUS
+\documentclass[pagesize=a4]{tufte-book}
+
+\hypersetup{colorlinks}% uncomment this line if you prefer colored hyperlinks (e.g., for onscreen viewing)
+
+%%
+% Book metadata
+\title[The Simple Astronomical Data Format 2021.1]{The simple \linebreak Astronomical \linebreak Data format}
+\author[The Tufte-LaTeX Developers]{The Tufte-LaTeX\ Developers}
+\publisher{SADF standard version 2021.1}
+
+%%
+% If they're installed, use Bergamo and Chantilly from www.fontsite.com.
+% They're clones of Bembo and Gill Sans, respectively. 
+\IfFileExists{bergamo.sty}{\usepackage[osf]{bergamo}}{}% Bembo
+\IfFileExists{chantill.sty}{\usepackage{chantill}}{}% Gill Sans
+
+%%
+% Just some sample text
+\usepackage{lipsum}
+
+%%
+% For nicely typeset tabular material
+\usepackage{booktabs}
+
+%%
+% For graphics / images
+\usepackage{graphicx}
+\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
+\graphicspath{{graphics/}}
+
+% The fancyvrb package lets us customize the formatting of verbatim
+% environments.  We use a slightly smaller font.
+\usepackage{fancyvrb}
+\fvset{fontsize=\normalsize}
+
+% Prints argument within hanging parentheses (i.e., parentheses that take
+% up no horizontal space).  Useful in tabular environments.
+\newcommand{\hangp}[1]{\makebox[0pt][r]{(}#1\makebox[0pt][l]{)}}
+
+\newcommand{\hex}[1]{\hlred{\texttt{#1}}\label{clsopt:#1}\index{#1 class option@\texttt{#1} class option}\index{class options!#1@\texttt{#1}}}% hex field formatting
+
+% Prints an asterisk that takes up no horizontal space.
+% Useful in tabular environments.
+\newcommand{\hangstar}{\makebox[0pt][l]{*}}
+
+% Prints a trailing space in a smart way.
+\usepackage{xspace}
+
+\newcommand{\hlred}[1]{\textcolor{Maroon}{#1}}% prints in red
+\newcommand{\hangleft}[1]{\makebox[0pt][r]{#1}}
+\newcommand{\hquad}{\hskip0.5em\relax}% half quad space
+\newcommand{\TODO}{\textcolor{red}{\bf TODO!}\xspace}
+\newcommand{\na}{\quad--}% used in tables for N/A cells
+
+% Prints the month name (e.g., January) and the year (e.g., 2008)
+\newcommand{\monthyear}{%
+	\ifcase\month\or January\or February\or March\or April\or May\or June\or
+	July\or August\or September\or October\or November\or
+	December\fi\space\number\year
+}
+
+% Inserts a blank page
+\newcommand{\blankpage}{\newpage\hbox{}\thispagestyle{empty}\newpage}
+
+\usepackage{units}
+
+% Typesets the font size, leading, and measure in the form of 10/12x26 pc.
+\newcommand{\measure}[3]{#1/#2$\times$\unit[#3]{pc}}
+
+% Generates the index
+\usepackage{makeidx}
+\makeindex
+
+\begin{document}
+
+% Front matter
+\frontmatter
+
+%Adding the section numbers back in
+\setcounter{secnumdepth}{2}
+
+% r.3 full title page
+\maketitle
+
+% v.4 copyright page
+\newpage
+\begin{fullwidth}
+	~\vfill
+	\thispagestyle{empty}
+	\setlength{\parindent}{0pt}
+	\setlength{\parskip}{\baselineskip}
+	Copyright \copyright\ \the\year\ \thanklessauthor
+	
+	\par\smallcaps{sadf.strw.leidenuniv.nl}
+	
+	\par Licensed under the Apache License, Version 2.0 (the ``License''); you may not
+	use this file except in compliance with the License. You may obtain a copy
+	of the License at \url{http://www.apache.org/licenses/LICENSE-2.0}. Unless
+	required by applicable law or agreed to in writing, software distributed
+	under the License is distributed on an \smallcaps{``AS IS'' BASIS, WITHOUT
+		WARRANTIES OR CONDITIONS OF ANY KIND}, either express or implied. See the
+	License for the specific language governing permissions and limitations
+	under the License.\index{license}
+	
+	\par\textit{First printing, \monthyear}
+\end{fullwidth}
+
+% r.5 contents
+\setcounter{tocdepth}{1}
+\tableofcontents
+
+\listoffigures
+
+\listoftables
+
+% Start the main matter (normal chapters)
+\mainmatter
+
+\chapter{Introduction}
+\section{Raison d'\^etre of SADF}
+The Simple Astronomical Data Format (SADF) was designed to improve upon the commonly used FITS standard developed by NASA in the 1970's for use in astronomy. The FITS standard is rather clunky and does not support compression or data verification methods natively. Despite these disadvantages, FITS is still widely used within astronomy for it's versatility in allowing extensions of the standard. SADF aims to keep best practices from FITS and improving upon the less-than-ideal aspects of the FITS standard.
+
+In addition, SADF is and always will be an open standard as per the definition of the free software foundation.
+
+\section{Overview}
+A SADF file consists of a header and data blocks. A SADF standard compliant file must always contain a header. The header essentially serves as a table of contents for the SADF file. Each data block present in the file is listed in the header as a Header Index Block (HIB).
+
+SADF files contain no padding between the header/datablocks. In additon, both the header and data blocks may be of arbitrary length to allow flexible encoding formats. For this reason, the header contains pointers (read: byte indices) and lengths for all data blocks, whereas the header itself always starts at index 0.
+
+Data blocks can have various types. In this standard, metadata blocks, plain text, up to 16-dimensional arrays and tables(maps) are supported. Users may also extend the standard and define their own data block types.
+
+The metadata block contains a lot of critical information about a SADF file. Each data block may link to a metadata block that contains metadata relevant to that data block. Multiple data blocks may be associated with a single metadata block\footnote{This feature can be used, for instance, to sign multiple data blocks with the same signature.}, but no more than one metadata block can be assigned to each data block.
+
+The SADF standard natively supports encryption, digital signing of data and compression algorithms. If a data block is encrypted, signed or compressed, the type of compression, type of encryption and signature are all stored in the metadata block associated with the data block in question. The metadata(1) part of the metadata block associated with a data block shall be appended to the data block before signing/encrypting the pair, but after compressing the data block itself, since data block compression must always take place before signing.
+
+Data blocks (including metadata blocks) may appear in any order in a SADF file (although none may appear before the header). Therefore, data blocks that refer to other data blocks must do so using the data block identification number (DB\_ID). The header provides an index linking these DB\_IDs to actual positions 
+in the file using the ptr data type.
+
+Finally, an example is shown of a possible SADF file:
+\begin{table}[ht]
+	\centering
+	\fontfamily{ppl}\selectfont
+	\begin{tabular}{ll}
+		\toprule
+		\textbf{header} & \\
+		\quad SADF version & 2021.1\\
+		\quad Number of data blocks & 6\\
+		\quad (index of data blocks) & (...)\\
+		\textbf{data block 1} & \\
+		\quad type & metadata\\
+		\quad id & 1 \\
+		\quad metadata & none\\
+		\textbf{data block 2} & \\
+		\quad type & data\\
+		\quad id & 2 \\
+		\quad metadata & 1\\
+		\textbf{data block 3} & \\
+		\quad type & data\\
+		\quad id & 3 \\
+		\quad metadata & 1\\
+		\textbf{data block 4} & \\
+		\quad type & metadata\\
+		\quad id & 4 \\
+		\quad metadata & none\\
+		\textbf{data block 4} & \\
+		\quad type & data\\
+		\quad id & 5 \\
+		\quad metadata & none\\
+		\textbf{data block 6} & \\
+		\quad type & data\\
+		\quad id & 6 \\
+		\quad metadata & 4\\
+		\bottomrule
+	\end{tabular}
+	~\label{tab:sample_sadf_file}
+	\caption[Example structure of a SADF file with 6 data blocks][16pt]{Example structure of a SADF file with 6 data blocks\emph{ The SADF file shown here contains a header specifying positional and length information about the data bocks, followed by 6 datablocks. Data blocks 1 and 4 are metadata, data blocks 2,3,5 and 6 are data. In this example, data blocks 2 and 3 both have their metadata stored in data block 1. Data block 5 specifies no metadata, and data block 6 has its metadata stored in data block 4. Note that while the data blocks presented here are in order, this is not required by the standard.}}
+\end{table}
+
+\clearpage
+
+\section{Data types}
+SADF encodes the data type of a given field using data type codes. The 2021 standard includes support for real numbers, complex numbers, pointers and character arrays.
+
+In addition to the types specified in the standard, users may define data types for their own personal use. These types \smallcaps{must} use data type codes in the user-reserved range, as specified in Tbl.(\ref{tab:data_type_codes}).
+
+\begin{table*}[ht]
+	\centering
+	\fontfamily{ppl}\selectfont
+	\begin{tabular}{lccl}
+		\toprule
+		data type code & abbreviation & size & description\\
+		\midrule
+		\multicolumn{4}{l}{Raw byte array}\\
+		\quad \hex{0x0000} & raw & unsized & unformatted data of unknown length\\
+		\multicolumn{4}{l}{Logic}\\
+		\quad \hex{0x0001} & bool & 1B & 8-bit boolean (0=true, else=false)\\
+		\multicolumn{4}{l}{Unsigned integers}\\
+		\quad \hex{0x0008} & u08 & 1B & unsigned 8-bit integer\\
+		\quad \hex{0x0016} & u16 & 2B & unsigned 16-bit integer\\
+		\quad \hex{0x0032} & u32 & 4B & unsigned 32-bit integer\\
+		\quad \hex{0x0064} & u64 & 8B & unsigned 64-bit integer\\
+		\multicolumn{4}{l}{Signed integers}\\
+		\quad \hex{0x0010} & i16 & 2B & signed 16-bit integer\\
+		\quad \hex{0x0020} & i32 & 4B & signed 32-bit integer\\
+		\quad \hex{0x0040} & i64 & 8B & signed 64-bit integer\\
+		\multicolumn{4}{l}{Floating point numbers}\\
+		\quad \hex{0x0f20} & f32 & 4B & signed 32-bit floating point number\\
+		\quad \hex{0x0f40} & f64 & 8B & signed 64-bit floating point number\\
+		\multicolumn{4}{l}{Character arrays}\\
+		\quad \hex{0xca08} & utf8 & unsized & UTF-8 encoded character array\\
+		\quad \hex{0xca16} & utf16 & unsized & UTF-16 encoded character array\\
+		\multicolumn{4}{l}{Pointer}\\
+		\quad \hex{0xa064} & ptr & 8B & 64-bit pointer\\
+		\multicolumn{4}{l}{Complex numbers}\\
+		\quad \hex{0xc016} & xu16 & 4B & unsigned 16x2-bit complex integer\\
+		\quad \hex{0xc032} & xu32 & 8B & unsigned 32x2-bit complex integer\\
+		\quad \hex{0xc064} & xu64 & 16B & unsigned 64x2-bit complex integer\\
+		\quad \hex{0xc010} & xi16 & 4B & signed 16x2-bit complex integer\\
+		\quad \hex{0xc020} & xi32 & 8B & signed 32x2-bit complex integer\\
+		\quad \hex{0xc040} & xi64 & 16B & signed 64x2-bit complex integer\\
+		\quad \hex{0xcf20} & xf32 & 8B & signed 32x2-bit complex floating point number\\
+		\quad \hex{0xcf40} & xf64 & 16B & signed 64x2-bit complex floating point number\\
+		\multicolumn{4}{l}{User defined types}\\
+		\quad \hex{0xb000-=0xbfff} & (...) & unsized & user defined types\\
+		\bottomrule
+	\end{tabular}
+	~\label{tab:data_type_codes}
+	\caption[List of supported data types in the SADF standard, together with
+	their sizes and abbreviations.][-210mm]{List of supported data types in the SADF standard, together with their sizes and abbreviations.\emph{ The raw, character array and ALL user defined types are unsized. Hence, the length of fields using these data types MUST be specified explicitly. Users may define their own types in the \hex{0xb000-=0xbfff} range. These type definitions are not supported guaranteed to exist in standard-conforming implementations and hence must be implemented by the user themself.}}
+\end{table*}
+
+\chapter{The SADF Header}
+
+\section{The header}
+\index{header}
+
+The header starts off with a u16 integer stating the version number of the SADF standard that was used to encode the file, followed by a u16 integer listing the number of data blocks, and finally an unordered list of Header Index Blocks (HIB's) is appended. Note that each HIB is always 20 bytes long.
+
+Table \ref{tab:sadf_version_codes} maps version number values to their corresponding SADF
+versions.
+
+\begin{table}[ht]
+	\centering
+	\fontfamily{ppl}\selectfont
+	\begin{tabular}{lcl}
+		\toprule
+		hex & decimal & SADF version\\
+		\midrule
+		\hex{0x00d3} & 211 & 2021.1\\
+		\bottomrule
+	\end{tabular}
+	~\label{tab:sadf_version_codes}
+	\caption[SADF version codes]{SADF version codes\emph{ Note that all values of this field are reserved for future use, hence the user may not specify their own version number.}}
+	
+\end{table}
+\vspace{5mm}
+A header can, theoretically, hold 65,535 entries. This means that the maximum header size is 1,310,702 bytes, or about 1.3MB. Hence, 1,310,702 bytes must always be avaliable for header decoding in programs implementing SADF reading functionality, unless the total file size is smaller than 1,310,702 bytes, in which case the entire file must be loaded in one buffer in order to guarantee the entire header is avaliable\footnote{This buffer need not be thrown away and may be re-used by the implementation to parse the remaining file contents.}.
+
+\emph{Note: Since the length of the data blocks is specified in the header, the	required buffer size to read the data blocks is always known and no memory needs to go to waste when copying the data blocks into memory, unlike in the header reading process listed above.}
+
+\section{Header Index Blocks}
+\index{header index block}\index{HIB}
+A Header Index Block (HIB) points to a data block in the file. They are used exclusively in the header part of the file. An HIB is always 20 bytes long.
+
+The HIB layout is specified in table \ref{tab:hib_fields}.
+
+\begin{table}[ht]
+	\centering
+	\fontfamily{ppl}\selectfont
+	\begin{tabular}{lcl}
+		\toprule
+		bytes & data type & field\\
+		\midrule
+		0,1 & u16 & data block identification number (DB\_ID)\\
+		2-10 & ptr & data block start (DB\_ST)\\
+		10-18 & u64 & data block length (DB\_SI)\\
+		18,19 & u16 & data block type identifier (DB\_TY)\\
+		\bottomrule
+	\end{tabular}
+	~\label{tab:hib_fields}
+	\caption{Header Index Block (HIB) data layout.}	
+\end{table}
+\vspace{5mm}
+
+The identification number (DB\_ID) of a data block serves for internal refrences; i.e. when data blocks must refrence eachother. The Data Block Start (DB\_ST) pointer points to the byte index at which the data block in question starts. The data block length (DB\_SI) field specifies the length of the data blocks in bytes.
+
+Finally, the data block type identifier (DB\_TY) specifies the format that was
+used to store the data block. Table \ref{tab:data_block_type_codes} defines standard values for DB\_TY as well as the user-extendable range.
+
+\begin{table}[ht]
+	\centering
+	\fontfamily{ppl}\selectfont
+	\begin{tabular}{ll}
+		\toprule
+		code & data type\\
+		\midrule
+		\hex{0x0000} & plain text\\
+		\hex{0x0001} & 1-dimensional array\\
+		\hex{0x0002} & 2-dimensional array (image)\\
+		\hex{0x000n-=0x000f} & n-dimensional array\\
+		\hex{0x00f0} & table\\
+		\hex{0xb000-=0xbfff} & user-reserved range\\
+		\hex{0xffff} & metadata\\
+		\bottomrule
+	\end{tabular}
+	~\label{tab:data_block_type_codes}
+	\caption{Data Block Type Identifyer (DB\_TY) codes}
+\end{table}
+\vspace{5mm}
+
+Table \ref{tab:data_block_type_codes} refers to `arrays' and `tables'. In the SADF standard, arrays must consist of only one data type, as opposed to tables, which are esentially keyword-data maps in which all keywords must have the same type and all data must have the same type, but keywords and data may have different types.
+For more information on arrays, we refer the reader to section [YEET]. For more information on tables, we refer the reader to section [YEET2].
+
+\chapter{Data Blocks}
+\index{data block}\index{DB}
+\section{General specification}
+Data Blocks hold the data of the SADF file.  `Data' refers to both metadata and normal data. All data block must start with the fields defined in table \ref{tab:db_required_fields}
+
+\begin{table}[ht]
+	\centering
+	\fontfamily{ppl}\selectfont
+	\begin{tabular}{lcl}
+		\toprule
+		bytes & data type & field\\
+		\midrule
+		0,1 & u16 & data block type identifier (DB\_TY)\\
+		2,3 & u16 & data block identification number (DB\_ID)\\
+		4,5 & u16 & DB\_ID of associated metadata block (MD\_ID)\\
+		... & raw & data or further formatting\\
+		\bottomrule
+	\end{tabular}
+	~\label{tab:db_required_fields}
+	\caption{Required fields for all data blocks.}	
+\end{table}
+\vspace{5mm}
+
+If a data block is linked to certain metadata (for instance, an image may be 
+associated with a metadata block containing the telescope, location, time, instrument etc...), then the data block identification number (DB\_ID) of the metadata block will be specified in the MD\_ID field.
+
+If a data block has no metadata associated with it, the MD\_ID field shall be set to \hex{0x0000} \footnote{The MD\_ID value of \hex{0x0000} is reserved for this use only. A SADF file may never contain an actual metadata block with DB\_ID \hex{0x0000}.}.
+
+Data block encoding, encrypting and signing is handled by the metadata block
+associated with the data block. (see section 1.2). Further information can be
+found in the metadata data block.
+
+\section{Metadata [\hex{DB\_TY:0xffff}]}
+\index{metadata}\label{DB_TY:0xffff}
+A metadata Data Block starts with the standard (mandatory) fields, followed by (mandatory) metadata extension, as specified in table \ref{tab:metadata_fields}. The following restrictions apply to these mandatory fields:
+\begin{enumerate}
+	\item The DB\_ID field of any data block, including metadata blocks, may never be set to \hex{0x0000}. See Section 3.1 for details.
+	\item The MD\_ID field of a metadata block may be set to \hex{0x0000} or to its own DB\_ID to indicate that no metadata other metadata blocks are connected to this metadata block. The MD\_ID field may never be set to the DB\_ID of one of the data blocks pointing to the metadata block. Setting the MD\_ID field to	any other value indicates is currently not standard-compliant, but may be used in the future to implement metadata inheritance.
+\end{enumerate}
+
+\begin{table}[ht]
+	\centering
+	\fontfamily{ppl}\selectfont
+	\begin{tabular}{lcl}
+		\toprule
+		bytes & data type & field\\
+		\midrule
+		0,1 & u16 & data block type identifier (DB\_TY)\\
+		2,3 & u16 & data block identification number (DB\_ID)\\
+		4,5 & u16 & DB\_ID of associated metadata block (MD\_ID)\\
+		6,7 & u16 & compression type\\
+		8,9 & u16 & encryption type\\
+		10 & bool & signature present (MD\_SGND)\\
+		... & ... & ...\\
+		\bottomrule
+	\end{tabular}
+	~\label{tab:metadata_fields}
+	\caption{Required fields for all data blocks of the metadata type.}	
+\end{table}
+\vspace{5mm}
+
+Depending on the value of the MD\_SGND field, more required fields may\footnote{To clarify: if the signed field is set to true, the signature fields \smallcaps{must} be specified. If the signed field is set to false, then the signature fields \smallcaps{must} be omitted.} follow. We distinghuish the following cases:
+
+\begin{enumerate}
+	\item MD\_SGND = true. In this case, more fields must follow the fields defined in table \ref{tab:metadata_fields}. These fields are specified in table \ref{tab:metadata_optional_fields}.
+	\item MD\_SGND = false. In this case, no additonal fields are required.
+\end{enumerate}
+
+\begin{table}[ht]
+	\centering
+	\fontfamily{ppl}\selectfont
+	\begin{tabular}{lcl}
+		\toprule
+		bytes & data type & field\\
+		\midrule
+		11-15 & u32 & signature type (MD\_SG\_TY)\\
+		15,16 & u16 & signature length (MD\_SG\_SI)\\
+		... & raw & signature (MD\_SG)\\
+		\bottomrule
+	\end{tabular}
+	~\label{tab:metadata_optional_fields}
+	\caption{Optional fields for data blocks of the metadata type.}	
+\end{table}
+\vspace{5mm}
+
+Encryption and digital signatures are discussed in section [REE]. This section covers the use and meaning of the MD\_SGND, MD\_SG, MD\_SG\_TY and MD\_SG\_SI fields.
+
+The value of the compression type field indicates the type of compression used for the data block(s) \footnote{If multiple data blocks point to a single metadata block, all \smallcaps{must} be compressed in the same way, namely according to the compression type specified in the shared metadata block.}. Users may use the user-reserved range of the compression type field to define their own compression algorithms. The values specified in table \ref{tab:compression_types}
+
+\begin{table}[ht]
+	\centering
+	\fontfamily{ppl}\selectfont
+	\begin{tabular}{ll}
+		\toprule
+		code & compression algorithm\\
+		\midrule
+		\multicolumn{2}{l}{General purpose algorithms}\\
+		\quad\hex{0x0000} & no compression\\
+		\quad\hex{0x0001} & run-length encoding\\
+		\quad\hex{0x0002} & huffman encoding\\
+		\quad\hex{0x0003} & arithmetic encoding\\
+		\quad\hex{0x0004} & asymmetric number system (LZFSE)\\
+		\quad\hex{0x0005} & Lempel-Ziv compression (LZ77)\\
+		\quad\hex{0x0006} & Lempel-Ziv compression (LZ78)\\
+		\quad\hex{0x0007} & Lempel-Ziv-Szymanski (LZSS)\\
+		\quad\hex{0x0008} & Lempel-Ziv-Welch (LZW)\\
+		\quad\hex{0x0009} & Lempel-Ziv-Markov chain algorithm (LZMA)\\
+		\quad\hex{0x000a} & deflate\\
+		\multicolumn{2}{l}{Bitmap/image compression algorithms}\\
+		\quad\hex{0x0100} & AOMedia video 1 image file format (AVIF)\\
+		\quad\hex{0x0101} & Free lossless image format (FLIF)\\
+		\quad\hex{0x0102} & High efficiency image file format (HEIF0)\\
+		\quad\hex{0x0103} & JBIG2\\
+		\quad\hex{0x0104} & JPEG 2000\\
+		\quad\hex{0x0105} & Discrete cosine transformation (LDCT)\\
+		\multicolumn{2}{l}{User reserved}\\
+		\quad\hex{0xb000-=0xbfff} & user-reserved range\\
+		\bottomrule
+	\end{tabular}
+	\label{tab:compression_types}
+	\caption{Metadata compression type (compression) codes}
+\end{table}
+
+After these required fields, an optional metadata table may follow, consisting of an unordered list of Metadata Entries (ME). The metadata table cannot be compressed, but it can be signed.
+
+ME's are appended to the fields described above in arbitrary order, without padding. ME's do not contain identification numbers, other than they keywords themselves. Hence, ME's may not reference eachother, nor may external data blocks refer to ME's. For more information on ME's, consult section \ref{metadata_entry}.
+
+\subsection{Metadata Entry}
+\label{metadata_entry}\index{Metadata Entry}\index{ME}
+A Metadata Entry is essentially a keyword-value pair (inspired by the keyword-value pairs of the FITS standard). A metadata entry contains the fields defined in table \ref{tab:metadata_entry_fields}
+\begin{table}[ht]
+	\centering
+	\fontfamily{ppl}\selectfont
+	\begin{tabular}{lcl}
+		\toprule
+		bytes & data type & field\\
+		\midrule
+		0 & u08 & keyword length (x)\\
+		1-x & utf8 & keyword\\
+		x,x+1 & u16 & value data type\\
+		x+2-... & ... & value\\
+		\bottomrule
+	\end{tabular}
+	~\label{tab:metadata_entry_fields}
+	\caption{Metadata Entry layout}	
+\end{table}
+\vspace{5mm}
+The following restrictions apply to fields specified in table \ref{tab:metadata_entry_fields}:
+\begin{enumerate}
+	\item The value data type must have a valid data type code, as defined in section [yeet]
+	\item for data types with no fixed length (unsized data types), the first two 
+    bytes of the value field MUST indicate the length of the value field. This is not required for data fields with a fixed data size. User-defined types are always unsized.
+    \item The maximum length of the value field is 65,535 bytes. For values that take
+    up more space than this maximum size, the use of separate data blocks is required.
+\end{enumerate}
+
+\section{Plain text [\hex{DB\_TY:0xffff}]}
+\index{metadata}\label{DB_TY:0xffff}
+
+\backmatter
+\printindex
+
+\end{document}
