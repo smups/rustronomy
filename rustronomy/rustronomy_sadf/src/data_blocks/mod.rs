@@ -17,15 +17,16 @@
     along with rustronomy.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//SADF version number
-pub static SADF_VERSION: u16 = 211;
-pub static RUSTRONOMY_SADF_VERSION: &str = "v0.1";
+//Imports
+use rustronomy_core::data_type_traits::io_utils::{
+    Decode,
+    EncodeAndConsume
+};
 
 //Module structure
-pub mod header;
-pub mod data_blocks;
-pub mod data_types;
+pub mod text;
 
-//tests (should never be public)
-#[cfg(test)]
-mod test;
+//Trait die alle data blocks moeten implementeren!
+trait DataBlock: Decode + EncodeAndConsume {
+    
+}

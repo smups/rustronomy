@@ -17,12 +17,23 @@
     along with rustronomy.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-use std::{env, fs::File, io::Write};
-use rand::{Rng, prelude::ThreadRng};
+//Imports
+use std::{
+    env,
+    fs::File,
+    io::Write
+};
+
+use rand::{
+    Rng,
+    prelude::ThreadRng
+};
+
 use crate::header::{
     Header,
     header_index_block::{HeaderIndexBlock}
 };
+
 use rustronomy_core::data_type_traits::io_utils::*;
 
 /*

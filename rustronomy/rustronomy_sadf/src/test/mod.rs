@@ -19,3 +19,4 @@
 
 //Module structure
 mod header_test;
+mod db_text_test;

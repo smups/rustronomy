@@ -10,3 +10,4 @@ rustronomy_core = {path="../rustronomy_core"}
 
 [dev-dependencies]
 rand = "0.8"
+lipsum = "0.8"

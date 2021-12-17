@@ -32,6 +32,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f98a04dce437184842841303488f70d0188c5f51437d2a834dc097eafa909a01"
 
 [[package]]
+name = "lipsum"
+version = "0.8.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "42ee7271c76a89032dcc7e595c0a739a9c5514eab483deb0e82981fe2098c56a"
+dependencies = [
+ "rand",
+ "rand_chacha",
+]
+
+[[package]]
 name = "ppv-lite86"
 version = "0.2.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -95,6 +105,7 @@ dependencies = [
 name = "rustronomy_sadf"
 version = "0.1.0"
 dependencies = [
+ "lipsum",
  "rand",
  "rustronomy_core",
 ]
