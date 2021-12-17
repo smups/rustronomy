@@ -86,7 +86,7 @@ fn test_db_text_full_sadf_io() {
         id: 0,
         ptr: 24, //data starts after hib + header fixed data fields
         length: enc.len() as u64,
-        data_type: 0x0000
+        data_type: 0x0000 //Text DB type code
     });
 
     //Add the header and the data block to make the full sadf file
