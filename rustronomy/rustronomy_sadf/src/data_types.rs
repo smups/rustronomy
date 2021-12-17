@@ -94,8 +94,8 @@ impl Encode for DataType {
             DataType::Xsig16 => 0xc010,
             DataType::Xsig32 => 0xc020,
             DataType::Xsig64 => 0xc040,
-            DataType::Xfp32 => 0xcf32,
-            DataType::Xfp64 => 0xcf64,
+            DataType::Xfp32 => 0xcf20,
+            DataType::Xfp64 => 0xcf40,
             //User-defined
             DataType::USR(code) => *code,
             //Malformed
