@@ -28,13 +28,15 @@ use rustronomy_core::data_type_traits::io_utils::{EncodeAndConsume, Encode, Deco
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Header {
+    version: u16,
     n_hibs: u16,
     hibs: Vec<HeaderIndexBlock>
 }
 
 impl EncodeAndConsume for Header {
     fn fill_buf(self, buf: &mut Vec<u8>) {
-        //Start with the number of HIB's
+        //First we do the header fields
+        self.version.fill_buf(buf);
         self.n_hibs.fill_buf(buf);
 
         //Append all the HIB's
@@ -62,12 +64,12 @@ impl Decode for Header {
         //First two bytes contain version number
         let version = u16::from_bytes(&data[0..2].to_vec());
 
+        //Panic if an unsupported version is found
         assert!(version <= super::SADF_VERSION,
-            String::format(
-                "Found SADF file encoded with version {}. Rustronomy {} supports up to version {}",
-                version,
-                super::RUSTRONOMY_SADF_VERSION,
-                super::SADF_VERSION
+            "{}", format!("Error: found SADF file built against SADF v{}. Rustronomy {} supports up to SADF v{}",
+            version,
+            super::RUSTRONOMY_SADF_VERSION,
+            super::SADF_VERSION
             )
         );
 
@@ -78,16 +80,16 @@ impl Decode for Header {
         let mut hibs: Vec<HeaderIndexBlock> = Vec::new();
 
         for i in 0..n_hibs.into() {
-            let start = 2 + HIB_LENGTH * i;
+            let start = 4 + HIB_LENGTH * i; //+4 for offset of first two fields
             let stop = start + HIB_LENGTH;
             let hib = HeaderIndexBlock::from_bytes(&data[start..stop].to_vec());
-            if hib.id == 0x0000 {metadata_present = true;}
             hibs.push(hib);
         }
 
         let header = Header {
             n_hibs: n_hibs,
-            hibs: hibs
+            hibs: hibs,
+            version: version
         };
 
         //Decoding must fail for invalid header
@@ -101,7 +103,8 @@ impl Header {
     pub fn new() -> Header {
         Header {
             n_hibs: 0 as u16,
-            hibs: Vec::new()
+            hibs: Vec::new(),
+            version: super::SADF_VERSION
         }
     }
 
@@ -156,8 +159,8 @@ impl fmt::Display for Header {
             }
         }
 
-        write!(f, "[SADF file structure]\nMetadata block present: {}\nNumber of data blocks: {}\n{}",
-            true, //Oops, placeholder
+        write!(f, "[SADF file structure]\nSADF standard version: v{}\nNumber of data blocks: {}\n{}",
+            self.version, //Oops, placeholder
             self.n_hibs,
             data_blocks)
     }
