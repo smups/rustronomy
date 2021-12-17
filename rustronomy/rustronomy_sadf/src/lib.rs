@@ -17,6 +17,10 @@
     along with rustronomy.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+//SADF version number
+pub static SADF_VERSION: u16 = 211;
+pub static RUSTRONOMY_SADF_VERSION: &str = "v0.1";
+
 //Module structure
 mod header;
 

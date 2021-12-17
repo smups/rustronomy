@@ -59,9 +59,23 @@ impl EncodeAndConsume for Header {
 
 impl Decode for Header {
     fn from_bytes(data: &Vec<u8>) -> Self {
-        let n_hibs = u16::from_bytes(&data[0..2].to_vec());
+        //First two bytes contain version number
+        let version = u16::from_bytes(&data[0..2].to_vec());
+
+        assert!(version <= super::SADF_VERSION,
+            String::format(
+                "Found SADF file encoded with version {}. Rustronomy {} supports up to version {}",
+                version,
+                super::RUSTRONOMY_SADF_VERSION,
+                super::SADF_VERSION
+            )
+        );
+
+        //Bytes 2 and 3 contain the number of HIBS
+        let n_hibs = u16::from_bytes(&data[2..4].to_vec());
+
+        //Vector with HeaderIndexBlocks that we should fill
         let mut hibs: Vec<HeaderIndexBlock> = Vec::new();
-        let mut metadata_present = false;
 
         for i in 0..n_hibs.into() {
             let start = 2 + HIB_LENGTH * i;
