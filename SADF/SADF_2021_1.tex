@@ -35,7 +35,7 @@
 \fvset{fontsize=\normalsize}
 
 \newcommand{\hlred}[1]{\textcolor{Maroon}{#1}}% prints in red
-\newcommand{\hex}[1]{\hlred{\texttt{#1}}\label{clsopt:#1}\index{#1 class option@\texttt{#1} class option}\index{class options!#1@\texttt{#1}}}% hex field formatting
+\newcommand{\hex}[1]{\hlred{\texttt{#1}}}% hex formatting
 
 % Prints a trailing space in a smart way.
 \usepackage{xspace}
@@ -60,9 +60,6 @@
 \makeindex
 
 \begin{document}
-
-% Front matter
-\frontmatter
 
 %Adding the section numbers back in
 \setcounter{secnumdepth}{2}
@@ -302,6 +299,7 @@ For more information on arrays, we refer the reader to section [YEET]. For more 
 \chapter{Data Blocks}
 \index{data block}\index{DB}
 \section{General specification}
+\label{general_db_spec}
 Data Blocks hold the data of the SADF file.  `Data' refers to both metadata and normal data. All data block must start with the fields defined in table \ref{tab:db_required_fields}
 
 \begin{table}[ht]
@@ -508,7 +506,7 @@ A array Data Block starts with the standard (mandatory) fields, followed by (man
 		\bottomrule
 	\end{tabular}
 	~\label{tab:array_text_fields}
-	\caption[Data layout for required fields of array data blocks]{Data layout for required fields of array data blocks. \emph{Note that the number of axis length fields included in the data block depends on the data block type. A d-dimensional array \smallcaps{must} have d axis lengths. Furthermore, the axes are always ordered.}	
+	\caption[Data layout for required fields of array data blocks]{Data layout for required fields of array data blocks. \emph{Note that the number of axis length fields included in the data block depends on the data block type. A d-dimensional array \smallcaps{must} have d axis lengths. Furthermore, the axes are always ordered.}}	
 \end{table}
 \vspace{5mm}
 
@@ -516,7 +514,7 @@ A array Data Block starts with the standard (mandatory) fields, followed by (man
 \index{table}\label{DBTY:0x00f0}
 The table data block maps keys to values. All keys must be of the same type and all values must be of the same type, but keys and values can have different types. This is different from an array, since all entries in an array must have the same data type.
 
-All keywords must have the same length and all values must have the same length, but keywords and values may have differing lengths. The maximum keyword length is 65,535 bytes (66kB) and the maximum value length is 4,294,967,295 bytes (4.3GB).
+All keywords must have the same length and all values must have the same length, but keywords and values may have differing lengths. The maximum keyword length is 65,535 bytes (66kB)\footnote{It is strongly advised to limit the size of keywords for implementation performance reasons. The table data block type may be implemented as a hashmap, in which case the keywords should be easily hashable (which may be expensive for large keywords).} and the maximum value length is 4,294,967,295 bytes (4.3GB).
 
 A table Data Block starts with the standard (mandatory) fields, followed by (mandatory) plain text extension, as specified in table \ref{tab:table_fields}.
 
@@ -539,14 +537,21 @@ A table Data Block starts with the standard (mandatory) fields, followed by (man
 		\bottomrule
 	\end{tabular}
 	~\label{tab:table_fields}
-	\caption{Data layout for required fields of plain text data blocks}	
+	\caption{Data layout for table data blocks.}	
 \end{table}
 \vspace{5mm}
 
 In the data section of the table data block, keywords always come directly in front of their associated values. There is no padding between keywords and/or values.
 
-\backmatter
-\bibliography
+\section{User-defined data block types [\hex{DB-TY:0xb000-=0xbfff}]}
+\index{table}\label{DBTY:0xb000}
+Users may define their own data block types in the data block type range \hex{0xb000-=0xbfff}. All SADF-compliant user-defined data block types must start with the fields mandatory for all data blocks, as defined in section \ref{general_db_spec} and table \ref{tab:db_required_fields}.
+
+\chapter{Encryption and digital signatures}
+blahblah
+
+\clearpage
+
 \printindex
 
 \end{document}
