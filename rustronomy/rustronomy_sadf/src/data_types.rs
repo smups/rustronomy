@@ -17,13 +17,15 @@
     along with rustronomy.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+use core::panic;
+
 //Imports
 use rustronomy_core::data_type_traits::io_utils::{
     Encode,
     Decode
 };
 
-#[derive(PartialEq)]
+#[derive(PartialEq, Debug)]
 pub enum DataType {
     //Raw types
     Raw,
@@ -56,7 +58,9 @@ pub enum DataType {
     Xfp32,
     Xfp64,
     //User Defined
-    USR(u16)
+    USR(u16),
+    //Malformed
+    Malformed
 }
 
 impl Encode for DataType {
@@ -93,7 +97,10 @@ impl Encode for DataType {
             DataType::Xfp32 => 0xcf32,
             DataType::Xfp64 => 0xcf64,
             //User-defined
-            DataType::USR(code) => *code
+            DataType::USR(code) => *code,
+            //Malformed
+            DataType::Malformed => panic!()
+            
         };
         return code.to_bytes();
     }
@@ -136,7 +143,7 @@ impl Decode for DataType {
             //User-defined
             code @ 0xb000..=0xbfff => DataType::USR(code),
             //Undefined!
-            _ => panic!("Invalid DataType found")
+            _ => DataType::Malformed
         }
     }
 }
