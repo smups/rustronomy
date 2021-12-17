@@ -219,7 +219,26 @@ In addition to the types specified in the standard, users may define data types 
 \section{The header}
 \index{header}
 
-The header starts off with a u16 integer stating the version number of the SADF standard that was used to encode the file, followed by a u16 integer listing the number of data blocks, and finally an unordered list of Header Index Blocks (HIB's) is appended. Note that each HIB is always 20 bytes long.
+The header starts off with a u16 integer stating the version number of the SADF standard that was used to encode the file, followed by a u16 integer listing the number of data blocks, and finally an unordered list of Header Index Blocks (HIB's) is appended. Note that each HIB is always 20 bytes long. The basic data layout of a Header is specified in table \ref{tab:header_layout}. 
+
+\begin{table}[ht]
+	\centering
+	\fontfamily{ppl}\selectfont
+	\begin{tabular}{lcl}
+		\toprule
+		bytes & data type & field\\
+		\midrule
+		0,1 & u16 & SADF version number\\
+		2,3 & u16 & number of header index blocks\\
+		4-24 & HIB & Header Index Block \#1\\
+		... & HIB & Header Index Blocks \#2 to \#n-1\\
+		4+20n-24+20n & HIB & Header Index Block \#n \\
+		\bottomrule
+	\end{tabular}
+	~\label{tab:header_layout}
+	\caption{Header data layout.}	
+\end{table}
+\vspace{5mm}
 
 Table \ref{tab:sadf_version_codes} maps version number values to their corresponding SADF
 versions.
@@ -239,6 +258,7 @@ versions.
 	
 \end{table}
 \vspace{5mm}
+
 A header can, theoretically, hold 65,535 entries. This means that the maximum header size is 1,310,702 bytes, or about 1.3MB. Hence, 1,310,702 bytes must always be avaliable for header decoding in programs implementing SADF reading functionality, unless the total file size is smaller than 1,310,702 bytes, in which case the entire file must be loaded in one buffer in order to guarantee the entire header is avaliable\footnote{This buffer need not be thrown away and may be re-used by the implementation to parse the remaining file contents.}.
 
 \emph{Note: Since the length of the data blocks is specified in the header, the	required buffer size to read the data blocks is always known and no memory needs to go to waste when copying the data blocks into memory, unlike in the header reading process listed above.}
