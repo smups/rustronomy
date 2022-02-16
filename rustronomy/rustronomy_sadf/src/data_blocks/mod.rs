@@ -25,6 +25,7 @@ use rustronomy_core::data_type_traits::io_utils::{
 
 //Module structure
 pub mod text;
+pub mod metadata;
 
 //Trait die alle data blocks moeten implementeren!
 trait DataBlock: Decode + EncodeAndConsume {

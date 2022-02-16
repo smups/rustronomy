@@ -16,14 +16,3 @@
     You should have received a copy of the GNU General Public License
     along with rustronomy.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-//Header tests
-mod header_test;
-
-//Data Block tests
-mod db_text_test;
-
-//Enum tests
-mod data_type_test;
-
-//Full SADF file tests
