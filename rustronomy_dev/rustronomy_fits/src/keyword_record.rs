@@ -40,10 +40,17 @@ impl KeywordRecord {
         }
     }
 
-    pub fn new(keyword: String, value: String) -> Self {
+    pub fn from_string(keyword: String, value: String) -> Self {
+        KeywordRecord{
+            keyword: keyword,
+            value: Some(value)
+        }
+    }
+
+    pub fn from_str(keyword: &str, value: &str) -> Self {
         KeywordRecord {
-            keyword:keyword,
-            value:Some(value)
+            keyword: String::from(keyword),
+            value: Some(String::from(value))
         }
     }
 
@@ -92,8 +99,8 @@ impl KeywordRecord {
         match self.value {
             None => {}, //do nothing
             Some(val) => {
-                //We have a value, so bytes 9 and 10 should be '= '
-                string_buf[9] = b'=';
+                //We have a value, so bytes 8 and 9 should be '= '
+                string_buf[8] = b'=';
                 for i in 0..val.len() {
                     string_buf[i+10] = val.as_bytes()[i];
                 }

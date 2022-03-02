@@ -18,15 +18,16 @@
 */
 
 use std::{
-    fs::{self, File},
-    io::{BufReader, Read},
+    fs::{File, OpenOptions},
+    io::{BufReader, Read, BufWriter, Write},
     path::PathBuf, env
 };
 
-use rustronomy_fits::header_data_unit::HeaderBlock;
+use rustronomy_fits::{header_data_unit::HeaderBlock, keyword_record::KeywordRecord};
 
 static FAKE_FILE: &str = "resources/tests/fake.fits";
 static REAL_FILE: &str = "resources/tests/real.fits";
+static FAKE_WRITE_FILE: &str = "resources/tests/write.fits";
 
 #[test]
 pub fn read_fake_fits_test() {
@@ -46,8 +47,8 @@ pub fn read_fake_fits_test() {
     }
 
     //create a HeaderBlock from it
-    let HeaderBlock = HeaderBlock::from_bytes(&buf).unwrap();
-    for entry in HeaderBlock.records {
+    let (hb, _) = HeaderBlock::decode_from_bytes(&buf).unwrap();
+    for entry in hb.records {
         println!("{entry:?}");
     }
 
@@ -66,8 +67,8 @@ pub fn read_real_fits_test() {
     BufReader::new(file).read_exact(&mut buf).unwrap();
 
     //make a header
-    let HeaderBlock = HeaderBlock::from_bytes(&buf).unwrap();
-    for entry in HeaderBlock.records {
+    let (hb, _) = HeaderBlock::decode_from_bytes(&buf).unwrap();
+    for entry in hb.records {
         println!("{entry:?}");
     }
 }
@@ -75,4 +76,31 @@ pub fn read_real_fits_test() {
 #[test]
 pub fn write_fake_fits_test() {
 
+    //Create test file
+    let mut path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+    path.push(FAKE_WRITE_FILE);
+    let file = OpenOptions::new()
+        .read(true)
+        .write(true)
+        .create(true)
+        .open(path)
+        .unwrap();
+
+    //Create fake keywords
+    let hb = HeaderBlock::from_vec(vec![
+        KeywordRecord::from_str("SIMPLE  ", "T"),
+        KeywordRecord::from_str("BITPIX  ", "-64"),
+        KeywordRecord::from_str("NAXIS   ", "3"),
+        KeywordRecord::from_str("NAXIS1  ", "100"),
+        KeywordRecord::from_str("NAXIS2  ", "100"),
+        KeywordRecord::from_str("NAXIS3  ", "100"),
+        KeywordRecord::from_str("HISTORY ", "'this is a fake string that I had to fill with text so here you go y&'"),
+        KeywordRecord::from_str("CONTINUE", "'ou get to listen to me just blabbeling about using a multi-keyword.'"),
+    ]);
+
+    //Encode
+    let bytes = hb.encode_to_bytes().unwrap();
+
+    //Write to file
+    BufWriter::new(file).write(&bytes).unwrap();
 }
