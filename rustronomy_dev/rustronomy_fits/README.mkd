@@ -1,0 +1,8 @@
+# rustronomy_fits
+This module is part of the rustronomy project and aims to facilitate reading and writing FITS files using rust.
+
+### Notes on testing
+If you want to contribute to this module, please keep in mind the following points regarding testing:
+- all I/O tests make use of the `resources/tests/` folder located in the root of the `rustronomy_fits` folder.
+- rustronomy_fits uses the python package astropy as a reference to validate FITS files written during tests. Make sure to setup a python virtual enviroment with astropy and numpy installed to run these tests.
+- to test the reading functionalities of rustronomy_fits, a number of test FITS files are used during testing. These are too large to be uploaded to github. You can download them using this link: [TODO]. Be sure to place them in the `resources/tests` folder.
