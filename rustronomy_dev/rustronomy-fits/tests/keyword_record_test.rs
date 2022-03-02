@@ -23,7 +23,7 @@ use std::{
     path::PathBuf, env
 };
 
-use rustronomy_fits::{header_data_unit::HeaderBlock, keyword_record::KeywordRecord};
+use rustronomy_fits::{header_data_unit::{HeaderBlock, Header}, keyword_record::KeywordRecord};
 
 static FAKE_FILE: &str = "resources/tests/fake.fits";
 static REAL_FILE: &str = "resources/tests/real.fits";
@@ -48,10 +48,13 @@ pub fn read_fake_fits_test() {
 
     //create a HeaderBlock from it
     let (hb, _) = HeaderBlock::decode_from_bytes(&buf).unwrap();
-    for entry in hb.records {
+    for entry in &hb.records {
         println!("{entry:?}");
     }
 
+    //Make a public Header and print it
+    let h = Header::from(vec![hb]).unwrap();
+    print!("{h}");
 }
 
 #[test]
@@ -68,9 +71,13 @@ pub fn read_real_fits_test() {
 
     //make a header
     let (hb, _) = HeaderBlock::decode_from_bytes(&buf).unwrap();
-    for entry in hb.records {
+    for entry in &hb.records {
         println!("{entry:?}");
     }
+
+    //Make a public Header and print it
+    let h = Header::from(vec![hb]).unwrap();
+    print!("{h}");
 }
 
 #[test]

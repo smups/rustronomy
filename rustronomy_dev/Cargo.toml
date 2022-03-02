@@ -1,6 +1,6 @@
 [workspace]
 
 members = [
-    "rustronomy_core",
-    "rustronomy_fits"
+    "rustronomy-core",
+    "rustronomy-fits"
 ]

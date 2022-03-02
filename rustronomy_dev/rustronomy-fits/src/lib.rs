@@ -20,3 +20,4 @@
 //Module structure
 pub mod header_data_unit;
 pub mod keyword_record;
+pub mod bitpix;

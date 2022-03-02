@@ -8,3 +8,4 @@ edition = "2021"
 [dependencies]
 byteorder = "1"
 simple-error = "0.2"
+ndarray = "0.15"

@@ -21,7 +21,8 @@ use crate::keyword_record::KeywordRecord;
 
 use std::{
     collections::HashMap,
-    error::Error
+    error::Error,
+    fmt::{self, Display}
 };
 
 use simple_error::SimpleError;
@@ -42,6 +43,17 @@ use simple_error::SimpleError;
 #[derive(Debug)]
 pub struct Header {
     records: HashMap<String, String>
+}
+
+impl Display for Header {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        writeln!(f,">================================<|FITS Header|>================================")?;
+        for (k,v) in &self.records {
+            writeln!(f, ">  [{}] : {}", k, v)?;
+        }
+        writeln!(f,">===============================================================================")?;
+        Ok(())
+    }
 }
 
 impl Header {
