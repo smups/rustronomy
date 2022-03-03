@@ -21,3 +21,5 @@
 pub mod header_data_unit;
 pub mod keyword_record;
 pub mod bitpix;
+pub mod fits;
+pub mod extensions;

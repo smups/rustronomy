@@ -23,38 +23,37 @@ use simple_error::SimpleError;
 
 #[derive(Debug)]
 pub enum Bitpix {
-    Char(u8),
-    Short(i16),
-    Integer(i32),
-    Long(i64),
-    Spf(f32),
-    Dpf(f64)
+    Byte,
+    Short,
+    Int,
+    Long,
+    Spf,
+    Dpf
 }
 
 impl Bitpix {
-
-    pub fn bitpix(val: isize) -> Result<Bitpix, Box<dyn Error>>{
-        match val {
-            val @ 8 => Ok(Bitpix::Char(val as u8)),
-            val @ 16 => Ok(Bitpix::Short(val as i16)),
-            val @ 32 => Ok(Bitpix::Integer(val as i32)),
-            val @ 64 => Ok(Bitpix::Long(val as i64)),
-            val @ -32 => Ok(Bitpix::Spf(val as f32)),
-            val @ -64 => Ok(Bitpix::Dpf(val as f64)),
-            _ => Err(Box::new(SimpleError::new(
-                "Invalid bitpix value found!"
-            )))
+    pub fn from_code(code: &isize) -> Result<Bitpix, Box<dyn Error>> {
+        match code {
+            8 => Ok(Bitpix::Byte),
+            16 => Ok(Bitpix::Short),
+            32 => Ok(Bitpix::Int),
+            64 => Ok(Bitpix::Long),
+            -32 => Ok(Bitpix::Spf),
+            -64 => Ok(Bitpix::Dpf),
+            other => Err(Box::new(SimpleError::new(
+                format!("Encountered invalid bitpix value ({})", other)
+            ))) 
         }
     }
-    
-    pub fn get_code(&self) -> isize {
+
+    pub fn to_code(&self) -> isize {
         match self {
-            &Bitpix::Char(_) => 8,
-            &Bitpix::Short(_) => 16,
-            &Bitpix::Integer(_) => 32,
-            &Bitpix::Long(_) => 64,
-            &Bitpix::Spf(_) => -32,
-            &Bitpix::Dpf(_) => -64
+            &Self::Byte => 8,
+            &Self::Short => 16,
+            &Self::Int => 32,
+            &Self::Long => 64,
+            &Self::Spf => -32,
+            &Self::Dpf => -64
         }
     }
 }

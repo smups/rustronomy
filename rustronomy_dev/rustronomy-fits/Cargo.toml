@@ -9,3 +9,5 @@ edition = "2021"
 byteorder = "1"
 simple-error = "0.2"
 ndarray = "0.15"
+num-traits = "0.2"
+rustronomy-core = {path = "../rustronomy-core"}

@@ -109,7 +109,7 @@ impl Header {
         Ok(Header {records:record_map})
     }
 
-    pub fn get_record(&self, keyword: &String) -> Option<&String> {
+    pub fn get_record(&self, keyword: &str) -> Option<&String> {
         self.records.get(keyword)
     }
 
@@ -122,7 +122,7 @@ pub struct HeaderBlock{
 
 impl HeaderBlock {
 
-    pub fn decode_from_bytes(bytes: &Vec<u8>) -> Result<(Self, bool), Box<dyn Error>> {
+    pub fn decode_from_bytes(bytes: &[u8]) -> Result<(Self, bool), Box<dyn Error>> {
         /*  If we're in the last headerblock of the header (denoted by the END
             keyword, then we have to set the return value of is_final to true
         */

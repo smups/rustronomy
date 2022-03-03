@@ -23,7 +23,10 @@ use std::{
     path::PathBuf, env
 };
 
-use rustronomy_fits::{header_data_unit::{HeaderBlock, Header}, keyword_record::KeywordRecord};
+use rustronomy_fits::{
+    header_data_unit::{HeaderBlock, Header},
+    keyword_record::KeywordRecord
+};
 
 static FAKE_FILE: &str = "resources/tests/fake.fits";
 static REAL_FILE: &str = "resources/tests/real.fits";
