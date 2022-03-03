@@ -1,4 +1,4 @@
-rustronomy/target/
+rustronomy/target
 rustronomy/rustronomy_fits/resources/tests/*
 
 Cargo.lock
