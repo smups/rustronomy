@@ -1,13 +1,13 @@
 [package]
-name = "rustronomy_fits"
+name = "rustronomy-sadf"
 version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-byteorder = "1"
-simple-error = "0.2"
-ndarray = "0.15"
-num-traits = "0.2"
-rustronomy-core = {path = "../rustronomy_core"}
+rustronomy-core = {path="../rustronomy-core"}
+
+[dev-dependencies]
+rand = "0.8"
+lipsum = "0.8"

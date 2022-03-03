@@ -1,10 +1,6 @@
 [workspace]
-
 members = [
-    "rustronomy_core",
-    "rustronomy_fits",
-    "rustronomy_sadf"
+    "rustronomy-core",
+    "rustronomy-fits",
+    "rustronomy-sadf"
 ]
-
-[profile.release]
-strip = "debuginfo"
