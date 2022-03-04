@@ -47,7 +47,7 @@ impl EncodeAndConsume for HeaderIndexBlock {
 }
 
 impl Decode for HeaderIndexBlock {
-    fn from_bytes(data: &Vec<u8>) -> Self {
+    fn from_bytes(data: &[u8]) -> Self {
         //First check if the slice we got is 18 bytes long
         assert!(data.len() == HIB_LENGTH);
 

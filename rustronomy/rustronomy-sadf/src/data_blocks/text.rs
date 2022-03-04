@@ -36,7 +36,7 @@ pub struct TextDB {
 }
 
 impl Decode for TextDB {
-    fn from_bytes(data: &Vec<u8>) -> Self {
+    fn from_bytes(data: &[u8]) -> Self {
         //Decode all the fields in order
         let db_ty = 0x0000; //Code for text db
         let db_id = u16::from_bytes(&data[2..4].to_vec());

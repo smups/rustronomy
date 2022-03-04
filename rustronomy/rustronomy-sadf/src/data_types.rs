@@ -107,7 +107,7 @@ impl Encode for DataType {
 }
 
 impl Decode for DataType {
-    fn from_bytes(data: &Vec<u8>) -> Self {
+    fn from_bytes(data: &[u8]) -> Self {
         assert!(data.len() == 2); //Must be 2 bytes long
         match u16::from_bytes(&data) {
             //Raw

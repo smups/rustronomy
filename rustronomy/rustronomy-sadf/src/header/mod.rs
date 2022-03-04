@@ -60,7 +60,7 @@ impl EncodeAndConsume for Header {
 }
 
 impl Decode for Header {
-    fn from_bytes(data: &Vec<u8>) -> Self {
+    fn from_bytes(data: &[u8]) -> Self {
         //First two bytes contain version number
         let version = u16::from_bytes(&data[0..2].to_vec());
 
