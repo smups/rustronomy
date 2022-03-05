@@ -17,15 +17,13 @@
     along with rustronomy.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-use crate::keyword_record::KeywordRecord;
-
 use std::{
     collections::HashMap,
     error::Error,
     fmt::{self, Display}
 };
 
-use simple_error::SimpleError;
+use crate::raw::header_block::HeaderBlock;
 
 /*
     A FITS file contains at least one HeaderDataUnit (HDU), but may contain
@@ -111,79 +109,6 @@ impl Header {
 
     pub fn get_record(&self, keyword: &str) -> Option<&String> {
         self.records.get(keyword)
-    }
-
-}
-
-#[derive(Debug)]
-pub struct HeaderBlock{
-    pub records: Vec<KeywordRecord>
-}
-
-impl HeaderBlock {
-
-    pub fn decode_from_bytes(bytes: &[u8]) -> Result<(Self, bool), Box<dyn Error>> {
-        /*  If we're in the last headerblock of the header (denoted by the END
-            keyword, then we have to set the return value of is_final to true
-        */
-        let mut is_final = false;
-
-
-        //First, require that the Header block is 2880 blocks long
-        if bytes.len() != 2880 {
-            return Err(Box::new(
-                SimpleError::new("Header block buffer was not 2880 bytes long.")
-            ));
-        }
-
-        //Create vector of keywordrecords and return it
-        let mut records: Vec<KeywordRecord> = Vec::new();
-        for i in 0..36 { //36 keywords in a HeaderBlock
-            //Decode
-            let record = KeywordRecord::decode_from_bytes(&bytes[(i*80)..(i*80+80)])?;
-            //And parse
-            if record.keyword == String::from("END") {
-                //This is the END keyword, which we DON'T append!
-                // -> but we should set is_final to true
-                is_final = true;
-                break;
-            }
-
-            //Append the parsed keyword
-            records.push(record);
-        }
-
-        return Ok((HeaderBlock{records:records}, is_final));
-    }
-
-    pub fn from_vec(vec: Vec<KeywordRecord>) -> Self {
-        HeaderBlock{records: vec}
-    }
-
-    pub fn encode_fill_buff(self, buf: &mut Vec<u8>) -> Result<(), Box<dyn Error>>{
-        for record in self.records {
-            record.encode_fill_buff(buf)?;
-        }
-        Ok(())
-    }
-
-    pub fn encode_to_bytes(self) -> Result<Vec<u8>, Box<dyn Error>> {
-        //Fill buf with data
-        let mut buf: Vec<u8> = Vec::new();
-        self.encode_fill_buff(&mut buf)?;
-
-        //FITS files must always come in 2880 byte chunks. We fill the remaining
-        //bytes with zeros to satisfy this condition
-        if buf.len() < 2880 {
-            buf.append(&mut vec![0u8; 2880 - buf.len()]);
-            return Ok(buf);
-        } else if buf.len() > 2880 {
-            return Err(Box::new(SimpleError::new(
-                "Error while encoding HeaderBlock: Header block contained more than 2880 bytes of data!"
-            )));
-        } else {
-            return Ok(buf);
-        }
     }
 
 }

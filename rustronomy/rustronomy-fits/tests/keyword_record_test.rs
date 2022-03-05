@@ -24,8 +24,11 @@ use std::{
 };
 
 use rustronomy_fits::{
-    header_data_unit::{HeaderBlock, Header},
-    keyword_record::KeywordRecord
+    raw::{
+        header_block::HeaderBlock,
+        keyword_record::KeywordRecord
+    }, 
+    header_data_unit::Header
 };
 
 static FAKE_FILE: &str = "resources/tests/fake.fits";

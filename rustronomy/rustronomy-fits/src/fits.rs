@@ -32,31 +32,37 @@ use std::{
 use simple_error::SimpleError;
 
 use crate::{
-    header_data_unit::{Header, HeaderBlock},
-    extensions::{Xtension, image::{Image, ImgParser}}, bitpix::Bitpix
+    header_data_unit::Header,
+    extensions::{Xtension, image::{Image, ImgParser}},
+    bitpix::Bitpix,
+    raw::{
+        header_block::HeaderBlock,
+        raw_fits::{RawFitsReader, RawFitsWriter}
+    }
 };
 
 #[derive(Debug)]
 pub struct Fits {
     pub header: Header,
     data: Vec<Box<dyn Xtension>>,
-    reader_handle: Option<BufReader<File>>
+    reader: Option<RawFitsReader>,
+    writer: Option<RawFitsWriter>
 }
 
 impl Fits {
 
     pub fn open(path: &Path) -> Result<Self, Box<dyn Error>> {
-        //(1) Open the file
-        let f = File::open(path)?;
-        let mut f_handle = BufReader::new(f);
+
+        //(1) Read file as raw fits
+        let mut raw = RawFitsReader::new(path)?;
 
         //(2) Read Header
         let (mut hbs, mut end) = (Vec::<HeaderBlock>::new(), false);
-        let mut hb_buf = vec![0u8; 2880];
+        let mut hb_buf = vec![0u8; 2880]; //1 FITS block
 
         while !end {
             //Read the next headerblock (2880 bytes) and decode it!
-            f_handle.read_exact(&mut hb_buf)?;
+            raw.read_blocks(&mut hb_buf)?;
             let (hb, finished) = HeaderBlock::decode_from_bytes(&hb_buf)?;
 
             //Append the keywords that we found
@@ -69,10 +75,16 @@ impl Fits {
         //Aaand finally we write the contents into a Header
         let header = Header::from(hbs)?;
 
-        Ok(Fits {header: header, data: Vec::new(), reader_handle: Some(f_handle)})
+        Ok(Fits {
+            header: header,
+            data: Vec::new(),
+            reader: Some(raw),
+            writer: None
+        })
     }
 
-    fn parse_keyword_record_as_int<T>(&self, keyword: &str)
+    //Helper function for parsing keyword records
+    fn parse_keyword_record<T>(&self, keyword: &str)
         -> Result<T, Box<dyn Error>>
     where
         T: FromStr,
@@ -93,36 +105,32 @@ impl Fits {
     pub fn read_img(&mut self) -> Result<(), Box<dyn Error>> {
 
         //Let's start by getting the number of axes
-        let naxis: usize = self.parse_keyword_record_as_int("NAXIS")?;
+        let naxis: usize = self.parse_keyword_record("NAXIS")?;
 
         //And now the lengths
         let mut axes: Vec<usize> = Vec::new();
         for i in 1..=naxis {
-            axes.push(self.parse_keyword_record_as_int(format!("NAXIS{i}").as_str())?);
+            axes.push(self.parse_keyword_record(format!("NAXIS{i}").as_str())?);
         }
 
         //And the datatype ofc
         let bitpix = Bitpix::from_code(
-            &self.parse_keyword_record_as_int::<isize>("BITPIX")?
+            &self.parse_keyword_record::<isize>("BITPIX")?
         )?;
 
         //Now the scary part: reading the image
         let img = ImgParser::decode_img(
-            self.reader_handle.as_mut().ok_or(Box::new(SimpleError::new(
+            self.reader.as_mut().ok_or(Box::new(SimpleError::new(
                 "Error while parsing image: handle to FITS file stream was lost"
             )))?,
             &axes,
             bitpix
         )?;
 
-        //Append the image to the fits file...
+        //Append the image to the fits file
         self.data.push(img);
         
         Ok(())
-    }
-
-    fn new(header: Header) -> Self {
-        Fits {header: header, data: Vec::new(), reader_handle: None}
     }
 
 }
