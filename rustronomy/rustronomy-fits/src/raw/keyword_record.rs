@@ -61,7 +61,7 @@ impl KeywordRecord {
 
         //value and comment vlags
         let mut has_val: bool;
-        let mut has_com: bool;
+        let has_com: bool;
 
         //Decode into keyword and record
         let keyword = String::from(str::from_utf8(&bytes[0..8])?.trim());
@@ -69,7 +69,7 @@ impl KeywordRecord {
             "= " => true,
             _ => false
         };
-        let mut record = String::from(str::from_utf8(&bytes[10..80])?.trim());
+        let record = String::from(str::from_utf8(&bytes[10..80])?.trim());
 
         //Keyword and value should be valid ASCII
         if !keyword.is_ascii() || !record.is_ascii() {
@@ -112,13 +112,10 @@ impl KeywordRecord {
 
         value = value.trim().to_string();
         if value.starts_with("'") && value.ends_with("'") {
-            //println!("NASTY STRING! ({value})");
             value.remove(0); // starting {'}
             value.pop(); // final {'}
             value = value.trim().to_string();
         }
-
-        //println!("Value: {value}");
 
         Ok( KeywordRecord {
             keyword: keyword,

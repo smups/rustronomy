@@ -19,7 +19,7 @@
 
 use std::path::PathBuf;
 
-use rustronomy_fits::fits::Fits;
+use rustronomy_fits::{fits::Fits, extensions::{image::Image, Extension}};
 
 static REAL_FILE: &str = "resources/tests/real.fits";
 
@@ -31,4 +31,17 @@ fn read_fits_test() {
 
     let fits_real = Fits::open(&real).unwrap();
     print!("{fits_real}");
+
+    //Get the data out of the fits file
+    let hdu = fits_real.get_hdu(0).unwrap();
+    let data;
+
+    match hdu.get_data().unwrap() {
+        Extension::Image(img) => {
+            data = img.as_f64_array().unwrap()
+        } _ => {panic!()} //do nothing
+    }
+
+    println!("{data}");
+
 }

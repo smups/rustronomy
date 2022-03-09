@@ -98,6 +98,10 @@ impl HeaderDataUnit {
         Ok(ImgParser::decode_img(raw, &axes, bitpix)?)
     }
 
+    //Some simple getters
+    pub fn get_header(&self) -> &Header {&self.header}
+    pub fn get_data(&self) -> Option<&Extension> {self.data.as_ref()}
+
     fn not_impl(keyword: &str) -> Box<SimpleError> {
         Box::new(SimpleError::new(
             format!("Error while constructing HDU: extension {keyword} not implemented yet!")
