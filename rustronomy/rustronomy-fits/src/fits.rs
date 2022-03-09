@@ -60,6 +60,11 @@ impl Fits {
         self.hdus.get(index)
     }
 
+    pub fn remove_hdu(&mut self, index: usize) -> Option<HeaderDataUnit> {
+        if self.hdus.len() < index {return None}
+        Some(self.hdus.remove(0))
+    }
+
 }
 
 impl BlockSized for Fits {
