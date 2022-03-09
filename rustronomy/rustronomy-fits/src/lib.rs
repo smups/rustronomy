@@ -18,11 +18,12 @@
 */
 
 //Module structure
-pub mod header_data_unit;
+pub mod header;
 pub mod bitpix;
 pub mod fits;
 pub mod extensions;
 pub mod raw;
+pub mod header_data_unit;
 
 //Constants defined by the FITS standard
 pub const BLOCK_SIZE: usize = 2880;

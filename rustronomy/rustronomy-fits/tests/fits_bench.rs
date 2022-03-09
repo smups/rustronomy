@@ -17,18 +17,32 @@
     along with rustronomy.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-use std::path::PathBuf;
+use std::{path::PathBuf, fs, time::Instant};
 
 use rustronomy_fits::fits::Fits;
 
-static REAL_FILE: &str = "resources/tests/real.fits";
+const BENCH_FOLDER: &str = "resources/tests/real_assortment";
 
 #[test]
-fn read_fits_test() {
+fn read_fits_benchmark() {
 
-    let mut real = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-    real.push(REAL_FILE);
+    let mut root = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+    root.push(BENCH_FOLDER);
 
-    let fits_real = Fits::open(&real).unwrap();
-    print!("{fits_real}");
+    //Log files and times
+    let mut fits_files = Vec::new();
+    let mut times = Vec::new();
+
+    for path in fs::read_dir(root).unwrap() {
+        let now = Instant::now();
+        let fits = Fits::open(&path.unwrap().path()).unwrap();
+        let time = now.elapsed().as_micros();
+        println!("Read time: {time}μs");
+        times.push(time);
+        fits_files.push(fits);
+    }
+
+    print!("{}", fits_files[0]);
+    println!("Average read time: {}μs", times.iter().sum::<u128>() as usize / times.len())
+
 }

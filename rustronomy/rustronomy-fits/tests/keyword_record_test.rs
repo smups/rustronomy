@@ -28,40 +28,11 @@ use rustronomy_fits::{
         header_block::HeaderBlock,
         keyword_record::KeywordRecord
     }, 
-    header_data_unit::Header
+    header::Header
 };
 
-static FAKE_FILE: &str = "resources/tests/fake.fits";
 static REAL_FILE: &str = "resources/tests/real.fits";
 static FAKE_WRITE_FILE: &str = "resources/tests/write.fits";
-
-#[test]
-pub fn read_fake_fits_test() {
-
-    //Read test file
-    let mut path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-    path.push(FAKE_FILE);
-    let file = File::open(path).unwrap();
-
-    //yeet the contents in a buffer
-    let mut buf:Vec<u8> = Vec::new();
-    BufReader::new(file).read_to_end(&mut buf).unwrap();
-
-    //Make the buffer 2880 bytes long
-    if buf.len() < 2880 {
-        for _ in 0..(2880 - buf.len()) {buf.push(0);}
-    }
-
-    //create a HeaderBlock from it
-    let (hb, _) = HeaderBlock::decode_from_bytes(&buf).unwrap();
-    for entry in &hb.records {
-        println!("{entry:?}");
-    }
-
-    //Make a public Header and print it
-    let h = Header::from(vec![hb]).unwrap();
-    print!("{h}");
-}
 
 #[test]
 pub fn read_real_fits_test() {
@@ -82,9 +53,14 @@ pub fn read_real_fits_test() {
     }
 
     //Make a public Header and print it
-    let h = Header::from(vec![hb]).unwrap();
+    let h = Header::from_parts(vec![hb], 0).unwrap();
     print!("{h}");
 }
+
+/*
+
+FOR NOW: NOT IN USE
+writing FITS files will come with version 0.2
 
 #[test]
 pub fn write_fake_fits_test() {
@@ -117,3 +93,4 @@ pub fn write_fake_fits_test() {
     //Write to file
     BufWriter::new(file).write(&bytes).unwrap();
 }
+*/

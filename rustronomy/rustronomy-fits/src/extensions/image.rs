@@ -26,10 +26,9 @@ use std::{
 
 use ndarray::{Array, IxDyn, Array1};
 use num_traits::Num;
-use simple_error::SimpleError;
 
-use crate::{bitpix::Bitpix, raw::raw_fits::RawFitsReader};
-use super::Xtension;
+use crate::{bitpix::Bitpix, raw::{raw_fits::RawFitsReader, BlockSized}};
+use super::Extension;
 
 use rustronomy_core::data_type_traits::io_utils::Decode;
 
@@ -40,33 +39,86 @@ const BLOCK_SIZE: usize = crate::BLOCK_SIZE; // = 2880B
 const MAX_BLOCKS_IN_BUF: usize = 128; // = 369kB
 const MIN_BLOCKS_IN_BUF: usize = 1; // = 3kB
 
-pub trait Img: Xtension{
-    //Only used for dyn Image objects!
-}
-
 #[derive(Debug)]
 pub struct Image<T> where
     T: Debug + Num
 {
     shape: Vec<usize>,
-    data: Array<T, IxDyn>
+    data: Array<T, IxDyn>,
+    block_size: usize
 }
 
-//Fake object trait implementations
-impl<T> Xtension for Image<T> where T: Debug + Num {} 
-impl<T> Img for Image<T> where T: Debug + Num {}
+impl<T> BlockSized for Image<T> where T: Debug + Num {
+    fn get_block_len(&self) -> usize {
+        self.block_size
+    }
+}
 
-//Real user-facing helper functions
 impl<T> Image<T> where T: Debug + Num {
-
-    pub fn as_ndarray(self) -> Array<T, IxDyn> {
-        self.data
+    pub fn pretty_print_shape(&self) -> String {
+        let mut rsp = String::from("(");
+        for ax in &self.shape {
+            rsp += format!("{ax},").as_str();
+        }
+        rsp.pop(); //remove last comma
+        String::from(rsp + ")")
     }
+}
 
-    pub fn from_ndarray(array: Array<T, IxDyn>) -> Self {
-        Image { shape: array.shape().to_vec(), data: array }
+//Enum to differentiate between Image Types
+#[derive(Debug)]
+pub enum TypedImage {
+    ByteImg(Image<u8>),
+    I16Img(Image<i16>),
+    I32Img(Image<i32>),
+    I64Img(Image<i64>),
+    SpfImg(Image<f32>),
+    DpfImg(Image<f64>)
+}
+
+impl BlockSized for TypedImage {
+    fn get_block_len(&self) -> usize {
+        match self {
+            Self::ByteImg(var) => var.get_block_len(),
+            Self::I16Img(var) => var.get_block_len(),
+            Self::I32Img(var) => var.get_block_len(),
+            Self::I64Img(var) => var.get_block_len(),
+            Self::SpfImg(var) => var.get_block_len(),
+            Self::DpfImg(var) => var.get_block_len()
+        }
     }
-    
+}
+
+impl Display for TypedImage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+       match self {
+            Self::ByteImg(img) => {
+               write!(f, "datatype: u8, shape: {}, size: {}",
+                    img.pretty_print_shape(), img.get_block_len()
+                )
+            } Self::I16Img(img) => {
+                write!(f, "datatype: i16, shape: {}, size: {}",
+                    img.pretty_print_shape(), img.get_block_len()
+                )
+            } Self::I32Img(img) => {
+                write!(f, "datatype: i32, shape: {}, size: {}",
+                    img.pretty_print_shape(), img.get_block_len()
+                )
+            } Self::I64Img(img) => {
+                write!(f, "datatype: i64, shape: {}, size: {}",
+                    img.pretty_print_shape(), img.get_block_len()
+                )
+            } Self::SpfImg(img) => {
+                write!(f, "datatype: f32, shape: {}, size: {}",
+                    img.pretty_print_shape(), img.get_block_len()
+                )
+            } Self::DpfImg(img) => {
+                write!(f, "datatype: f64, shape: {}, size: {}",
+                    img.pretty_print_shape(), img.get_block_len()
+                )
+            }
+       }
+    }
 }
 
 //Helper struct for reading/writing Images
@@ -75,18 +127,16 @@ impl ImgParser {
 
     //Public decoder for parsing images
     pub fn decode_img(reader: &mut RawFitsReader, shape: &Vec<usize>, bitpix: Bitpix)
-        -> Result<Box<dyn Xtension>, Box<dyn Error>>
+        -> Result<Extension, Box<dyn Error>>
     {
-        Ok(
-        match bitpix {
-            Bitpix::Byte => Box::new(Self::decode_helper::<u8>(reader, shape)?),
-            Bitpix::Short => Box::new(Self::decode_helper::<i16>(reader, shape)?),
-            Bitpix::Int => Box::new(Self::decode_helper::<i32>(reader, shape)?),
-            Bitpix::Long => Box::new(Self::decode_helper::<i64>(reader, shape)?),
-            Bitpix::Spf => Box::new(Self::decode_helper::<f32>(reader, shape)?),
-            Bitpix::Dpf => Box::new(Self::decode_helper::<f64>(reader, shape)?)
-        }
-        )
+        Ok(Extension::Image(match bitpix {
+            Bitpix::Byte => TypedImage::ByteImg(Self::decode_helper::<u8>(reader, shape)?),
+            Bitpix::Short => TypedImage::I16Img(Self::decode_helper::<i16>(reader, shape)?),
+            Bitpix::Int => TypedImage::I32Img(Self::decode_helper::<i32>(reader, shape)?),
+            Bitpix::Long => TypedImage::I64Img(Self::decode_helper::<i64>(reader, shape)?),
+            Bitpix::Spf => TypedImage::SpfImg(Self::decode_helper::<f32>(reader, shape)?),
+            Bitpix::Dpf => TypedImage::DpfImg(Self::decode_helper::<f64>(reader, shape)?)
+        }))
     }
 
     fn decode_helper<T>(reader: &mut RawFitsReader, shape: &Vec<usize>)
@@ -155,9 +205,9 @@ impl ImgParser {
         
         //which we reshape into the desired form
         let img_data = flat_arr.into_shape(shape.to_vec())?;
-        print!("{img_data}");
+        //print!("{img_data}");
 
-        Ok(Image::<T> {shape: shape.to_vec(), data: img_data})
+        Ok(Image::<T> {shape: shape.to_vec(), data: img_data, block_size: total_blocks})
     }
 
     fn calc_buf_size(total_blocks: usize) -> (usize, usize) {
@@ -181,7 +231,7 @@ impl ImgParser {
 
         let n_reads = total_blocks / n_buf_blocks;
 
-        println!("Buffer size: {n_buf_blocks}");
+        //println!("Buffer size: {n_buf_blocks}");
 
         (n_buf_blocks * BLOCK_SIZE, n_reads)
     }

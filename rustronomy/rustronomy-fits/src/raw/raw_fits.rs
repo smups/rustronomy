@@ -65,7 +65,7 @@ impl RawFitsReader {
     }
 
     pub fn read_blocks(&mut self, buffer: &mut [u8])
-        -> Result<(), Box<dyn Error>>
+        -> Result<usize, Box<dyn Error>>
     {
         //(1) Calculate how many header blocks we have to read
         let n_blocks = buffer.len() / BLOCK_SIZE;
@@ -76,12 +76,6 @@ impl RawFitsReader {
                 "Error while reading from FITS file: supplied buffer not an integer multiple of FITS blocks"
             )));
         }
-
-        /*
-        println!("Req. blocks: {n_blocks}");
-        println!("Block index: {}", self.block_index);
-        println!("Total blocks: {}", self.n_fits_blocks);
-        */
         
         //(3) Check if the number of header blocks we need to read does not exceed
         //the number of header blocks still left in the file
@@ -97,9 +91,11 @@ impl RawFitsReader {
         //(5) Update the block index
         self.block_index += n_blocks;
 
-        Ok(())
+        Ok(n_blocks) //return the number of blocks read
     }
 
+    pub fn get_block_len(&self) -> usize {self.n_fits_blocks}
+    pub fn get_block_index(&self) -> usize {self.block_index}
 }
 
 #[derive(Debug)]

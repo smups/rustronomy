@@ -27,7 +27,8 @@ use simple_error::SimpleError;
 #[derive(Debug, Clone)]
 pub struct KeywordRecord {
     pub keyword: String,
-    pub value: Option<String>
+    pub value: Option<String>,
+    pub comment: Option<String>,
 }
 
 impl KeywordRecord {
@@ -36,21 +37,16 @@ impl KeywordRecord {
     pub fn empty() -> Self {
         KeywordRecord {
             keyword: String::from(""),
-            value: None
+            value: None,
+            comment: None
         }
     }
 
-    pub fn from_string(keyword: String, value: String) -> Self {
+    pub fn from_string(keyword: String, value: String, comment: Option<String>) -> Self {
         KeywordRecord{
             keyword: keyword,
-            value: Some(value)
-        }
-    }
-
-    pub fn from_str(keyword: &str, value: &str) -> Self {
-        KeywordRecord {
-            keyword: String::from(keyword),
-            value: Some(String::from(value))
+            value: Some(value),
+            comment: comment
         }
     }
 
@@ -63,26 +59,76 @@ impl KeywordRecord {
             ));
         }
 
+        //value and comment vlags
+        let mut has_val: bool;
+        let mut has_com: bool;
+
         //Decode into keyword and record
-        let keyword = String::from(str::from_utf8(&bytes[0..8])?);
-        let has_val = match str::from_utf8(&bytes[8..10])? {
+        let keyword = String::from(str::from_utf8(&bytes[0..8])?.trim());
+        has_val = match str::from_utf8(&bytes[8..10])? {
             "= " => true,
             _ => false
         };
-        let value = String::from(str::from_utf8(&bytes[10..80])?);
+        let mut record = String::from(str::from_utf8(&bytes[10..80])?.trim());
 
         //Keyword and value should be valid ASCII
-        if !keyword.is_ascii() || !value.is_ascii() {
+        if !keyword.is_ascii() || !record.is_ascii() {
             return Err(Box::new(
                 SimpleError::new("Keyword-valule pair contains illegal characters")
             ));
         }
 
+        //Split record into value and comment
+        let (mut value, comment);
+        let split= record.split("/").collect::<Vec<_>>();
+        
+        match split.len() {
+            1 => {
+                //There was no comment in the record
+                value = String::from(split[0].trim());
+                comment = String::from("");
+                has_com = false;
+            } 2 => {
+                //There was a comment in the record, there MAY have been a value
+                value = String::from(split[0].trim());
+                comment = String::from(split[1].trim());
+
+                //Update value and comment flags
+                has_com = true;
+                if value.len() == 0 {has_val = false;}
+            } _ => {
+                //This makes no sense, just set the value the entire string
+                value = record;
+                comment = String::from("");
+                has_com = false;
+            }
+        }
+
+        /*  Note on String values
+            Strings in FITS headers are encoded using annoying and ugly trailing
+            and starting {'} and usually a bunch of spaces too. We'll have to
+            remove those.                
+        */    
+
+        value = value.trim().to_string();
+        if value.starts_with("'") && value.ends_with("'") {
+            //println!("NASTY STRING! ({value})");
+            value.remove(0); // starting {'}
+            value.pop(); // final {'}
+            value = value.trim().to_string();
+        }
+
+        //println!("Value: {value}");
+
         Ok( KeywordRecord {
-            keyword: String::from(keyword.trim()),
+            keyword: keyword,
             value: match has_val {
                 false => None,
-                true => Some(String::from(value.trim()))
+                true => Some(value)
+            },
+            comment: match has_com {
+                false => None,
+                true => Some(comment)
             }
         })
     }

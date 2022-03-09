@@ -17,98 +17,121 @@
     along with rustronomy.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-use std::{
-    collections::HashMap,
-    error::Error,
-    fmt::{self, Display}
+use core::fmt;
+use std::{error::Error, fmt::Display, borrow::Cow};
+
+use simple_error::SimpleError;
+
+use crate::{
+    header::Header,
+    extensions::{Extension, image::ImgParser},
+    raw::{raw_fits::RawFitsReader, BlockSized},
+    bitpix::Bitpix
 };
 
-use crate::raw::header_block::HeaderBlock;
-
-/*
-    A FITS file contains at least one HeaderDataUnit (HDU), but may contain
-    more. This module revolves around the HeaderDataUnit struct.
-
-    Header data units consist of a number of 2880 byte Header blocks, followed
-    by a number of 2880 data blocks (optionally).
-*/
-
-
-/*
-    Public version of the header is a Simple HashMap with a wrapper around it
-    for creating a Header from a FITS HDU or the other way around.
-*/
 #[derive(Debug)]
-pub struct Header {
-    records: HashMap<String, String>
+pub struct HeaderDataUnit {
+    header: Header,
+    data: Option<Extension>
 }
 
-impl Display for Header {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        writeln!(f,">================================<|FITS Header|>================================")?;
-        for (k,v) in &self.records {
-            writeln!(f, ">  [{}] : {}", k, v)?;
+impl HeaderDataUnit {
+
+    pub fn from_raw(raw: &mut RawFitsReader) -> Result<Self, Box<dyn Error>> {
+        
+        //(1) Read the header
+        let header = Header::from_raw(raw)?;
+
+        //(2) Read data, if there is any
+        let extension = match &header.get_record("XTENSION") {
+            None => {
+                /*  (2a)
+                    This is the primary header (or there is simply no data in
+                    this hdu). This means that this HDU may contain random
+                    groups. Random groups and emtpy arrays have the NAXIS 
+                    keyword set to zero.
+                */
+                if header.get_record_as::<usize>("NAXIS")? == 0 {
+                    //For now I'll just return None rather than implement random
+                    //groups
+                    None
+                } else {
+                    //Image
+                    Some(Self::read_img(raw, &header)?)
+                }
+            } Some(extension_type) => {
+                /*  (2b)
+                    This is not a primary header, but the header of an extension
+                    hdu.
+                */
+                match extension_type.as_str() {
+                    "IMAGE" => Some(Self::read_img(raw, &header)?),
+                    kw @ "TABLE" => Err(Self::not_impl(kw))?,
+                    kw @ "BINTABLE" => Err(Self::not_impl(kw))?,
+                    kw => Err(Box::new(SimpleError::new(
+                        format!("Error while constructing HDU: {kw} is not a valid extension type!")
+                    )))?
+                }
+            }
+        };
+        
+        //(3) return complete HDU
+        Ok(HeaderDataUnit {header: header, data: extension})
+    }
+
+    fn read_img(raw: &mut RawFitsReader, header: &Header)
+        -> Result<Extension, Box<dyn Error>>
+    {
+        //Let's start by getting the number of axes
+        let naxis: usize = header.get_record_as("NAXIS")?;
+
+        //And now the lengths
+        let mut axes: Vec<usize> = Vec::new();
+        for i in 1..=naxis {
+            axes.push(header.get_record_as(format!("NAXIS{i}").as_str())?);
         }
-        writeln!(f,">===============================================================================")?;
+
+        //And the datatype ofc
+        let bitpix = Bitpix::from_code(&header.get_record_as("BITPIX")?)?;
+
+        //Now do the actual decoding of the image:
+        Ok(ImgParser::decode_img(raw, &axes, bitpix)?)
+    }
+
+    fn not_impl(keyword: &str) -> Box<SimpleError> {
+        Box::new(SimpleError::new(
+            format!("Error while constructing HDU: extension {keyword} not implemented yet!")
+        ))
+    }
+
+    pub fn pretty_print_header(&self) -> String {
+        format!("[Header] - size: {}, #records: {}",
+            self.header.get_block_len(), self.header.get_num_records()
+        )
+    }
+
+    pub fn pretty_print_data(&self) -> String {
+        let data_string: Cow<str> = match &self.data {
+            None => "(NO_DATA)".into(),
+            Some(data) => format!("{data}").into()
+        };
+        format!("[Data] - {data_string}")
+    }
+}
+
+impl BlockSized for HeaderDataUnit {
+    fn get_block_len(&self) -> usize {
+        self.header.get_block_len() + match &self.data {
+            None => 0,
+            Some(data) => data.get_block_len()
+        }
+    }
+}
+
+impl Display for HeaderDataUnit {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{}", self.pretty_print_header())?;
+        write!(f, "{}", self.pretty_print_data())?;
         Ok(())
     }
-}
-
-impl Header {
-
-    pub fn from(hbs: Vec<HeaderBlock>) -> Result<Self, Box<dyn Error>> {
-
-        //Parse the Keywordrecords to plain Key-Data pairs
-        let mut record_map: HashMap<String, String> = HashMap::new();
-
-        //Keep track of the last keyword for multi-keyword strings
-        let mut last_keyword = String::from("");
-
-        for hb in hbs {          
-            for record in hb.records {
-                //Deal with multi-line strings
-                match record.keyword.as_str() {
-                    "CONTINUE" => {
-                        //This record actually belongs to the previous keyword!
-                        //Should never panic... hopefully
-                        let last_value = record_map.get_mut(
-                            last_keyword.as_str()
-                        ).unwrap();
-
-                        //(1) remove the trailing {&'} from the previous record
-                        last_value.pop();
-                        last_value.pop();            
-
-                        //(2) append the continued value, without the starting
-                        // {'}
-                        let mut next_value = record.value.unwrap();
-                        next_value.remove(0);
-                        last_value.push_str(next_value.as_str());
-
-                        //(3) do not append keyword-record pair as seperate entry
-                        continue;
-                    },
-                    _ => {} //do nothing
-                }
-
-                //update last keyword
-                last_keyword = record.keyword.clone();
-
-                //and add our beatiful string
-                record_map.insert(
-                    record.keyword,
-                    match record.value {
-                        Some(value) => value,
-                        None => String::from("")
-                    }
-                );
-            }
-        }
-        Ok(Header {records:record_map})
-    }
-
-    pub fn get_record(&self, keyword: &str) -> Option<&String> {
-        self.records.get(keyword)
-    }
-
 }

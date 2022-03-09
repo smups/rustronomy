@@ -17,11 +17,35 @@
     along with rustronomy.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-use std::fmt::Debug;
+use std::fmt::Display;
+
+use crate::raw::BlockSized;
+
+use self::image::TypedImage;
 
 //FITS standard-conforming extensions
 pub mod image;
 
-pub trait Xtension:
-    Debug
-{}
+#[derive(Debug)]
+pub enum Extension {
+    Corrupted,
+    Image(TypedImage)
+}
+
+impl BlockSized for Extension {
+    fn get_block_len(&self) -> usize {
+        match &self {
+            Self::Corrupted => 0, //corrupted data is disregarded
+            Self::Image(img) => img.get_block_len()
+        }
+    }
+}
+
+impl Display for Extension {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match &self {
+            Self::Corrupted => write!(f, "(CORRUPTED_DATA)"),
+            Self::Image(img) => write!(f, "(IMAGE) {img}")
+        }
+    }
+}

@@ -21,30 +21,20 @@
     This is the public FITS interface
 */
 
-use std::{
-    path::Path,
-    error::Error,
-    fs::File,
-    io::{BufReader, Read},
-    str::FromStr
-};
-
-use simple_error::SimpleError;
+use core::fmt;
+use std::{path::Path, error::Error, fmt::{Display, Formatter}};
 
 use crate::{
-    header_data_unit::Header,
-    extensions::{Xtension, image::{Image, ImgParser}},
-    bitpix::Bitpix,
     raw::{
-        header_block::HeaderBlock,
-        raw_fits::{RawFitsReader, RawFitsWriter}
-    }
+        raw_fits::{RawFitsReader, RawFitsWriter},
+        BlockSized
+    },
+    header_data_unit::HeaderDataUnit
 };
 
 #[derive(Debug)]
 pub struct Fits {
-    pub header: Header,
-    data: Vec<Box<dyn Xtension>>,
+    hdus: Vec<HeaderDataUnit>,
     reader: Option<RawFitsReader>,
     writer: Option<RawFitsWriter>
 }
@@ -53,84 +43,44 @@ impl Fits {
 
     pub fn open(path: &Path) -> Result<Self, Box<dyn Error>> {
 
-        //(1) Read file as raw fits
-        let mut raw = RawFitsReader::new(path)?;
-
-        //(2) Read Header
-        let (mut hbs, mut end) = (Vec::<HeaderBlock>::new(), false);
-        let mut hb_buf = vec![0u8; 2880]; //1 FITS block
-
-        while !end {
-            //Read the next headerblock (2880 bytes) and decode it!
-            raw.read_blocks(&mut hb_buf)?;
-            let (hb, finished) = HeaderBlock::decode_from_bytes(&hb_buf)?;
-
-            //Append the keywords that we found
-            hbs.push(hb);
-
-            //Update end value
-            end = finished;
-        }
-
-        //Aaand finally we write the contents into a Header
-        let header = Header::from(hbs)?;
-
-        Ok(Fits {
-            header: header,
-            data: Vec::new(),
-            reader: Some(raw),
-            writer: None
-        })
-    }
-
-    //Helper function for parsing keyword records
-    fn parse_keyword_record<T>(&self, keyword: &str)
-        -> Result<T, Box<dyn Error>>
-    where
-        T: FromStr,
-        <T as FromStr>::Err: 'static + Error
-    {
-        match self.header.get_record(keyword) {
-            None => Err(Box::new(SimpleError::new(
-                format!("Error while looking for keyword: keyword [{}] not present in FITS file!", keyword)
-            ))),
-            Some(val) => {
-                //Remove the comment
-                let unparsed = val.split("/").collect::<Vec<_>>()[0].trim();
-                Ok(str::parse::<T>(unparsed)?)
-            }
-        }
-    }
-
-    pub fn read_img(&mut self) -> Result<(), Box<dyn Error>> {
-
-        //Let's start by getting the number of axes
-        let naxis: usize = self.parse_keyword_record("NAXIS")?;
-
-        //And now the lengths
-        let mut axes: Vec<usize> = Vec::new();
-        for i in 1..=naxis {
-            axes.push(self.parse_keyword_record(format!("NAXIS{i}").as_str())?);
-        }
-
-        //And the datatype ofc
-        let bitpix = Bitpix::from_code(
-            &self.parse_keyword_record::<isize>("BITPIX")?
-        )?;
-
-        //Now the scary part: reading the image
-        let img = ImgParser::decode_img(
-            self.reader.as_mut().ok_or(Box::new(SimpleError::new(
-                "Error while parsing image: handle to FITS file stream was lost"
-            )))?,
-            &axes,
-            bitpix
-        )?;
-
-        //Append the image to the fits file
-        self.data.push(img);
+        //(1) Construct a RawFitsReader
+        let mut reader = RawFitsReader::new(path)?;
         
+        //(2) Read HDU's from the fits file until it is empty
+        let mut hdus = Vec::new();
+        while reader.get_block_index() < reader.get_block_len() {
+            hdus.push(HeaderDataUnit::from_raw(&mut reader)?)
+        }
+
+        // (3) return the completed file
+        Ok(Fits {hdus: hdus, reader: Some(reader), writer: None})
+    }
+
+    pub fn get_hdu(&self, index: usize) -> Option<&HeaderDataUnit> {
+        self.hdus.get(index)
+    }
+
+}
+
+impl BlockSized for Fits {
+    fn get_block_len(&self) -> usize {
+        (&self.hdus).iter().fold(0, |sum, hdu| sum + hdu.get_block_len())
+    }
+}
+
+impl Display for Fits {
+    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+        writeln!(f,"\n>=================================<|FITS File|>=================================")?;
+        writeln!(f, ">Total File size in FITS blocks: {}", self.get_block_len())?;
+        writeln!(f, ">Number of Header-Data-Units: {}", self.hdus.len())?;
+        writeln!(f, ">Contents:")?;
+        for (index, hdu) in (&self.hdus).iter().enumerate() {
+            writeln!(f, ">-------------------------------------------------------------------------------\n>  [HDU #{}]", index)?;
+            writeln!(f, ">  Total HDU size in FITS blocks: {}", hdu.get_block_len())?;
+            writeln!(f, ">    {}", hdu.pretty_print_header())?;
+            writeln!(f, ">    {}", hdu.pretty_print_data())?;
+        }
+        writeln!(f,">===============================================================================\n")?;
         Ok(())
     }
-
 }

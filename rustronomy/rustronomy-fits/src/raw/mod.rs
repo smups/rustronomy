@@ -21,3 +21,8 @@
 pub mod raw_fits;
 pub mod keyword_record;
 pub mod header_block;
+
+//IO traits and enums
+pub trait BlockSized {
+    fn get_block_len(&self) -> usize;
+}
