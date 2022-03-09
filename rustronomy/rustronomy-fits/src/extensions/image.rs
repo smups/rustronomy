@@ -59,6 +59,7 @@ impl<T> Image<T> where T: Debug + Num {
 
     //Getters
     pub fn get_data(&self) -> &Array<T, IxDyn> {&self.data}
+    pub fn get_data_owned(self) -> Array<T, IxDyn> {self.data}
     pub fn get_shape(&self) -> &Vec<usize> {&self.shape}
 
     pub fn pretty_print_shape(&self) -> String {
@@ -178,6 +179,60 @@ impl TypedImage {
         match &self {
             Self::DpfImg(img) => Ok(img.get_data()),
             &var => Err(Box::new(SimpleError::new(
+                format!("Tried to borrow {:?} as f64 array", var)
+            )))
+        }
+    }
+
+    pub fn as_owned_u8_array(self) -> Result<Array<u8, IxDyn>, Box<dyn Error>> {
+        match self {
+            Self::ByteImg(img) => Ok(img.get_data_owned()),
+            var => Err(Box::new(SimpleError::new(
+                format!("Tried to borrow {:?} as u8 array", var)
+            )))
+        }
+    }
+
+    pub fn as_owned_i16_array(self) -> Result<Array<i16, IxDyn>, Box<dyn Error>> {
+        match self {
+            Self::I16Img(img) => Ok(img.get_data_owned()),
+            var => Err(Box::new(SimpleError::new(
+                format!("Tried to borrow {:?} as i16 array", var)
+            )))
+        }
+    }
+
+    pub fn as_owned_i32_array(self) -> Result<Array<i32, IxDyn>, Box<dyn Error>> {
+        match self {
+            Self::I32Img(img) => Ok(img.get_data_owned()),
+            var => Err(Box::new(SimpleError::new(
+                format!("Tried to borrow {:?} as i32 array", var)
+            )))
+        }
+    }
+
+    pub fn as_owned_i64_array(self) -> Result<Array<i64, IxDyn>, Box<dyn Error>> {
+        match self {
+            Self::I64Img(img) => Ok(img.get_data_owned()),
+            var => Err(Box::new(SimpleError::new(
+                format!("Tried to borrow {:?} as i64 array", var)
+            )))
+        }
+    }
+
+    pub fn as_owned_f32_array(self) -> Result<Array<f32, IxDyn>, Box<dyn Error>> {
+        match self {
+            Self::SpfImg(img) => Ok(img.get_data_owned()),
+            var => Err(Box::new(SimpleError::new(
+                format!("Tried to borrow {:?} as f32 array", var)
+            )))
+        }
+    }
+
+    pub fn as_owned_f64_array(self) -> Result<Array<f64, IxDyn>, Box<dyn Error>> {
+        match self {
+            Self::DpfImg(img) => Ok(img.get_data_owned()),
+            var => Err(Box::new(SimpleError::new(
                 format!("Tried to borrow {:?} as f64 array", var)
             )))
         }
