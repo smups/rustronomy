@@ -102,6 +102,11 @@ impl HeaderDataUnit {
     pub fn get_header(&self) -> &Header {&self.header}
     pub fn get_data(&self) -> Option<&Extension> {self.data.as_ref()}
 
+    //Destructs HDU into parts
+    pub fn to_parts(self) -> (Header, Option<Extension>) {
+        (self.header, self.data)
+    }
+
     fn not_impl(keyword: &str) -> Box<SimpleError> {
         Box::new(SimpleError::new(
             format!("Error while constructing HDU: extension {keyword} not implemented yet!")
