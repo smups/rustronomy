@@ -4,3 +4,6 @@ members = [
     "rustronomy-fits",
     "rustronomy-sadf"
 ]
+
+[profile.release]
+strip = "debuginfo"
