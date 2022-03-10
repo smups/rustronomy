@@ -1,12 +1,12 @@
 ![rustronomy_dark_banner](https://github.com/smups/rustronomy/blob/main/logos/Rustronomy-fits_github_banner_dark.png?raw=true#gh-light-mode-only)
 ![rustronomy_light_banner](https://github.com/smups/rustronomy/blob/main/logos/Rustronomy-fits_github_banner_light.png#gh-dark-mode-only)
 
-# Rustronomy-fits - a rustronomy tool for FITS file I/O
+# Rustronomy-fits - a Rustronomy tool for FITS file I/O
 _This crate is part of the Rustronomy Project_
-Rustronomy-fits provides I/O tools for reading, writing and parseing FITS files. It is currently still in heavy development.
+Rustronomy-fits provides I/O tools for reading, writing and parsing FITS files. It is currently still under heavy development.
 
-### Features/roadmap
-Rustronomy will support the following features (features marked with ✔️ have already been implemented):
+### Features/Roadmap
+Rustronomy-fits will support the following features (features marked with ✔️ have already been implemented):
 
 _Reading Fits Files_
 - ✔️ Parsing FITS headers and keyword records
@@ -24,7 +24,7 @@ _Writing Fits Files_
   - ❌ a table (to a table)
 
 # Quickstart
-To use Rustronomy-fits in a cargo project, add the rustronomy-fits crate as a dependancy to your `Cargo.toml` file:
+To use Rustronomy-fits in a cargo project, add the rustronomy-fits crate as a dependency to your `Cargo.toml` file:
 ```toml
 [dependencies]
 rustronomy-fits = "0.1.0"
@@ -33,13 +33,13 @@ To use Rustronomy-fits in a Jupyter notebook, execute a cell containing the foll
 ```rust
 :dep rustronomy-fits = {rustronomy-fits = 0.1.0}
 ```
-### Example #1: Importing a FITS Image as a ndarray
+### Example #1: Importing a FITS image as a ndarray
 In this example we'll import an image as a ndarray. To start, we'll load the FITS file using `Fits::open(&path)`. This automatically reads the entire contents of the FITS file to memory and subsequently parses it into its constituent Header-Data-Units.
 ```rust
 let path = PathBuf::from("somefile.fits"); //return type: Result<Fits, _>
 let fits = Fits::open(&path)?;
 ```
-The next step is to view the contents of the file, we can simply print the file:
+The next step is to view the contents of the file. We can simply print the file:
 ```rust
 print!("{fits}");
 ```
@@ -61,7 +61,7 @@ Output:
 >    [Data] - (IMAGE) datatype: f64, shape: (956,1007), size: 2675
 >===============================================================================
 ```
-From the print-out we can see that we a `f64` in the second HDU. HDU's are stored in the Fist struct, and contain a (printable) header and a variant of the `Extension` enum, which we must match to get out our desired image:
+From the printout we can see that we have a `f64` image in the second HDU. HDU's are stored in the `Fits` struct, and contain a (printable) header and a variant of the `Extension` enum, which we must match to get out the desired image:
 ```rust
 let hdu = fits.get_hdu(1).unwrap();
 let data: &Array<f64, IxDyn>;
@@ -73,7 +73,7 @@ match hdu.get_data().unwrap() {
   } _ => {panic!()} //this HDU does not contain an Image
 }
 ```
-As implied above, this code obtains a reference to the Image (in the future this will most likely be changed to an array-view). To get the owned array, we must deconstruct the Fits struct:
+As implied above, this code obtains a reference to the image (in the future this will most likely be changed to an array-view). To get the owned array, we must deconstruct the `Fits` struct:
 ```rust
   let owned_hdu = fits.remove_hdu(1).unwrap();
   let (header, data) = owned_hdu.to_parts();
@@ -91,6 +91,6 @@ _TODO - see roadmap_
 # Contributing
 ### Notes on testing
 If you want to contribute to this module, please keep in mind the following points regarding testing:
-- all I/O tests make use of the `resources/tests/` folder located in the root of the `rustronomy_fits` folder.
-- rustronomy_fits uses the python package astropy as a reference to validate FITS files written during tests. Make sure to setup a python virtual enviroment with astropy and numpy installed to run these tests.
-- to test the reading functionalities of rustronomy_fits, a number of test FITS files are used during testing. These are too large to be uploaded to github. You can download them using this link: [TODO]. Be sure to place them in the `resources/tests` folder.
+- all I/O tests make use of the `resources/tests/` folder, located in the root of the `rustronomy_fits/` folder.
+- rustronomy_fits uses the python package astropy as a reference to validate FITS files written during tests. Make sure to setup a python virtual environment with astropy and numpy installed to run these tests.
+- to test the reading functionalities of rustronomy_fits, a number of test FITS files are used during testing. These are too large to be uploaded to github. You can download them using this link: [TODO]. Be sure to place them in the `resources/tests/` folder.
