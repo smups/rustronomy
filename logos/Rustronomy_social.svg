@@ -9,9 +9,9 @@
    id="svg5"
    inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
    sodipodi:docname="Rustronomy_social.svg"
-   inkscape:export-filename="C:\Users\rawol\Desktop\rustronomy\Rustronomy_ferris.png"
-   inkscape:export-xdpi="81.239372"
-   inkscape:export-ydpi="81.239372"
+   inkscape:export-filename="Rustronomy_social.png"
+   inkscape:export-xdpi="95.999985"
+   inkscape:export-ydpi="95.999985"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -27,7 +27,7 @@
      inkscape:document-units="mm"
      showgrid="true"
      inkscape:zoom="0.87157945"
-     inkscape:cx="479.01542"
+     inkscape:cx="87.198017"
      inkscape:cy="306.3404"
      inkscape:window-width="1920"
      inkscape:window-height="1015"
@@ -273,6 +273,13 @@
      id="layer1"
      transform="translate(-4.0567353,-44.361514)"
      style="display:inline">
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+       id="rect46448"
+       width="338.66666"
+       height="169.33333"
+       x="4.0567355"
+       y="44.361515" />
     <g
        id="g601"
        transform="matrix(0.46980499,0,0,0.46980499,119.08544,47.447688)">
