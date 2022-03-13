@@ -62,7 +62,7 @@ impl Fits {
 
     pub fn remove_hdu(&mut self, index: usize) -> Option<HeaderDataUnit> {
         if self.hdus.len() < index {return None}
-        Some(self.hdus.remove(0))
+        Some(self.hdus.remove(index))
     }
 
 }
