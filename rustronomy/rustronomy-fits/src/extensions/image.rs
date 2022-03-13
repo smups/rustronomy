@@ -127,7 +127,6 @@ impl Display for TypedImage {
        }
     }
 }
-
 impl TypedImage {
 
     pub fn as_u8_array(&self) -> Result<&Array<u8, IxDyn>, Box<dyn Error>> {
@@ -188,7 +187,7 @@ impl TypedImage {
         match self {
             Self::ByteImg(img) => Ok(img.get_data_owned()),
             var => Err(Box::new(SimpleError::new(
-                format!("Tried to borrow {:?} as u8 array", var)
+                format!("Tried to convert {:?} to an u8 array", var)
             )))
         }
     }
@@ -197,7 +196,7 @@ impl TypedImage {
         match self {
             Self::I16Img(img) => Ok(img.get_data_owned()),
             var => Err(Box::new(SimpleError::new(
-                format!("Tried to borrow {:?} as i16 array", var)
+                format!("Tried to convert {:?} to an i16 array", var)
             )))
         }
     }
@@ -206,7 +205,7 @@ impl TypedImage {
         match self {
             Self::I32Img(img) => Ok(img.get_data_owned()),
             var => Err(Box::new(SimpleError::new(
-                format!("Tried to borrow {:?} as i32 array", var)
+                format!("Tried to convert {:?} to an i32 array", var)
             )))
         }
     }
@@ -215,7 +214,7 @@ impl TypedImage {
         match self {
             Self::I64Img(img) => Ok(img.get_data_owned()),
             var => Err(Box::new(SimpleError::new(
-                format!("Tried to borrow {:?} as i64 array", var)
+                format!("Tried to convert {:?} to an i64 array", var)
             )))
         }
     }
@@ -224,7 +223,7 @@ impl TypedImage {
         match self {
             Self::SpfImg(img) => Ok(img.get_data_owned()),
             var => Err(Box::new(SimpleError::new(
-                format!("Tried to borrow {:?} as f32 array", var)
+                format!("Tried to convert {:?} to an f32 array", var)
             )))
         }
     }
@@ -233,7 +232,7 @@ impl TypedImage {
         match self {
             Self::DpfImg(img) => Ok(img.get_data_owned()),
             var => Err(Box::new(SimpleError::new(
-                format!("Tried to borrow {:?} as f64 array", var)
+                format!("Tried to convert {:?} to an f64 array", var)
             )))
         }
     }
