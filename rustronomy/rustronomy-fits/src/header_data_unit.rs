@@ -43,7 +43,7 @@ impl HeaderDataUnit {
         let header = Header::from_raw(raw)?;
 
         //(2) Read data, if there is any
-        let extension = match &header.get_record("XTENSION") {
+        let extension = match &header.get_value("XTENSION") {
             None => {
                 /*  (2a)
                     This is the primary header (or there is simply no data in
@@ -51,7 +51,7 @@ impl HeaderDataUnit {
                     groups. Random groups and emtpy arrays have the NAXIS 
                     keyword set to zero.
                 */
-                if header.get_record_as::<usize>("NAXIS")? == 0 {
+                if header.get_value_as::<usize>("NAXIS")? == 0 {
                     //For now I'll just return None rather than implement random
                     //groups
                     None
@@ -83,16 +83,16 @@ impl HeaderDataUnit {
         -> Result<Extension, Box<dyn Error>>
     {
         //Let's start by getting the number of axes
-        let naxis: usize = header.get_record_as("NAXIS")?;
+        let naxis: usize = header.get_value_as("NAXIS")?;
 
         //And now the lengths
         let mut axes: Vec<usize> = Vec::new();
         for i in 1..=naxis {
-            axes.push(header.get_record_as(format!("NAXIS{i}").as_str())?);
+            axes.push(header.get_value_as(format!("NAXIS{i}").as_str())?);
         }
 
         //And the datatype ofc
-        let bitpix = Bitpix::from_code(&header.get_record_as("BITPIX")?)?;
+        let bitpix = Bitpix::from_code(&header.get_value_as("BITPIX")?)?;
 
         //Now do the actual decoding of the image:
         Ok(ImgParser::decode_img(raw, &axes, bitpix)?)

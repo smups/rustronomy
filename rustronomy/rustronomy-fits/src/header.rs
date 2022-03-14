@@ -42,7 +42,7 @@ use crate::raw::{header_block::HeaderBlock, raw_fits::RawFitsReader, BlockSized}
 */
 #[derive(Debug)]
 pub struct Header {
-    records: HashMap<String, String>,
+    records: HashMap<String, (String, String)>,
     block_len: usize
 }
 
@@ -50,8 +50,8 @@ impl Display for Header {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         writeln!(f,">================================<|FITS Header|>================================")?;
         writeln!(f, ">Size in FITS blocks: {}", self.block_len)?;
-        for (k,v) in &self.records {
-            writeln!(f, ">  [{}] : {}", k, v)?;
+        for (key,(val, com)) in &self.records {
+            writeln!(f, ">  [{}] : {} //{}", key, val, com)?;
         }
         writeln!(f,">===============================================================================")?;
         Ok(())
@@ -89,7 +89,7 @@ impl Header {
         -> Result<Self, Box<dyn Error>>
     {
         //Parse the Keywordrecords to plain Key-Data pairs
-        let mut record_map: HashMap<String, String> = HashMap::new();
+        let mut record_map: HashMap<String, (String, String)> = HashMap::new();
 
         //Keep track of the last keyword for multi-keyword strings
         let mut last_keyword = String::from("");
@@ -102,7 +102,7 @@ impl Header {
                     "CONTINUE" => {
                         //This record actually belongs to the previous keyword!
                         //Should never panic... hopefully
-                        let last_value = record_map.get_mut(
+                        let (last_value, last_comment) = record_map.get_mut(
                             last_keyword.as_str()
                         ).unwrap();
 
@@ -124,10 +124,16 @@ impl Header {
                 //and add our beatiful string
                 record_map.insert(
                     record.keyword,
-                    match record.value {
+                    ( //Value is a tuple containing the value and comment
+                        //associated with the keyword!
+                        match record.value {
                         Some(value) => value,
                         None => String::from("")
-                    }
+                        }, match record.comment {
+                        Some(comment) => comment,
+                        None => String::from("")
+                        }
+                    )
                 );
             }
         }
@@ -135,26 +141,40 @@ impl Header {
         Ok(Header {records: record_map, block_len: block_len})
     }
 
-    pub fn get_record(&self, keyword: &str) -> Option<&String> {
+    /*
+        Some getters for full records and single values or comments (just some
+        utility funcs)
+    */
+    pub fn get_record(&self, keyword: &str) -> Option<&(String, String)> {
         self.records.get(keyword)
     }
 
+    pub fn get_value(&self, keyword: &str) -> Option<&String> {
+        match self.records.get(keyword) {
+            Some((val, _com)) => Some(val),
+            None => None
+        }
+    }
+
+    pub fn get_comment(&self, keyword: &str) -> Option<&String> {
+        match self.records.get(keyword) {
+            Some((_val, com)) => Some(com),
+            None => None
+        }
+    }
+
     //Helper function for parsing keyword records
-    pub fn get_record_as<T>(&self, keyword: &str)
+    pub fn get_value_as<T>(&self, keyword: &str)
         -> Result<T, Box<dyn Error>>
     where
         T: FromStr,
         <T as FromStr>::Err: 'static + Error
     {
-        match self.get_record(keyword) {
+        match self.get_value(keyword) {
             None => Err(Box::new(SimpleError::new(
                 format!("Error while looking for keyword: keyword [{}] not present in FITS file!", keyword)
             ))),
-            Some(val) => {
-                //Remove the comment
-                let unparsed = val.split("/").collect::<Vec<_>>()[0].trim();
-                Ok(str::parse::<T>(unparsed)?)
-            }
+            Some(val) => Ok(str::parse::<T>(val)?)
         }
     }
 
