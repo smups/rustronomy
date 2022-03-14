@@ -19,7 +19,7 @@
 
 use std::{path::PathBuf, fs, time::Instant};
 
-use rustronomy_fits::fits::Fits;
+use rustronomy_fits as rfs;
 
 const BENCH_FOLDER: &str = "resources/tests/real_assortment";
 
@@ -35,7 +35,7 @@ fn read_fits_benchmark() {
 
     for path in fs::read_dir(root).unwrap() {
         let now = Instant::now();
-        let fits = Fits::open(&path.unwrap().path()).unwrap();
+        let fits = rfs::Fits::open(&path.unwrap().path()).unwrap();
         let time = now.elapsed().as_micros();
         println!("Read time: {time}μs");
         times.push(time);

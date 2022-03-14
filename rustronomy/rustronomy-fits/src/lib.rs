@@ -18,12 +18,18 @@
 */
 
 //Module structure
-pub mod header;
-pub mod bitpix;
-pub mod fits;
-pub mod extensions;
-pub mod raw;
-pub mod header_data_unit;
+mod header;
+mod bitpix;
+mod fits;
+mod extensions;
+mod raw;
+mod header_data_unit;
 
 //Constants defined by the FITS standard
 pub const BLOCK_SIZE: usize = 2880;
+
+//Public api re-exports
+pub use fits::Fits as Fits;
+pub use header::Header as Header;
+pub use header_data_unit::HeaderDataUnit as HeaderDataUnit;
+pub use extensions::Extension as Extension;
