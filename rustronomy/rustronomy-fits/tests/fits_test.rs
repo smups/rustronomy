@@ -21,7 +21,7 @@ use std::path::PathBuf;
 
 use rustronomy_fits as rfs;
 
-static REAL_FILE: &str = "resources/tests/real.fits";
+static REAL_FILE: &str = "resources/Hubble_NICMOS.fits";
 
 #[test]
 fn read_fits_test() {
@@ -33,13 +33,13 @@ fn read_fits_test() {
     print!("{fits}");
 
     //Destruct the FITS file
-    let hdu = fits.remove_hdu(0).unwrap();
+    let hdu = fits.remove_hdu(1).unwrap();
     let (header, data) = hdu.to_parts();
     println!("{header}");
 
     //Get the data as an array
     let array = match data.unwrap() {
-        rfs::Extension::Image(img) => img.as_owned_f64_array().unwrap(),
+        rfs::Extension::Image(img) => img.as_owned_f32_array().unwrap(),
         _ => panic!()
     };
     println!("{array}");
