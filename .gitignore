@@ -1,11 +1,4 @@
 rustronomy/target
-rustronomy/rustronomy-fits/resources/tests/*
-
-Cargo.lock
+rustronomy/Cargo.lock
 
 .vscode/
-
-SADF/*
-!SADF/SADF_2021_1.tex
-!SADF/SADF_2021_1.txt
-!SADF/SADF_2021_1.pdf
