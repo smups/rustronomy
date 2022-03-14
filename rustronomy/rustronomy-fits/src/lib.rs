@@ -33,3 +33,11 @@ pub use fits::Fits as Fits;
 pub use header::Header as Header;
 pub use header_data_unit::HeaderDataUnit as HeaderDataUnit;
 pub use extensions::Extension as Extension;
+
+//prelude (kinda pointless rn but whatev)
+pub mod prelude {
+    pub use crate::fits::Fits as Fits;
+    pub use crate::header::Header as Header;
+    pub use crate::header_data_unit::HeaderDataUnit as HeaderDataUnit;
+    pub use crate::extensions::Extension as Extension;
+}
