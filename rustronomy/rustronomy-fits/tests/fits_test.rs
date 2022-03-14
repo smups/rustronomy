@@ -29,15 +29,18 @@ fn read_fits_test() {
     let mut real = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
     real.push(REAL_FILE);
 
-    let fits_real = rfs::Fits::open(&real).unwrap();
-    print!("{fits_real}");
+    let mut fits = rfs::Fits::open(&real).unwrap();
+    print!("{fits}");
 
-    //Get the data out of the fits file
-    let hdu = fits_real.get_hdu(0).unwrap();
-    let data = match hdu.get_data().unwrap() {
-        rfs::Extension::Image(img) => img.as_f64_array().unwrap(),
-        _ => {panic!()} //do nothing
+    //Destruct the FITS file
+    let hdu = fits.remove_hdu(0).unwrap();
+    let (header, data) = hdu.to_parts();
+    println!("{header}");
+
+    //Get the data as an array
+    let array = match data.unwrap() {
+        rfs::Extension::Image(img) => img.as_owned_f64_array().unwrap(),
+        _ => panic!()
     };
-
-    println!("{data}");
+    println!("{array}");
 }

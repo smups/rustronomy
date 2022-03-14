@@ -51,7 +51,19 @@ impl Display for Header {
         writeln!(f,">================================<|FITS Header|>================================")?;
         writeln!(f, ">Size in FITS blocks: {}", self.block_len)?;
         for (key,(val, com)) in &self.records {
-            writeln!(f, ">  [{}] : {} //{}", key, val, com)?;
+            if key.as_str() == "" {
+                if com.as_str() == "" {
+                    writeln!(f, ">")?;
+                } else {
+                    writeln!(f, ">  //{com}")?;
+                }
+            } else {
+                if com.as_str() == "" {
+                    writeln!(f, ">  [{key}] - {val}")?;
+                } else {
+                    writeln!(f, ">  [{key}] - {val} //{com}")?;
+                }
+            }
         }
         writeln!(f,">===============================================================================")?;
         Ok(())
