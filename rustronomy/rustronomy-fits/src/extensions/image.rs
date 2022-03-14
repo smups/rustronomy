@@ -24,7 +24,7 @@ use std::{
     fmt::Display
 };
 
-use ndarray::{Array, IxDyn, Array1};
+use ndarray::{Array, IxDyn, ShapeBuilder};
 use num_traits::Num;
 use simple_error::SimpleError;
 
@@ -318,12 +318,14 @@ impl ImgParser {
         */
         flat.truncate(n_entries);
 
-        //(4) Next we turn the (VERY EXPENSIVE) vector into an array:
-        let flat_arr = Array1::<T>::from_vec(flat);
-        
-        //which we reshape into the desired form
-        let img_data = flat_arr.into_shape(shape.to_vec())?;
-        //print!("{img_data}");
+        /*  (4)
+            The next step is to convert the flat vector into an array of an
+            appropriate size. Note that the FITS specification states that Images
+            are represented in the Fortran (column-major) memory-layout, not 
+            row-major like C and Rust. Hence we have to call the .f() function
+            on the shape of the array to tell ndarray that we have a Fortran array.
+        */
+        let img_data = Array::from_shape_vec(shape.clone().f(), flat)?;
 
         Ok(Image::<T> {shape: shape.to_vec(), data: img_data, block_size: total_blocks})
     }
