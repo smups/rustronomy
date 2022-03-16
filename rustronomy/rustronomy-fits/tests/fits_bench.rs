@@ -27,7 +27,7 @@ use std::{
 use nd::Array2;
 use rustronomy_fits as rfs;
 use ndarray as nd;
-use plotters::prelude::*;
+//use plotters::prelude::*;
 
 //Starfields of M37 taken by myself
 const BENCH_FOLDER: &str = "resources/bench_data";
@@ -66,7 +66,7 @@ fn read_fits_benchmark() {
 
     println!("Average read time: {}ms", read_times.iter().sum::<u128>() as usize / read_times.len());
 }
-
+/*
 fn plot(img: Array2<f64>, output: &std::path::Path) {
 
     //Calculate size of the image
@@ -110,3 +110,4 @@ fn grey_scale(count: f64, min: f64, log_max: f64)
 
     Ok(RGBColor(col, col, col))
 }
+*/

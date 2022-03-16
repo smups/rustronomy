@@ -123,44 +123,62 @@ impl KeywordRecord {
     pub fn encode_fill_buff(self, buf: &mut Vec<u8>) -> Result<(), Box<dyn Error>>{
 
         //keep track of how long the last keyword is
-        let mut last_keywordrec_size = 8usize;
+        let mut one_rec_buf = Vec::new();
         
         //(1) Encode keyword and make sure it's 8 bytes long
         let keyword_len = self.keyword.len();
-        self.keyword.fill_buf(buf);
-        for _ in 0..(8-keyword_len) {buf.push(0);}
+        self.keyword.fill_buf(&mut one_rec_buf);
+        for _ in 0..(8-keyword_len) {one_rec_buf.push(b' ');}
 
         //(2) Encode value
         match self.value {
             None => {} //do nothing
             Some(mut val) => {
                 //(2a) add the value indicator
-                String::from("= ").fill_buf(buf);
-                last_keywordrec_size += 2;
+                String::from("= ").fill_buf(&mut one_rec_buf);
 
                 //(2b) check if the value spans multiple keywordrecords
                 if val.len() < 70 {
-                    val.fill_buf(buf);
-                    last_keywordrec_size += val.len();
+                    val.fill_buf(&mut one_rec_buf);
                 }
                 else {
                     //Write first string to the record with the keyword
                     let mut first = val.split_off(68);
                     first += "&'";
-                    first.fill_buf(buf);
+                    first.fill_buf(&mut one_rec_buf);
+
+                    //Write to the header buffer
+                    assert!(one_rec_buf.len() == 80);
+                    buf.append(&mut one_rec_buf);
 
                     //Write the remaining part of the string to CONTINUE records
-                    let mut keywordrec = String::from("CONTINUE= '");
+                    let mut continue_buf = Vec::new();
+                    String::from("CONTINUE= '").fill_buf(&mut continue_buf);
+
                     while val.len() > 0 {
-                        if keywordrec.len() == 78 {
-                            keywordrec += "&'";
-                            keywordrec.fill_buf(buf);
-                            keywordrec = String::from("CONTINUE= '");
+                        if continue_buf.len() == 78 {
+                            continue_buf.push(b'&');
+                            continue_buf.push(b"'"[0]);
+
+                            //Write to the header buffer
+                            assert!(continue_buf.len() == 80);
+                            buf.append(&mut continue_buf);
+                        }
+                        match val.pop() {
+                            Some(ch) => continue_buf.push(ch as u8),
+                            None => {} //Loop will break
                         }
                     }
 
                     //Last keyword record may not have full length value
-                    last_keywordrec_size += keywordrec.len();
+                    for _ in 0..(80 - continue_buf.len()) {continue_buf.push(b' ');}
+
+                    //Write to the header buffer
+                    assert!(continue_buf.len() == 80);
+                    buf.append(&mut continue_buf);
+
+                    //we're done
+                    return Ok(());
                 }
             }
         }
@@ -169,13 +187,17 @@ impl KeywordRecord {
         match self.comment {
             None => {}, //do nothing
             Some(com) => {
-                com.fill_buf(buf);
-                last_keywordrec_size += com.len();
+                String::from("/").fill_buf(&mut one_rec_buf);
+                com.fill_buf(&mut one_rec_buf);
             }
         }
 
         //(4) Make sure the keywordrecord is 80 bytes long
-        for _ in 0..(80-last_keywordrec_size) {buf.push(b' ');}
+        for _ in 0..(80-one_rec_buf.len()) {one_rec_buf.push(b' ');}
+
+        //write to the header buffer
+        assert!(one_rec_buf.len() == 80);
+        buf.append(&mut one_rec_buf);
 
         Ok(())
     }

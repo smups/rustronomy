@@ -13,4 +13,5 @@ num-traits = "0.2"
 rustronomy-core = {path = "../rustronomy-core"}
 
 [dev-dependencies]
-plotters = {git = "https://github.com/38/plotters"}
+#plotters = {git = "https://github.com/38/plotters"}
+dirs = "4"

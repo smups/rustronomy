@@ -19,17 +19,19 @@
 
 use std::path::PathBuf;
 
-use rustronomy_fits as rfs;
+use rustronomy_fits as rsf;
+
+use dirs;
 
 static REAL_FILE: &str = "resources/Hubble_NICMOS.fits";
 
 #[test]
-fn read_fits_test() {
+fn read_test() {
 
     let mut real = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
     real.push(REAL_FILE);
 
-    let mut fits = rfs::Fits::open(&real).unwrap();
+    let mut fits = rsf::Fits::open(&real).unwrap();
     print!("{fits}");
 
     //Destruct the FITS file
@@ -39,8 +41,30 @@ fn read_fits_test() {
 
     //Get the data as an array
     let array = match data.unwrap() {
-        rfs::Extension::Image(img) => img.as_owned_f32_array().unwrap(),
+        rsf::Extension::Image(img) => img.as_owned_f32_array().unwrap(),
         _ => panic!()
     };
     println!("{array}");
+}
+
+#[test]
+fn write_correctness_test() {
+    let mut real_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+    real_path.push(REAL_FILE);
+
+    //Read the FITS file and make a copy
+    let fits = rsf::Fits::open(&real_path).unwrap();
+    let original = fits.clone();
+
+    //Write the FITS file under a new name
+    let chc  = dirs::cache_dir().unwrap();
+    let mut copy_path = chc.clone();
+    copy_path.push("copy.fits");
+
+    fits.write(&copy_path.clone()).unwrap();
+
+    //Read it back
+    let tested = rsf::Fits::open(&copy_path.clone()).unwrap();
+    print!("{original}");
+    print!("{tested}");
 }

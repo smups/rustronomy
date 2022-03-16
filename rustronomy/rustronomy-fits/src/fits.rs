@@ -59,9 +59,17 @@ impl Fits {
     pub fn write(self, path: &Path) -> Result<(), Box<dyn Error>> {
         //(1) Construct a RawFitsWriter
         let mut writer = RawFitsWriter::new(path)?;
-        
+
+        println!("started writing FITS file...");
+
+        let mut i = 0;
+
         //(2) Write all HDU's to this thing
-        for hdu in self.hdus {hdu.encode_hdu(&mut writer)?;}
+        for hdu in self.hdus {
+            println!("Writing HDU#{i}");
+            hdu.encode_hdu(&mut writer)?;
+            i+=1;
+        }
 
         //(3) Flush writer and close the file
         writer.flush()?;

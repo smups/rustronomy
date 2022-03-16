@@ -409,6 +409,8 @@ impl ImgParser {
         */
         let total_byte_size = raw.len() * size_of::<T>();
 
+        println!(">  Image size: {}B", total_byte_size);
+
         /*  Note:
             This total block size rounds down the number of blocks required to
             write the entire array if the total byte size is not cleanly divisible
@@ -423,8 +425,9 @@ impl ImgParser {
         while !raw.is_empty() {
             //If the buffer is full we write it and replace it with an empty buf
             if buffer.len() == buf_size {
+                println!(">  *writing {} bytes*", buf_size);
                 writer.write_blocks(&buffer)?;
-                buffer = Vec::new();
+                buffer.clear();
             }
             match raw.pop() {
                 Some(val) => val.fill_buf(&mut buffer),
@@ -436,9 +439,10 @@ impl ImgParser {
         //the buffer will not be empty after this loop. We have to fill it with
         //zeroes untill it is a multiple of the FITS block size
         if !buffer.is_empty() {
-            while buffer.len() % BLOCK_SIZE == 0 {
+            while buffer.len() % BLOCK_SIZE != 0 {
                 buffer.push(0);
             }
+            println!(">  *writing {} bytes*", buffer.len());
             writer.write_blocks(&buffer)?;
         }
 

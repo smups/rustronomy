@@ -152,6 +152,13 @@ impl Header {
             record.encode_fill_buff(&mut buf)?;
         }
 
+        //We musn´t forget to add an END keyword!
+        KeywordRecord{
+            keyword: Rc::new(String::from("END     ")),
+            value: None,
+            comment: None
+        }.encode_fill_buff(&mut buf)?;
+
         //make sure that the size of the whole header is an integer multiple
         //of the block size. Btw we fill it with spaces not zeroes
         while buf.len() % BLOCK_SIZE != 0 {buf.push(b' ');}
