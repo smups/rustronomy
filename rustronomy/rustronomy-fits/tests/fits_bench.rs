@@ -80,6 +80,7 @@ fn read_fits_benchmark() {
         let time = now.elapsed().as_millis();
         println!("Read time: {time}ms");
         plot_times.push(time);
+        
     }
 
 

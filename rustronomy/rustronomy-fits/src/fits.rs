@@ -52,8 +52,9 @@ impl Fits {
             hdus.push(HeaderDataUnit::from_raw(&mut reader)?)
         }
 
+        //File is empty, we don't need the reader anymore!
         // (3) return the completed file
-        Ok(Fits {hdus: hdus, reader: Some(reader), writer: None})
+        Ok(Fits {hdus: hdus, reader: None, writer: None})
     }
 
     pub fn get_hdu(&self, index: usize) -> Option<&HeaderDataUnit> {

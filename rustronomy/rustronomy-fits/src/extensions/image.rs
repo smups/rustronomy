@@ -295,7 +295,7 @@ impl ImgParser {
 
         //Create the vector underpinning the ndarray and the reusable buffer
         let mut flat: Vec<T> = Vec::new();
-        let mut buf = vec![0u8; buf_size.try_into().unwrap()];
+        let mut buf = vec![0u8; buf_size];
 
         //calculate number of entries in a buffer
         let entries_in_buffer = buf_size / entry_size;
@@ -337,6 +337,23 @@ impl ImgParser {
             As per the FITS standard, we may only read a FITS block of bytes per
             read. We want the largest integer multiple of the size of a FITS block
             below a maximum buffer size (around ~370kB).
+
+            I decided to tune the maximum buffer size with the fits_bench.rs
+            test (reading a bunch of 7MB files).
+            
+            These were the results (actual block size listed for clarity)
+            [Block size]    [Byte size]     [Read time]
+                1           2880B           135ms
+                25          72kB            130ms
+                107         308kB           137ms
+                535         1.54MB          131ms
+                2675        7.70MB          134ms
+
+            Conclusion: This limit does not matter **at all*
+            Reason: the buffer is heap-allocated, which means that cache optimi-
+            zations don't work.
+            RFC #1909 will implement this feature in the future, so I'll leave
+            the code intact for now...
         */
 
         let mut n_buf_blocks = 1;
