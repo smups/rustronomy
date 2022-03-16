@@ -40,7 +40,7 @@ impl HeaderDataUnit {
     pub fn from_raw(raw: &mut RawFitsReader) -> Result<Self, Box<dyn Error>> {
         
         //(1) Read the header
-        let header = Header::from_raw(raw)?;
+        let header = Header::decode_header(raw)?;
 
         //(2) Read data, if there is any
         let extension = match &header.get_value("XTENSION") {

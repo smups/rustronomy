@@ -29,10 +29,12 @@ use simple_error::SimpleError;
 
 use crate::raw::{
     header_block::HeaderBlock,
-    raw_io::RawFitsReader,
+    raw_io::{RawFitsReader, RawFitsWriter},
     BlockSized,
     keyword_record::KeywordRecord
 };
+
+const BLOCK_SIZE: usize = crate::BLOCK_SIZE;
 
 /*
     A FITS file contains at least one HeaderDataUnit (HDU), but may contain
@@ -67,7 +69,7 @@ impl Display for Header {
 
 impl Header {
 
-    pub fn from_raw(raw: &mut RawFitsReader) -> Result<Self, Box<dyn Error>> {
+    pub fn decode_header(raw: &mut RawFitsReader) -> Result<Self, Box<dyn Error>> {
         /*  Setup:
             We'll keep reading headerblocks (= FITS blocks) untill we encounter
             the END keyword. We'll also have to keep track of the block size of
@@ -92,7 +94,7 @@ impl Header {
         Ok(Self::from_parts(hbs, block_len)?)
     }
 
-    pub fn from_parts(hbs: Vec<HeaderBlock>, block_len: usize)
+    fn from_parts(hbs: Vec<HeaderBlock>, block_len: usize)
         -> Result<Self, Box<dyn Error>>
     {
         //Parse the Keywordrecords to plain Key-Data pairs
@@ -137,6 +139,28 @@ impl Header {
         }
 
         Ok(Header {records: parsed_map, block_len: block_len})
+    }
+
+    pub fn encode_header(self, writer: &mut RawFitsWriter)
+        -> Result<(), Box<dyn Error>>
+    {
+        //Buffer to write whole header in one go.
+        //Also keeps track of number of bytes we wrote to the header!
+        let mut buf = Vec::new();
+
+        for (_, record) in self.records {
+            record.encode_fill_buff(&mut buf)?;
+        }
+
+        //make sure that the size of the whole header is an integer multiple
+        //of the block size. Btw we fill it with spaces not zeroes
+        while buf.len() % BLOCK_SIZE != 0 {buf.push(b' ');}
+
+        //...write the thing
+        writer.write_blocks(&buf)?;
+
+        //(R) we good
+        Ok(())
     }
 
     /*
