@@ -18,7 +18,7 @@
 */
 
 use std::{
-    io::{BufReader, Read, BufWriter, Write},
+    io::{Read, Write},
     fs::{File, Metadata},
     error::Error,
     path::Path
@@ -34,7 +34,7 @@ pub struct RawFitsReader {
     pub file_meta: Metadata,
     block_index: usize,
     n_fits_blocks: usize,
-    reader_handle: BufReader<File>
+    reader_handle: File
 }
 
 impl RawFitsReader {
@@ -60,7 +60,7 @@ impl RawFitsReader {
             file_meta:meta,
             block_index: 0,
             n_fits_blocks: n_blocks,
-            reader_handle: BufReader::new(f)
+            reader_handle: f
         })
     }
 
@@ -101,7 +101,7 @@ impl RawFitsReader {
 #[derive(Debug)]
 pub struct RawFitsWriter{
     pub file_meta: Metadata,
-    writer_handle: BufWriter<File>
+    writer_handle: File
 }
 
 impl RawFitsWriter {
@@ -112,10 +112,9 @@ impl RawFitsWriter {
 
         //(2) Create the required derivatives
         let meta = out.metadata()?;
-        let handle = BufWriter::new(out);
 
         //(R)
-        Ok(RawFitsWriter{file_meta: meta, writer_handle: handle})
+        Ok(RawFitsWriter{file_meta: meta, writer_handle: out})
     }
 
     pub fn write_blocks(&mut self, buffer: &[u8])
