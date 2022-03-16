@@ -334,7 +334,25 @@ impl ImgParser {
     }
 
     //Public encoder for parsing Images. Consumes the image it encodes
-    pub fn encode_img<T>(img: Image<T>, writer: &mut RawFitsWriter)
+    pub fn encode_img(typed_img: TypedImage, writer: &mut RawFitsWriter)
+        -> Result<(), Box<dyn Error>>
+    {
+        //This function only matches the typed image and calls the appropriate
+        //helper function
+        match typed_img {
+            TypedImage::ByteImg(img) => Self::encode_helper(img, writer)?,
+            TypedImage::I16Img(img) => Self::encode_helper(img, writer)?,
+            TypedImage::I32Img(img) => Self::encode_helper(img, writer)?,
+            TypedImage::I64Img(img) => Self::encode_helper(img, writer)?,
+            TypedImage::SpfImg(img) => Self::encode_helper(img, writer)?,
+            TypedImage::DpfImg(img) => Self::encode_helper(img, writer)?,
+        }
+
+        //(R) this went ok
+        Ok(())
+    }
+
+    fn encode_helper<T>(img: Image<T>, writer: &mut RawFitsWriter)
         -> Result<(), Box<dyn Error>>
     where
         T: Debug + Num + Sized + Decode + Encode + Display + Clone
