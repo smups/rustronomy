@@ -42,14 +42,13 @@ pub struct Fits {
 impl Fits {
 
     pub fn open(path: &Path) -> Result<Self, Box<dyn Error>> {
-
         //(1) Construct a RawFitsReader
         let mut reader = RawFitsReader::new(path)?;
         
         //(2) Read HDU's from the fits file until it is empty
         let mut hdus = Vec::new();
         while reader.get_block_index() < reader.get_block_len() {
-            hdus.push(HeaderDataUnit::from_raw(&mut reader)?)
+            hdus.push(HeaderDataUnit::decode_hdu(&mut reader)?)
         }
 
         //File is empty, we don't need the reader anymore!
@@ -58,7 +57,17 @@ impl Fits {
     }
 
     pub fn write(self, path: &Path) -> Result<(), Box<dyn Error>> {
-        todo!()
+        //(1) Construct a RawFitsWriter
+        let mut writer = RawFitsWriter::new(path)?;
+        
+        //(2) Write all HDU's to this thing
+        for hdu in self.hdus {hdu.encode_hdu(&mut writer)?;}
+
+        //(3) Flush writer and close the file
+        writer.flush()?;
+
+        //(R) done
+        Ok(())
     }
 
     pub fn get_hdu(&self, index: usize) -> Option<&HeaderDataUnit> {
