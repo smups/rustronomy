@@ -56,13 +56,13 @@ fn read_fits_benchmark() {
 
     //These are all ~7MB files.
     //Result (Ryzen 3600X, NVME SSD) average read time ~131ms
-    for (index, path) in fs::read_dir(data_f).unwrap().enumerate() {
+    for (_index, path) in fs::read_dir(data_f).unwrap().enumerate() {
         let now = Instant::now();
-        let mut fits = rfs::Fits::open(&path.unwrap().path()).unwrap();
+        let _fits = rfs::Fits::open(&path.unwrap().path()).unwrap();
         let time = now.elapsed().as_millis();
+        read_times.push(time);
         println!("Read time: {time}ms");   
     }
-
 
     println!("Average read time: {}ms", read_times.iter().sum::<u128>() as usize / read_times.len());
 }
