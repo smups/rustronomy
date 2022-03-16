@@ -25,7 +25,7 @@ use simple_error::SimpleError;
 use crate::{
     header::Header,
     extensions::{Extension, image::ImgParser},
-    raw::{raw_io::RawFitsReader, BlockSized},
+    raw::{raw_io::{RawFitsReader, RawFitsWriter}, BlockSized},
     bitpix::Bitpix
 };
 
@@ -37,7 +37,7 @@ pub struct HeaderDataUnit {
 
 impl HeaderDataUnit {
 
-    pub fn from_raw(raw: &mut RawFitsReader) -> Result<Self, Box<dyn Error>> {
+    pub fn decode_hdu(raw: &mut RawFitsReader) -> Result<Self, Box<dyn Error>> {
         
         //(1) Read the header
         let header = Header::decode_header(raw)?;
@@ -96,6 +96,22 @@ impl HeaderDataUnit {
 
         //Now do the actual decoding of the image:
         Ok(ImgParser::decode_img(raw, &axes, bitpix)?)
+    }
+
+    pub fn encode_hdu(self, writer: &mut RawFitsWriter)
+        -> Result<(), Box<dyn Error>>
+    {
+        //(1) Write header
+        self.header.encode_header(writer)?;
+
+        //(2) If we have data, write the data
+        match self.data {
+            Some(data) => data.write_to_buffer(writer)?,
+            _ => {}//no data, do nothing
+        }
+
+        //(R) ok
+        Ok(())
     }
 
     //Some simple getters
