@@ -28,10 +28,10 @@ use ndarray::{Array, IxDyn, ShapeBuilder};
 use num_traits::Num;
 use simple_error::SimpleError;
 
-use crate::{bitpix::Bitpix, raw::{raw_io::RawFitsReader, BlockSized}};
+use crate::{bitpix::Bitpix, raw::{raw_io::{RawFitsReader, RawFitsWriter}, BlockSized}};
 use super::Extension;
 
-use rustronomy_core::data_type_traits::io_utils::Decode;
+use rustronomy_core::data_type_traits::io_utils::{Decode, Encode};
 
 //Get block size from root
 const BLOCK_SIZE: usize = crate::BLOCK_SIZE; // = 2880B
@@ -42,21 +42,24 @@ const MIN_BLOCKS_IN_BUF: usize = 1; // = 3kB
 
 #[derive(Debug)]
 pub struct Image<T> where
-    T: Debug + Num
+    T: Debug + Num + Sized + Decode + Encode + Display + Clone
 {
     shape: Vec<usize>,
     data: Array<T, IxDyn>,
     block_size: usize
 }
 
-impl<T> BlockSized for Image<T> where T: Debug + Num {
+impl<T> BlockSized for Image<T>
+where T: Debug + Num + Sized + Decode + Encode + Display + Clone
+{
     fn get_block_len(&self) -> usize {
         self.block_size
     }
 }
 
-impl<T> Image<T> where T: Debug + Num {
-
+impl<T> Image<T>
+where T: Debug + Num + Sized + Decode + Encode + Display + Clone
+{
     //Getters
     pub fn get_data(&self) -> &Array<T, IxDyn> {&self.data}
     pub fn get_data_owned(self) -> Array<T, IxDyn> {self.data}
@@ -260,7 +263,7 @@ impl ImgParser {
     fn decode_helper<T>(reader: &mut RawFitsReader, shape: &Vec<usize>)
         -> Result<Image<T>, Box<dyn Error>>
     where
-        T: Debug + Num + Sized + Decode + Display
+        T: Debug + Num + Sized + Decode + Encode + Display + Clone
     {
         /*  (1)
             To create a ndarray we need to provide an underlying data structure.
@@ -330,8 +333,103 @@ impl ImgParser {
         Ok(Image::<T> {shape: shape.to_vec(), data: img_data, block_size: total_blocks})
     }
 
+    //Public encoder for parsing Images. Consumes the image it encodes
+    pub fn encode_img<T>(img: Image<T>, writer: &mut RawFitsWriter)
+        -> Result<(), Box<dyn Error>>
+    where
+        T: Debug + Num + Sized + Decode + Encode + Display + Clone
+    {
+        /*  (1)
+            ndarray preserves the internal memory-layout that was used to create
+            the array. This is nice if the array is already in the Fortran layout,
+            but sucks if it's in the C layout, in which case we have to convert
+            the indices to the Fortran layout.
+
+            Either way, we end up with a flat, 1D raw vector of types used to
+            encode the array
+        */
+
+        let mut raw = match &img.data.is_standard_layout() {
+            true => {
+                /*  (1a)
+                    Data is continuously represented in memory using the C layout
+                    which we will have to convert to Fortran copying all the
+                    elements from the C array into a new Fortran array (slow!)
+                */
+                let shape = Vec::from(img.data.shape().clone());
+                Array::from_shape_vec(
+                    shape.f(),
+                    img.data.t().iter().cloned().collect()
+                )?.into_raw_vec()
+            } false => {
+                /*  (1b)
+                    Data is either discontinuous, OR in Fortran layout. In the
+                    second case we want to perform a no-op copy!
+                */
+                match &img.data.as_slice_memory_order() {
+                    None => {
+                        //Data is NOT continuous, return error!
+                        return Err(Box::new(SimpleError::new(
+                            "Error while encoding Image: underlying ndarray used to create image used an unsupported discontinuous memory layout!"
+                        )));
+                    } _ => {} //Data IS continuous, continue!
+                }
+
+                //No-op return the underlying data, since it's already in the
+                //Fortran memory layout :)
+                img.data.into_raw_vec()
+            }
+        };
+
+        //We have to reverse the raw data to be able to easiliy pop elements
+        //of the raw vector in the correct order!
+        raw.reverse();
+
+        /*  (2)
+            Now that we have the raw array, we still have to divide it up into
+            manageble chunks, re-using the methods from the read section.
+        */
+        let total_byte_size = raw.len() * size_of::<T>();
+
+        /*  Note:
+            This total block size rounds down the number of blocks required to
+            write the entire array if the total byte size is not cleanly divisible
+            by the block size. This is because the final (not completely filled)
+            block MUST be filled with zeros after the data, so we need a seperate
+            buffer for that data block!
+        */
+        let total_block_size = total_byte_size / BLOCK_SIZE;
+        let (buf_size, _) = Self::calc_buf_size(total_block_size);
+        let mut buffer = Vec::new();
+
+        while !raw.is_empty() {
+            //If the buffer is full we write it and replace it with an empty buf
+            if buffer.len() == buf_size {
+                writer.write_blocks(&buffer)?;
+                buffer = Vec::new();
+            }
+            match raw.pop() {
+                Some(val) => val.fill_buf(&mut buffer),
+                None => {} //loop will break after this
+            }
+        }
+
+        //If the byte size of the file was not cleanly divided by the block size,
+        //the buffer will not be empty after this loop. We have to fill it with
+        //zeroes untill it is a multiple of the FITS block size
+        if !buffer.is_empty() {
+            while buffer.len() % BLOCK_SIZE == 0 {
+                buffer.push(0);
+            }
+            writer.write_blocks(&buffer)?;
+        }
+
+        //(R) we sucessfully wrote the Image to the file!
+        Ok(())
+    }
+
     fn calc_buf_size(total_blocks: usize) -> (usize, usize) {
-        //Return tuple: (buffer size in bytes, #syscalls/reads)
+        //Return tuple: (buffer size in bytes, #syscalls=reads/writes)
 
         /* Notes:
             As per the FITS standard, we may only read a FITS block of bytes per
@@ -366,10 +464,10 @@ impl ImgParser {
             if total_blocks % i == 0 {n_buf_blocks = i;}
         }
 
-        let n_reads = total_blocks / n_buf_blocks;
+        let n_accesses = total_blocks / n_buf_blocks;
 
         //println!("Buffer size: {n_buf_blocks}");
 
-        (n_buf_blocks * BLOCK_SIZE, n_reads)
+        (n_buf_blocks * BLOCK_SIZE, n_accesses)
     }
 }
