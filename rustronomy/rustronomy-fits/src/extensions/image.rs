@@ -40,7 +40,7 @@ const BLOCK_SIZE: usize = crate::BLOCK_SIZE; // = 2880B
 const MAX_BLOCKS_IN_BUF: usize = 128; // = 369kB
 const MIN_BLOCKS_IN_BUF: usize = 1; // = 3kB
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Image<T> where
     T: Debug + Num + Sized + Decode + Encode + Display + Clone
 {
@@ -76,7 +76,7 @@ where T: Debug + Num + Sized + Decode + Encode + Display + Clone
 }
 
 //Enum to differentiate between Image Types
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub enum TypedImage {
     ByteImg(Image<u8>),
     I16Img(Image<i16>),

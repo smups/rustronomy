@@ -28,7 +28,7 @@ use self::image::{TypedImage, ImgParser};
 //FITS standard-conforming extensions
 pub mod image;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub enum Extension {
     Corrupted,
     Image(TypedImage)

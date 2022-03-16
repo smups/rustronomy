@@ -103,3 +103,9 @@ impl Display for Fits {
         Ok(())
     }
 }
+
+impl Clone for Fits {
+    fn clone(&self) -> Self {
+        Self{ hdus: self.hdus.clone(), reader: None, writer: None }
+    }
+}

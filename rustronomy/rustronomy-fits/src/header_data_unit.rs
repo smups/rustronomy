@@ -29,7 +29,7 @@ use crate::{
     bitpix::Bitpix
 };
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct HeaderDataUnit {
     header: Header,
     data: Option<Extension>

@@ -49,7 +49,7 @@ const BLOCK_SIZE: usize = crate::BLOCK_SIZE;
     Public version of the header is a Simple HashMap with a wrapper around it
     for creating a Header from a FITS HDU or the other way around.
 */
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Header {
     records: HashMap<Rc<String>, KeywordRecord>,
     block_len: usize
