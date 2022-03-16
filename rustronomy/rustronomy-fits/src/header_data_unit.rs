@@ -25,7 +25,7 @@ use simple_error::SimpleError;
 use crate::{
     header::Header,
     extensions::{Extension, image::ImgParser},
-    raw::{raw_fits::RawFitsReader, BlockSized},
+    raw::{raw_io::RawFitsReader, BlockSized},
     bitpix::Bitpix
 };
 

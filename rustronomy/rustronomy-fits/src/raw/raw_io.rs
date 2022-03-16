@@ -18,7 +18,7 @@
 */
 
 use std::{
-    io::{BufReader, Read},
+    io::{BufReader, Read, BufWriter, Write},
     fs::{File, Metadata},
     error::Error,
     path::Path
@@ -31,7 +31,7 @@ const BLOCK_SIZE: usize = crate::BLOCK_SIZE;
 
 #[derive(Debug)]
 pub struct RawFitsReader {
-    file_meta: Metadata,
+    pub file_meta: Metadata,
     block_index: usize,
     n_fits_blocks: usize,
     reader_handle: BufReader<File>
@@ -99,4 +99,40 @@ impl RawFitsReader {
 }
 
 #[derive(Debug)]
-pub struct RawFitsWriter{}
+pub struct RawFitsWriter{
+    pub file_meta: Metadata,
+    writer_handle: BufWriter<File>
+}
+
+impl RawFitsWriter {
+
+    pub fn new(path: &Path) -> Result<Self, Box<dyn Error>> {
+        //(1) Open the file if it exists, create it if it doesn't
+        let out = File::create(path)?;
+
+        //(2) Create the required derivatives
+        let meta = out.metadata()?;
+        let handle = BufWriter::new(out);
+
+        //(R)
+        Ok(RawFitsWriter{file_meta: meta, writer_handle: handle})
+    }
+
+    pub fn write_blocks(&mut self, buffer: &[u8])
+        -> Result<usize, Box<dyn Error>>
+    {
+        //(1) Check if the buffer is an integer number of FITS blocks
+        if buffer.len() % BLOCK_SIZE != 0 {
+            return Err(Box::new(SimpleError::new(
+                "Error while writing FITS file: length of buffer not an integer multiple of the FITS block size (2880B)"
+            )));
+        }
+
+        //(2) Write the thing
+        self.writer_handle.write_all(buffer)?;
+
+        //(R) the number of FITS blocks that we wrote
+        Ok(buffer.len() / BLOCK_SIZE)
+    }
+
+}

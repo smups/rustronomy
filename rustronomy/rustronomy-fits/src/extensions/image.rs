@@ -28,7 +28,7 @@ use ndarray::{Array, IxDyn, ShapeBuilder};
 use num_traits::Num;
 use simple_error::SimpleError;
 
-use crate::{bitpix::Bitpix, raw::{raw_fits::RawFitsReader, BlockSized}};
+use crate::{bitpix::Bitpix, raw::{raw_io::RawFitsReader, BlockSized}};
 use super::Extension;
 
 use rustronomy_core::data_type_traits::io_utils::Decode;

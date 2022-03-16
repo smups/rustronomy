@@ -26,7 +26,7 @@ use std::{path::Path, error::Error, fmt::{Display, Formatter}};
 
 use crate::{
     raw::{
-        raw_fits::{RawFitsReader, RawFitsWriter},
+        raw_io::{RawFitsReader, RawFitsWriter},
         BlockSized
     },
     header_data_unit::HeaderDataUnit
@@ -55,6 +55,10 @@ impl Fits {
         //File is empty, we don't need the reader anymore!
         // (3) return the completed file
         Ok(Fits {hdus: hdus, reader: None, writer: None})
+    }
+
+    pub fn write(self, path: &Path) -> Result<(), Box<dyn Error>> {
+        todo!()
     }
 
     pub fn get_hdu(&self, index: usize) -> Option<&HeaderDataUnit> {

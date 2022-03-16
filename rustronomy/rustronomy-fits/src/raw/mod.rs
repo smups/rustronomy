@@ -18,7 +18,7 @@
 */
 
 //Module structure
-pub mod raw_fits;
+pub mod raw_io;
 pub mod keyword_record;
 pub mod header_block;
 

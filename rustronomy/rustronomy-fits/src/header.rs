@@ -25,7 +25,7 @@ use std::{
 
 use simple_error::SimpleError;
 
-use crate::raw::{header_block::HeaderBlock, raw_fits::RawFitsReader, BlockSized};
+use crate::raw::{header_block::HeaderBlock, raw_io::RawFitsReader, BlockSized};
 
 /*
     A FITS file contains at least one HeaderDataUnit (HDU), but may contain
