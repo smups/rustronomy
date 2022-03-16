@@ -18,7 +18,7 @@
 */
 
 use std::{
-    io::{Read, Write},
+    io::{Read, Write, self},
     fs::{File, Metadata},
     error::Error,
     path::Path
@@ -129,10 +129,11 @@ impl RawFitsWriter {
 
         //(2) Write the thing
         self.writer_handle.write_all(buffer)?;
-        self.writer_handle.flush()?;
 
         //(R) the number of FITS blocks that we wrote
         Ok(buffer.len() / BLOCK_SIZE)
     }
+
+    pub fn flush(&mut self) -> io::Result<()> {Ok(self.writer_handle.flush()?)}
 
 }
