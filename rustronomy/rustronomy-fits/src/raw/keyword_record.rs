@@ -119,6 +119,9 @@ impl KeywordRecord {
     }
 
     pub fn encode_fill_buff(self, buf: &mut Vec<u8>) -> Result<(), Box<dyn Error>>{
+
+        //keep track of how long the last keyword is
+        let mut last_keywordrec_size = 8usize;
         
         //(1) Encode keyword and make sure it's 8 bytes long
         let keyword_len = self.keyword.len();
@@ -128,18 +131,49 @@ impl KeywordRecord {
         //(2) Encode value
         match self.value {
             None => {} //do nothing
-            Some(val) => {
+            Some(mut val) => {
                 //(2a) add the value indicator
                 String::from("= ").fill_buf(buf);
+                last_keywordrec_size += 2;
 
                 //(2b) check if the value spans multiple keywordrecords
-                if val.len() < 70 {val.fill_buf(buf);}
+                if val.len() < 70 {
+                    val.fill_buf(buf);
+                    last_keywordrec_size += val.len();
+                }
                 else {
-                    //Write first string to the record with the keyword\
+                    //Write first string to the record with the keyword
+                    let mut first = val.split_off(68);
+                    first += "&'";
+                    first.fill_buf(buf);
 
+                    //Write the remaining part of the string to CONTINUE records
+                    let mut keywordrec = String::from("CONTINUE= '");
+                    while val.len() > 0 {
+                        if keywordrec.len() == 78 {
+                            keywordrec += "&'";
+                            keywordrec.fill_buf(buf);
+                            keywordrec = String::from("CONTINUE= '");
+                        }
+                    }
+
+                    //Last keyword record may not have full length value
+                    last_keywordrec_size += keywordrec.len();
                 }
             }
         }
+
+        //(3) Encode comment
+        match self.comment {
+            None => {}, //do nothing
+            Some(com) => {
+                com.fill_buf(buf);
+                last_keywordrec_size += com.len();
+            }
+        }
+
+        //(4) Make sure the keywordrecord is 80 bytes long
+        for _ in 0..(80-last_keywordrec_size) {buf.push(b' ');}
 
         Ok(())
     }
