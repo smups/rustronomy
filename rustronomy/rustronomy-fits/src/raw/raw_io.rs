@@ -129,6 +129,7 @@ impl RawFitsWriter {
 
         //(2) Write the thing
         self.writer_handle.write_all(buffer)?;
+        self.writer_handle.flush()?;
 
         //(R) the number of FITS blocks that we wrote
         Ok(buffer.len() / BLOCK_SIZE)
