@@ -22,6 +22,7 @@ use std::{
     error::Error
 };
 
+use rustronomy_core::data_type_traits::io_utils::Encode;
 use simple_error::SimpleError;
 
 #[derive(Debug, Clone)]
@@ -83,7 +84,7 @@ impl KeywordRecord {
         let split= record.split("/").collect::<Vec<_>>();
         
         match split.len() {
-            1 => {
+              1 => {
                 //There was no comment in the record
                 value = String::from(split[0].trim());
                 comment = String::from("");
@@ -104,19 +105,6 @@ impl KeywordRecord {
             }
         }
 
-        /*  Note on String values
-            Strings in FITS headers are encoded using annoying and ugly trailing
-            and starting {'} and usually a bunch of spaces too. We'll have to
-            remove those.                
-        */    
-
-        value = value.trim().to_string();
-        if value.starts_with("'") && value.ends_with("'") {
-            value.remove(0); // starting {'}
-            value.pop(); // final {'}
-            value = value.trim().to_string();
-        }
-
         Ok( KeywordRecord {
             keyword: keyword,
             value: match has_val {
@@ -131,27 +119,28 @@ impl KeywordRecord {
     }
 
     pub fn encode_fill_buff(self, buf: &mut Vec<u8>) -> Result<(), Box<dyn Error>>{
-        let mut string_buf = vec![b' '; 80];
+        
+        //(1) Encode keyword and make sure it's 8 bytes long
+        let keyword_len = self.keyword.len();
+        self.keyword.fill_buf(buf);
+        for _ in 0..(8-keyword_len) {buf.push(0);}
 
-        //put the keyword in the temp.buf
-        for i in 0..self.keyword.len() {
-            string_buf[i] = self.keyword.as_bytes()[i];
-        }
-
-        //put the value in the temp. buf if there is one
+        //(2) Encode value
         match self.value {
-            None => {}, //do nothing
+            None => {} //do nothing
             Some(val) => {
-                //We have a value, so bytes 8 and 9 should be '= '
-                string_buf[8] = b'=';
-                for i in 0..val.len() {
-                    string_buf[i+10] = val.as_bytes()[i];
+                //(2a) add the value indicator
+                String::from("= ").fill_buf(buf);
+
+                //(2b) check if the value spans multiple keywordrecords
+                if val.len() < 70 {val.fill_buf(buf);}
+                else {
+                    //Write first string to the record with the keyword\
+
                 }
             }
         }
 
-        //Append the result to the buffer
-        buf.append(&mut string_buf);
         Ok(())
     }
 

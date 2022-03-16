@@ -114,11 +114,12 @@ impl Header {
                     "CONTINUE" => {
                         //This record actually belongs to the previous keyword!
                         //Should never panic... hopefully
-                        let (last_value, last_comment) = record_map.get_mut(
+                        let (last_value, _last_comment) = record_map.get_mut(
                             last_keyword.as_str()
                         ).unwrap();
 
-                        //(1) remove the trailing {&} from the previous record
+                        //(1) remove the trailing {'&} from the previous record
+                        last_value.pop();
                         last_value.pop();           
 
                         //(2) append the continued value

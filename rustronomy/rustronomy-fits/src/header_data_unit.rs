@@ -65,9 +65,9 @@ impl HeaderDataUnit {
                     hdu.
                 */
                 match extension_type.as_str() {
-                    "IMAGE" => Some(Self::read_img(raw, &header)?),
-                    kw @ "TABLE" => Err(Self::not_impl(kw))?,
-                    kw @ "BINTABLE" => Err(Self::not_impl(kw))?,
+                    "'IMAGE   '" => Some(Self::read_img(raw, &header)?),
+                    kw @ "'TABLE   '" => Err(Self::not_impl(kw))?,
+                    kw @ "'BINTABLE'" => Err(Self::not_impl(kw))?,
                     kw => Err(Box::new(SimpleError::new(
                         format!("Error while constructing HDU: {kw} is not a valid extension type!")
                     )))?
