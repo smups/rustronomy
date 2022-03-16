@@ -51,7 +51,7 @@ impl HeaderBlock {
             //Decode
             let record = KeywordRecord::decode_from_bytes(&bytes[(i*80)..(i*80+80)])?;
             //And parse
-            if record.keyword == String::from("END") {
+            if *record.keyword == String::from("END") {
                 //This is the END keyword, which we DON'T append!
                 // -> but we should set is_final to true
                 is_final = true;

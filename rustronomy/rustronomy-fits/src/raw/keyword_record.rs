@@ -19,7 +19,9 @@
 
 use std::{
     str,
-    error::Error
+    error::Error,
+    rc::Rc,
+    fmt::{Display, self}
 };
 
 use rustronomy_core::data_type_traits::io_utils::Encode;
@@ -27,7 +29,7 @@ use simple_error::SimpleError;
 
 #[derive(Debug, Clone)]
 pub struct KeywordRecord {
-    pub keyword: String,
+    pub keyword: Rc<String>,
     pub value: Option<String>,
     pub comment: Option<String>,
 }
@@ -37,7 +39,7 @@ impl KeywordRecord {
     //returns empty record
     pub fn empty() -> Self {
         KeywordRecord {
-            keyword: String::from(""),
+            keyword: Rc::new(String::from("")),
             value: None,
             comment: None
         }
@@ -45,7 +47,7 @@ impl KeywordRecord {
 
     pub fn from_string(keyword: String, value: String, comment: Option<String>) -> Self {
         KeywordRecord{
-            keyword: keyword,
+            keyword: Rc::new(keyword),
             value: Some(value),
             comment: comment
         }
@@ -80,7 +82,7 @@ impl KeywordRecord {
         }
 
         //Split record into value and comment
-        let (mut value, comment);
+        let (value, comment);
         let split= record.split("/").collect::<Vec<_>>();
         
         match split.len() {
@@ -106,7 +108,7 @@ impl KeywordRecord {
         }
 
         Ok( KeywordRecord {
-            keyword: keyword,
+            keyword: Rc::new(keyword),
             value: match has_val {
                 false => None,
                 true => Some(value)
@@ -178,4 +180,23 @@ impl KeywordRecord {
         Ok(())
     }
 
+}
+
+impl Display for KeywordRecord {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        //keyword
+        write!(f, "[{}] ", self.keyword)?;
+        //value
+        match &self.value {
+            None => {}, //do nothing,
+            Some(val) => write!(f, "- {val}")?
+        }
+        //comment
+        match &self.comment {
+            None => {}, //do nothing,
+            Some(com) => write!(f, " //{com}")?
+        }
+
+        Ok(())
+    }
 }

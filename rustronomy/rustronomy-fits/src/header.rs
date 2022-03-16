@@ -20,12 +20,19 @@
 use std::{
     collections::HashMap,
     error::Error,
-    fmt::{self, Display}, str::FromStr
+    fmt::{self, Display},
+    str::FromStr,
+    rc::Rc
 };
 
 use simple_error::SimpleError;
 
-use crate::raw::{header_block::HeaderBlock, raw_io::RawFitsReader, BlockSized};
+use crate::raw::{
+    header_block::HeaderBlock,
+    raw_io::RawFitsReader,
+    BlockSized,
+    keyword_record::KeywordRecord
+};
 
 /*
     A FITS file contains at least one HeaderDataUnit (HDU), but may contain
@@ -42,7 +49,7 @@ use crate::raw::{header_block::HeaderBlock, raw_io::RawFitsReader, BlockSized};
 */
 #[derive(Debug)]
 pub struct Header {
-    records: HashMap<String, (String, String)>,
+    records: HashMap<Rc<String>, KeywordRecord>,
     block_len: usize
 }
 
@@ -50,20 +57,8 @@ impl Display for Header {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         writeln!(f,">================================<|FITS Header|>================================")?;
         writeln!(f, ">Size in FITS blocks: {}", self.block_len)?;
-        for (key,(val, com)) in &self.records {
-            if key.as_str() == "" {
-                if com.as_str() == "" {
-                    writeln!(f, ">")?;
-                } else {
-                    writeln!(f, ">  //{com}")?;
-                }
-            } else {
-                if com.as_str() == "" {
-                    writeln!(f, ">  [{key}] - {val}")?;
-                } else {
-                    writeln!(f, ">  [{key}] - {val} //{com}")?;
-                }
-            }
+        for (_, record) in &self.records {
+            writeln!(f, ">  {record}")?;
         }
         writeln!(f,">===============================================================================")?;
         Ok(())
@@ -101,29 +96,31 @@ impl Header {
         -> Result<Self, Box<dyn Error>>
     {
         //Parse the Keywordrecords to plain Key-Data pairs
-        let mut record_map: HashMap<String, (String, String)> = HashMap::new();
+        let mut parsed_map: HashMap<Rc<String>, KeywordRecord> = HashMap::new();
 
         //Keep track of the last keyword for multi-keyword strings
         let mut last_keyword = String::from("");
 
         for hb in hbs {          
-            for record in hb.records {
+            for unparsed_record in hb.records {
 
                 //Deal with multi-line strings
-                match record.keyword.as_str() {
+                match unparsed_record.keyword.as_str() {
                     "CONTINUE" => {
                         //This record actually belongs to the previous keyword!
                         //Should never panic... hopefully
-                        let (last_value, _last_comment) = record_map.get_mut(
-                            last_keyword.as_str()
+                        let last_parsed = parsed_map.get_mut(
+                            &last_keyword
                         ).unwrap();
 
-                        //(1) remove the trailing {'&} from the previous record
-                        last_value.pop();
-                        last_value.pop();           
+                        //(1) remove the trailing {'&} from the previous record's
+                        //value
+                        last_parsed.value.as_mut().unwrap().pop();
+                        last_parsed.value.as_mut().unwrap().pop();    
 
                         //(2) append the continued value
-                        last_value.push_str(record.value.unwrap().as_str());
+                        last_parsed.value.as_mut().unwrap()
+                            .push_str(unparsed_record.value.unwrap().as_str());
 
                         //(3) do not append keyword-record pair as seperate entry
                         continue;
@@ -132,46 +129,34 @@ impl Header {
                 }
 
                 //update last keyword
-                last_keyword = record.keyword.clone();
+                last_keyword = (*unparsed_record.keyword).clone();
 
                 //and add our beatiful string
-                record_map.insert(
-                    record.keyword,
-                    ( //Value is a tuple containing the value and comment
-                        //associated with the keyword!
-                        match record.value {
-                        Some(value) => value,
-                        None => String::from("")
-                        }, match record.comment {
-                        Some(comment) => comment,
-                        None => String::from("")
-                        }
-                    )
-                );
+                parsed_map.insert(unparsed_record.keyword.clone(), unparsed_record);
             }
         }
 
-        Ok(Header {records: record_map, block_len: block_len})
+        Ok(Header {records: parsed_map, block_len: block_len})
     }
 
     /*
         Some getters for full records and single values or comments (just some
         utility funcs)
     */
-    pub fn get_record(&self, keyword: &str) -> Option<&(String, String)> {
-        self.records.get(keyword)
+    pub fn get_record(&self, keyword: &str) -> Option<&KeywordRecord> {
+        self.records.get(&keyword.to_string())
     }
 
     pub fn get_value(&self, keyword: &str) -> Option<&String> {
-        match self.records.get(keyword) {
-            Some((val, _com)) => Some(val),
+        match self.records.get(&keyword.to_string()) {
+            Some(record) => record.value.as_ref(),
             None => None
         }
     }
 
     pub fn get_comment(&self, keyword: &str) -> Option<&String> {
-        match self.records.get(keyword) {
-            Some((_val, com)) => Some(com),
+        match self.records.get(&keyword.to_string()) {
+            Some(record) => record.comment.as_ref(),
             None => None
         }
     }
@@ -183,7 +168,7 @@ impl Header {
         T: FromStr,
         <T as FromStr>::Err: 'static + Error
     {
-        match self.get_value(keyword) {
+        match self.get_value(&keyword.to_string()) {
             None => Err(Box::new(SimpleError::new(
                 format!("Error while looking for keyword: keyword [{}] not present in FITS file!", keyword)
             ))),
