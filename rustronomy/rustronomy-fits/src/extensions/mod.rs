@@ -17,11 +17,13 @@
     along with rustronomy.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-use std::fmt::Display;
+use std::{fmt::Display, error::Error};
 
-use crate::raw::BlockSized;
+use simple_error::SimpleError;
 
-use self::image::TypedImage;
+use crate::raw::{BlockSized, raw_io::RawFitsWriter};
+
+use self::image::{TypedImage, ImgParser};
 
 //FITS standard-conforming extensions
 pub mod image;
@@ -46,6 +48,21 @@ impl Display for Extension {
         match &self {
             Self::Corrupted => write!(f, "(CORRUPTED_DATA)"),
             Self::Image(img) => write!(f, "(IMAGE) {img}")
+        }
+    }
+}
+
+impl Extension {
+    pub fn write_to_buffer(self, writer: &mut RawFitsWriter)
+        -> Result<(), Box<dyn Error>>
+    {
+        match self {
+            Self::Corrupted => { return Err(Box::new(SimpleError::new(
+                "Error while writing FITS file: tried to write corrupted data!"
+            )));}
+            Self::Image(img) => {
+                ImgParser::encode_img(img, writer)
+            }
         }
     }
 }
