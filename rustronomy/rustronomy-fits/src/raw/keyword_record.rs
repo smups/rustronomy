@@ -143,9 +143,10 @@ impl KeywordRecord {
                 }
                 else {
                     //Write first string to the record with the keyword
-                    let mut first = val.split_off(68);
-                    first += "&'";
-                    first.fill_buf(&mut one_rec_buf);
+                    let mut remainder = val.split_off(68);
+                    val += "&'";
+                    val.truncate(70);
+                    val.fill_buf(&mut one_rec_buf);
 
                     //Write to the header buffer
                     assert!(one_rec_buf.len() == 80);
@@ -155,7 +156,7 @@ impl KeywordRecord {
                     let mut continue_buf = Vec::new();
                     String::from("CONTINUE= '").fill_buf(&mut continue_buf);
 
-                    while val.len() > 0 {
+                    while remainder.len() > 0 {
                         if continue_buf.len() == 78 {
                             continue_buf.push(b'&');
                             continue_buf.push(b"'"[0]);
@@ -164,7 +165,7 @@ impl KeywordRecord {
                             assert!(continue_buf.len() == 80);
                             buf.append(&mut continue_buf);
                         }
-                        match val.pop() {
+                        match remainder.pop() {
                             Some(ch) => continue_buf.push(ch as u8),
                             None => {} //Loop will break
                         }
