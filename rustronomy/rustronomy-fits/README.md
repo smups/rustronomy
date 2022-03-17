@@ -21,6 +21,7 @@ _Reading Fits Files_
   - ❌ Tables
  
 _Writing Fits Files_
+- ✔️ Writing existing FITS files to disk
 - Constructing a HDU (including auto header) from
   - ❌ an ndarray (to an Image)
   - ❌ a table (to a table)
