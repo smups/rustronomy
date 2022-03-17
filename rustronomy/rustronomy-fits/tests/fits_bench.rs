@@ -27,6 +27,7 @@ use std::{
 use nd::Array2;
 use rustronomy_fits as rfs;
 use ndarray as nd;
+use dirs;
 //use plotters::prelude::*;
 
 //Starfields of M37 taken by myself
@@ -36,7 +37,7 @@ const BENCH_FOLDER: &str = "resources/bench_data";
 const OUTPUT: &str = "resources/bench_out";
 
 #[test]
-fn read_fits_benchmark() {
+fn read_write_benchmark() {
 
     /*  Description:
         This test reads 65 ~7MB FITS files containing Images of 
@@ -53,18 +54,28 @@ fn read_fits_benchmark() {
 
     //Log files and times
     let mut read_times = Vec::new();
+    let mut write_times = Vec::new();
 
     //These are all ~7MB files.
     //Result (Ryzen 3600X, NVME SSD) average read time ~131ms
-    for (_index, path) in fs::read_dir(data_f).unwrap().enumerate() {
+    for (index, path) in fs::read_dir(data_f).unwrap().enumerate() {
         let now = Instant::now();
-        let _fits = rfs::Fits::open(&path.unwrap().path()).unwrap();
+        let fits = rfs::Fits::open(&path.unwrap().path()).unwrap();
         let time = now.elapsed().as_millis();
         read_times.push(time);
         println!("Read time: {time}ms");   
+
+        let mut write_path = dirs::cache_dir().unwrap();
+        write_path.push(format!("bench{index}.fits"));
+        let now = Instant::now();
+        fits.write(&write_path).unwrap();
+        let time = now.elapsed().as_millis();
+        write_times.push(time);
+        println!("Write time: {time}ms");
     }
 
     println!("Average read time: {}ms", read_times.iter().sum::<u128>() as usize / read_times.len());
+    println!("Average write time: {}ms", write_times.iter().sum::<u128>() as usize / write_times.len());
 }
 /*
 fn plot(img: Array2<f64>, output: &std::path::Path) {

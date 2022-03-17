@@ -104,15 +104,11 @@ impl HeaderDataUnit {
         //(1) Write header
         self.header.encode_header(writer)?;
 
-        println!(">  wrote header!");
-
         //(2) If we have data, write the data
         match self.data {
             Some(data) => data.write_to_buffer(writer)?,
             _ => {}//no data, do nothing
         }
-
-        println!(">  wrote data!");
 
         //(R) ok
         Ok(())
