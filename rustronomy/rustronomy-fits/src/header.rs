@@ -25,6 +25,7 @@ use std::{
     rc::Rc
 };
 
+use chrono::{Utc, Datelike};
 use simple_error::SimpleError;
 
 use crate::raw::{
@@ -35,15 +36,6 @@ use crate::raw::{
 };
 
 const BLOCK_SIZE: usize = crate::BLOCK_SIZE;
-
-/*
-    A FITS file contains at least one HeaderDataUnit (HDU), but may contain
-    more. This module revolves around the HeaderDataUnit struct.
-
-    Header data units consist of a number of 2880 byte Header blocks, followed
-    by a number of 2880 data blocks (optionally).
-*/
-
 
 /*
     Public version of the header is a Simple HashMap with a wrapper around it
@@ -170,6 +162,12 @@ impl Header {
         Ok(())
     }
 
+    pub(crate) fn new() -> Self {
+        /*
+            Creates new empty header.
+        */
+    }
+
     /*
         Some getters for full records and single values or comments (just some
         utility funcs)
@@ -190,6 +188,33 @@ impl Header {
             Some(record) => record.comment.as_ref(),
             None => None
         }
+    }
+
+    pub(crate) fn update_last_modified(&mut self) {
+        /*
+            This function modifies the DATE keyword in the primary header which
+            indicates the last time the HDU was modified. This function is called
+            by all functions that modify the HDU (dûh).  
+            
+            pub(crate) because it must also be callable by the HDU, but not by
+            the end-user
+        */
+        let now = Utc::now();
+        let now_fmtd = format!(
+            "{:0000}/{:00}/{:00}", //yyyy/mm/dd format as specified in standard
+            now.year(),
+            now.month(),
+            now.day()
+        );
+
+        //create the keyword record and update the internal hashmap
+        let key = Rc::new(String::from("DATE"));
+        let date = KeywordRecord::from_string(
+            key.clone(),
+            now_fmtd,
+            Some(String::from("last modified by Rustronomy-fits"))
+        );
+        self.records.insert(key, date);
     }
 
     //Helper function for parsing keyword records

@@ -45,9 +45,9 @@ impl KeywordRecord {
         }
     }
 
-    pub fn from_string(keyword: String, value: String, comment: Option<String>) -> Self {
+    pub fn from_string(keyword: Rc<String>, value: String, comment: Option<String>) -> Self {
         KeywordRecord{
-            keyword: Rc::new(keyword),
+            keyword: keyword,
             value: Some(value),
             comment: comment
         }
