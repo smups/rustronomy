@@ -11,6 +11,7 @@ simple-error = "0.2"
 ndarray = "0.15"
 num-traits = "0.2"
 chrono = "0.4"
+rayon = "1"
 rustronomy-core = {path = "../rustronomy-core"}
 
 [dev-dependencies]

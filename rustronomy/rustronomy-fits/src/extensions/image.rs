@@ -27,6 +27,7 @@ use std::{
 use ndarray::{Array, IxDyn, ShapeBuilder};
 use num_traits::Num;
 use simple_error::SimpleError;
+use rayon::prelude::*;
 
 use crate::{bitpix::Bitpix, raw::{raw_io::{RawFitsReader, RawFitsWriter}, BlockSized}};
 use super::Extension;
@@ -278,7 +279,7 @@ impl ImgParser {
     fn decode_helper<T>(reader: &mut RawFitsReader, shape: &Vec<usize>)
         -> Result<Image<T>, Box<dyn Error>>
     where
-        T: Debug + Num + Sized + Decode + Encode + Display + Clone
+        T: Debug + Num + Sized + Decode + Encode + Display + Clone + Send
     {
         /*  (1)
             To create a ndarray we need to provide an underlying data structure.
@@ -315,17 +316,20 @@ impl ImgParser {
         let mut flat: Vec<T> = Vec::new();
         let mut buf = vec![0u8; buf_size];
 
-        //calculate number of entries in a buffer
-        let entries_in_buffer = buf_size / entry_size;
-
         for _ in 0..n_reads{
             //fill the buffer
             reader.read_blocks(&mut buf)?;
 
-            for i in 0..entries_in_buffer {
-                //fill the flat vector
-                flat.push(T::from_bytes(&buf[i*entry_size..(i+1)*entry_size]));
-            }
+            /*
+                Next we'll use rayon to chop the buffer into entry_size sized
+                pieces, each of which may then be converted into the type T.
+            */
+            let mut typed_buf: Vec<T> = (&buf).par_chunks(entry_size)
+                .map(|val| T::from_bytes(val))
+                .collect();
+
+            //Add the values to our buffer
+            flat.append(&mut typed_buf);
         }
 
         /*  (3)
