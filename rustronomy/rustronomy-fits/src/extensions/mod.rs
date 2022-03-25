@@ -30,6 +30,12 @@ pub mod image;
 
 #[derive(Debug, Clone)]
 pub enum Extension {
+    /*  THIS IS PART OF THE USER-FACING API
+        Users receive a FITS struct, within which they may access the header and
+        data. The data is provided as a variant of this Extension struct. 
+        
+        All implementations of this struct are however internal!
+    */
     Corrupted,
     Image(TypedImage)
 }
@@ -53,7 +59,7 @@ impl Display for Extension {
 }
 
 impl Extension {
-    pub fn write_to_buffer(self, writer: &mut RawFitsWriter)
+    pub(crate) fn write_to_buffer(self, writer: &mut RawFitsWriter)
         -> Result<(), Box<dyn Error>>
     {
         match self {

@@ -32,7 +32,7 @@ pub enum Bitpix {
 }
 
 impl Bitpix {
-    pub fn from_code(code: &isize) -> Result<Bitpix, Box<dyn Error>> {
+    pub(crate) fn from_code(code: &isize) -> Result<Bitpix, Box<dyn Error>> {
         match code {
             8 => Ok(Bitpix::Byte),
             16 => Ok(Bitpix::Short),
@@ -46,7 +46,7 @@ impl Bitpix {
         }
     }
 
-    pub fn to_code(&self) -> isize {
+    pub(crate) fn to_code(&self) -> isize {
         match self {
             &Self::Byte => 8,
             &Self::Short => 16,

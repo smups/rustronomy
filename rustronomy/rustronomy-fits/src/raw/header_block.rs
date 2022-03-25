@@ -24,13 +24,17 @@ use simple_error::SimpleError;
 use super::keyword_record::KeywordRecord;
 
 #[derive(Debug)]
-pub struct HeaderBlock{
-    pub records: Vec<KeywordRecord>
+pub(crate) struct HeaderBlock{
+    /*  NOT PART OF USER-FACING API
+        This struct and its implementations are used in decoding/encoding
+        headers and should not be used directly by the user
+    */
+    pub(crate) records: Vec<KeywordRecord>
 }
 
 impl HeaderBlock {
 
-    pub fn decode_from_bytes(bytes: &[u8]) -> Result<(Self, bool), Box<dyn Error>> {
+    pub(crate) fn decode_from_bytes(bytes: &[u8]) -> Result<(Self, bool), Box<dyn Error>> {
 
         /*  If we're in the last headerblock of the header (denoted by the END
             keyword, then we have to set the return value of is_final to true
@@ -65,18 +69,14 @@ impl HeaderBlock {
         return Ok((HeaderBlock{records:records}, is_final));
     }
 
-    pub fn from_vec(vec: Vec<KeywordRecord>) -> Self {
-        HeaderBlock{records: vec}
-    }
-
-    pub fn encode_fill_buff(self, buf: &mut Vec<u8>) -> Result<(), Box<dyn Error>>{
+    pub(crate) fn encode_fill_buff(self, buf: &mut Vec<u8>) -> Result<(), Box<dyn Error>>{
         for record in self.records {
             record.encode_fill_buff(buf)?;
         }
         Ok(())
     }
 
-    pub fn encode_to_bytes(self) -> Result<Vec<u8>, Box<dyn Error>> {
+    pub(crate) fn encode_to_bytes(self) -> Result<Vec<u8>, Box<dyn Error>> {
         //Fill buf with data
         let mut buf: Vec<u8> = Vec::new();
         self.encode_fill_buff(&mut buf)?;
@@ -94,5 +94,5 @@ impl HeaderBlock {
             return Ok(buf);
         }
     }
-
+    
 }

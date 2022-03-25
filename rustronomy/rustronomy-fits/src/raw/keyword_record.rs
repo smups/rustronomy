@@ -29,6 +29,12 @@ use simple_error::SimpleError;
 
 #[derive(Debug, Clone)]
 pub struct KeywordRecord {
+    /*  THIS STRUCT IS PART OF THE USER-FACING API
+        Users should be able to create their own keyword-records, except for
+        certain restricted records that specify information about the data
+        contained in the data section of the HDU. Those restricted keywords
+        should always be updated in unison with the data they describe.
+    */
     pub keyword: Rc<String>,
     pub value: Option<String>,
     pub comment: Option<String>,
@@ -36,7 +42,23 @@ pub struct KeywordRecord {
 
 impl KeywordRecord {
 
-    //returns empty record
+    pub const RESTRICTED_KEYWORDS: [&'static str; 49] = [
+        //KWRD{i} type keywords are not included in this list, should be
+        //parsed seperately!
+        "SIMPLE", "BITPIX", "NAXIS", "END", "PCOUNT", "GCOUNT", "DATE", "EXTEND",
+        "BLOCKED", "CONTINUE", "BSCALE", "BZERO", "BLANK", "DATAMAX", "DATAMIN",
+        "EXTNAME", "EXTVER", "EXTLEVEL", "INHERIT", "DATASUM", "CHECKSUM",
+        "GROUPS", "XTENSION", "IMAGE", "TABLE", "BINTABLE", "TFIELDS", "THEAP",
+        "ZIMAGE", "ZBITPIX", "ZNAXIS", "ZCPMTYPE", "ZTABLE", "ZTILELEN", "ZMASKCMP",
+        "ZQUANTIZ", "ZDITHER0", "ZSIMPLE", "ZEXTEND", "ZBLOCKED", "ZTENSION",
+        "ZPCOUNT", "ZGCOUNT", "ZCHECKSUM", "ZDATASUM", "FZTILELN", "FZALGOR",
+        "ZTHEAP", "EPOCH"
+    ];
+
+    /*
+        THE FOLLOWING FUNCS ARE PART OF THE PUBLIC API
+    */
+
     pub fn empty() -> Self {
         KeywordRecord {
             keyword: Rc::new(String::from("")),
@@ -45,7 +67,11 @@ impl KeywordRecord {
         }
     }
 
-    pub fn from_string(keyword: Rc<String>, value: String, comment: Option<String>) -> Self {
+    /*
+        THE FOLLOWING FUNCS ARE INTERNAL
+    */
+
+    pub(crate) fn from_string(keyword: Rc<String>, value: String, comment: Option<String>) -> Self {
         KeywordRecord{
             keyword: keyword,
             value: Some(value),
@@ -53,8 +79,8 @@ impl KeywordRecord {
         }
     }
 
-    pub fn decode_from_bytes(bytes: &[u8]) -> Result<Self, Box<dyn Error>> {
-
+    //Helper function for decoding. Not part of API
+    pub(crate) fn decode_from_bytes(bytes: &[u8]) -> Result<Self, Box<dyn Error>> {
         //Make sure that we got 80 bytes:
         if bytes.len() != 80 {
             return Err(Box::new(
@@ -120,7 +146,7 @@ impl KeywordRecord {
         })
     }
 
-    pub fn encode_fill_buff(self, buf: &mut Vec<u8>) -> Result<(), Box<dyn Error>>{
+    pub(crate) fn encode_fill_buff(self, buf: &mut Vec<u8>) -> Result<(), Box<dyn Error>>{
 
         //keep track of how long the last keyword is
         let mut one_rec_buf = Vec::new();

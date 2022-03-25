@@ -29,6 +29,14 @@ use simple_error::SimpleError;
 //Get block size from root
 const BLOCK_SIZE: usize = crate::BLOCK_SIZE;
 
+/*
+    RawFitsReader and RawFitsWriter are fields of the Fits struct which is part
+    of the public API. Therefore, the structs must be public themselves, even
+    though none of their methods are public.
+
+    NOTE: the file_meta field for file metadata *is* publicly accesible!
+*/
+
 #[derive(Debug)]
 pub struct RawFitsReader {
     pub file_meta: Metadata,
@@ -39,7 +47,7 @@ pub struct RawFitsReader {
 
 impl RawFitsReader {
 
-    pub fn new(path: &Path) -> Result<Self, Box<dyn Error>> {
+    pub(crate) fn new(path: &Path) -> Result<Self, Box<dyn Error>> {
 
         //(1) Open the file
         let f = File::open(path)?;
@@ -64,7 +72,7 @@ impl RawFitsReader {
         })
     }
 
-    pub fn read_blocks(&mut self, buffer: &mut [u8])
+    pub(crate) fn read_blocks(&mut self, buffer: &mut [u8])
         -> Result<usize, Box<dyn Error>>
     {
         //(1) Calculate how many header blocks we have to read
@@ -94,8 +102,8 @@ impl RawFitsReader {
         Ok(n_blocks) //return the number of blocks read
     }
 
-    pub fn get_block_len(&self) -> usize {self.n_fits_blocks}
-    pub fn get_block_index(&self) -> usize {self.block_index}
+    pub(crate) fn get_block_len(&self) -> usize {self.n_fits_blocks}
+    pub(crate) fn get_block_index(&self) -> usize {self.block_index}
 }
 
 #[derive(Debug)]
@@ -106,7 +114,7 @@ pub struct RawFitsWriter{
 
 impl RawFitsWriter {
 
-    pub fn new(path: &Path) -> Result<Self, Box<dyn Error>> {
+    pub(crate) fn new(path: &Path) -> Result<Self, Box<dyn Error>> {
         //(1) Open the file if it exists, create it if it doesn't
         let out = File::create(path)?;
 
@@ -117,7 +125,7 @@ impl RawFitsWriter {
         Ok(RawFitsWriter{file_meta: meta, writer_handle: out})
     }
 
-    pub fn write_blocks(&mut self, buffer: &[u8])
+    pub(crate) fn write_blocks(&mut self, buffer: &[u8])
         -> Result<usize, Box<dyn Error>>
     {
         //(1) Check if the buffer is an integer number of FITS blocks
@@ -134,6 +142,6 @@ impl RawFitsWriter {
         Ok(buffer.len() / BLOCK_SIZE)
     }
 
-    pub fn flush(&mut self) -> io::Result<()> {Ok(self.writer_handle.flush()?)}
+    pub(crate) fn flush(&mut self) -> io::Result<()> {Ok(self.writer_handle.flush()?)}
 
 }

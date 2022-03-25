@@ -44,6 +44,11 @@ const MIN_BLOCKS_IN_BUF: usize = 1; // = 3kB
 pub struct Image<T> where
     T: Debug + Num + Sized + Decode + Encode + Display + Clone
 {
+    /*  THIS STRUCT IS NOT PART OF THE USER-FACING API
+        None of the implementations or fields of this struct are public.
+        Users interface with Images through the TypedImage enum and its impleme-
+        ntations.    
+    */
     shape: Vec<usize>,
     data: Array<T, IxDyn>,
     block_size: usize
@@ -61,11 +66,11 @@ impl<T> Image<T>
 where T: Debug + Num + Sized + Decode + Encode + Display + Clone
 {
     //Getters
-    pub fn get_data(&self) -> &Array<T, IxDyn> {&self.data}
-    pub fn get_data_owned(self) -> Array<T, IxDyn> {self.data}
-    pub fn get_shape(&self) -> &Vec<usize> {&self.shape}
+    fn get_data(&self) -> &Array<T, IxDyn> {&self.data}
+    fn get_data_owned(self) -> Array<T, IxDyn> {self.data}
+    fn get_shape(&self) -> &Vec<usize> {&self.shape}
 
-    pub fn pretty_print_shape(&self) -> String {
+    fn pretty_print_shape(&self) -> String {
         let mut rsp = String::from("(");
         for ax in &self.shape {
             rsp += format!("{ax},").as_str();
@@ -78,6 +83,10 @@ where T: Debug + Num + Sized + Decode + Encode + Display + Clone
 //Enum to differentiate between Image Types
 #[derive(Debug, Clone)]
 pub enum TypedImage {
+    /*  THIS ENUM IS PART OF THE USER-FACING API
+        Users obtain a TypedImage
+    
+    */
     ByteImg(Image<u8>),
     I16Img(Image<i16>),
     I32Img(Image<i32>),
@@ -130,6 +139,7 @@ impl Display for TypedImage {
        }
     }
 }
+
 impl TypedImage {
 
     pub fn as_u8_array(&self) -> Result<&Array<u8, IxDyn>, Box<dyn Error>> {
@@ -242,12 +252,17 @@ impl TypedImage {
 
 }
 
-//Helper struct for reading/writing Images
-pub struct ImgParser {}
+/*
+    THIS IS NOT PART OF THE USER-FACING API
+    ImgParser (and its implementation) are a helper struct used to decode and 
+    encode FITS arrays to ndarray arrays. These tasks are performed during reads
+    and writes of whole FITS files.
+*/
+pub(crate) struct ImgParser {}
 impl ImgParser {
 
     //Public decoder for parsing images
-    pub fn decode_img(reader: &mut RawFitsReader, shape: &Vec<usize>, bitpix: Bitpix)
+    pub(crate) fn decode_img(reader: &mut RawFitsReader, shape: &Vec<usize>, bitpix: Bitpix)
         -> Result<Extension, Box<dyn Error>>
     {
         Ok(Extension::Image(match bitpix {
@@ -333,8 +348,8 @@ impl ImgParser {
         Ok(Image::<T> {shape: shape.to_vec(), data: img_data, block_size: total_blocks})
     }
 
-    //Public encoder for parsing Images. Consumes the image it encodes
-    pub fn encode_img(typed_img: TypedImage, writer: &mut RawFitsWriter)
+    //Encoder for parsing Images. Consumes the image it encodes
+    pub(crate) fn encode_img(typed_img: TypedImage, writer: &mut RawFitsWriter)
         -> Result<(), Box<dyn Error>>
     {
         //This function only matches the typed image and calls the appropriate

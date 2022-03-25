@@ -37,7 +37,11 @@ pub struct HeaderDataUnit {
 
 impl HeaderDataUnit {
 
-    pub fn decode_hdu(raw: &mut RawFitsReader) -> Result<Self, Box<dyn Error>> {
+    /*
+        INTERNAL CODE
+    */
+
+    pub(crate) fn decode_hdu(raw: &mut RawFitsReader) -> Result<Self, Box<dyn Error>> {
         
         //(1) Read the header
         let header = Header::decode_header(raw)?;
@@ -82,23 +86,23 @@ impl HeaderDataUnit {
     fn read_img(raw: &mut RawFitsReader, header: &Header)
         -> Result<Extension, Box<dyn Error>>
     {
-        //Let's start by getting the number of axes
+        //Let's start by getting the number of axes from the NAXIS keyword
         let naxis: usize = header.get_value_as("NAXIS")?;
 
-        //And now the lengths
+        //Axis sizes are encoded in the NAXIS{i} keywords
         let mut axes: Vec<usize> = Vec::new();
         for i in 1..=naxis {
             axes.push(header.get_value_as(format!("NAXIS{i}").as_str())?);
         }
 
-        //And the datatype ofc
+        //Datatype is encoded in the BITPIX keyword
         let bitpix = Bitpix::from_code(&header.get_value_as("BITPIX")?)?;
 
         //Now do the actual decoding of the image:
         Ok(ImgParser::decode_img(raw, &axes, bitpix)?)
     }
 
-    pub fn encode_hdu(self, writer: &mut RawFitsWriter)
+    pub(crate) fn encode_hdu(self, writer: &mut RawFitsWriter)
         -> Result<(), Box<dyn Error>>
     {
         //(1) Write header
@@ -114,6 +118,16 @@ impl HeaderDataUnit {
         Ok(())
     }
 
+    fn not_impl(keyword: &str) -> Box<SimpleError> {
+        Box::new(SimpleError::new(
+            format!("Error while constructing HDU: extension {keyword} not implemented yet!")
+        ))
+    }
+
+    /*
+        USER-FACING API STARTS HERE    
+    */
+
     //Some simple getters
     pub fn get_header(&self) -> &Header {&self.header}
     pub fn get_data(&self) -> Option<&Extension> {self.data.as_ref()}
@@ -121,12 +135,6 @@ impl HeaderDataUnit {
     //Destructs HDU into parts
     pub fn to_parts(self) -> (Header, Option<Extension>) {
         (self.header, self.data)
-    }
-
-    fn not_impl(keyword: &str) -> Box<SimpleError> {
-        Box::new(SimpleError::new(
-            format!("Error while constructing HDU: extension {keyword} not implemented yet!")
-        ))
     }
 
     pub fn pretty_print_header(&self) -> String {

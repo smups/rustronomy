@@ -22,7 +22,7 @@ pub mod raw_io;
 pub mod keyword_record;
 pub mod header_block;
 
-//IO traits and enums
-pub trait BlockSized {
+pub(crate) trait BlockSized {
+    //Internal crate used for writing FITS files, not part of API
     fn get_block_len(&self) -> usize;
 }
