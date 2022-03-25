@@ -165,7 +165,16 @@ impl Header {
     pub(crate) fn new() -> Self {
         /*
             Creates new empty header.
+            pub(crate) since the end user should only create empty HDU's, not
+            bare headers!
         */
+        let mut header = Header {
+            records: HashMap::new(),
+            block_len: 0 //contains nothing
+        };
+        //we modified the header, so we should indicate that!
+        header.update_last_modified();
+        return header;
     }
 
     /*
