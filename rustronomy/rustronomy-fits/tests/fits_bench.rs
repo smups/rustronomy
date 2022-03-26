@@ -21,10 +21,8 @@ use std::{
     path::PathBuf,
     fs,
     time::Instant,
-    error::Error
 };
 
-use nd::Array2;
 use rustronomy_fits as rfs;
 use ndarray as nd;
 use dirs;
@@ -77,48 +75,3 @@ fn read_write_benchmark() {
     println!("Average read time: {}ms", read_times.iter().sum::<u128>() as usize / read_times.len());
     println!("Average write time: {}ms", write_times.iter().sum::<u128>() as usize / write_times.len());
 }
-/*
-fn plot(img: Array2<f64>, output: &std::path::Path) {
-
-    //Calculate size of the image
-    let x_size = img.shape()[0];
-    let y_size = img.shape()[1];
-
-    //Calculate max and min values in the Image
-    let mut max: f64 = f64::MIN;
-    for val in img.iter() { if val > &max {max = *val} }
-
-    let mut min: f64 = f64::MAX;
-    for val in img.iter() { if val < &min {min = *val} }
-
-    //Create a BitMap with the same size in pixels as the Image
-    let root = BitMapBackend::new(output, (x_size as u32, y_size as u32)).into_drawing_area();
-    root.fill(&RED).unwrap();
-
-    //create base chart with the size of the image
-    let mut chart = ChartBuilder::on(&root).build_cartesian_2d(0..x_size, 0..y_size).unwrap();
-
-    //Remove the mesh from the chart
-    chart.configure_mesh()
-        .disable_x_mesh()
-        .disable_y_mesh()
-        .draw().unwrap();
-
-    let plotting_area = chart.plotting_area();
-
-    for ((x,y), count) in img.indexed_iter() {
-        plotting_area.draw_pixel((x, y), &grey_scale(*count, min, max.log10()).unwrap()).unwrap()
-    }
-}
-
-fn grey_scale(count: f64, min: f64, log_max: f64)
-    -> Result<RGBColor, Box<dyn Error>>
-{
-    let col: u8 =
-    (//This should be within the 0-255 range!
-        255. * (count/min).abs().log10() / log_max
-    ) as u8;
-
-    Ok(RGBColor(col, col, col))
-}
-*/
