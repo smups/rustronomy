@@ -7,7 +7,7 @@
    viewBox="0 0 1185.2046 253.27286"
    version="1.1"
    id="svg5"
-   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
    sodipodi:docname="Rustronomy-fits_github_banner_light .svg"
    inkscape:export-filename="Rustronomy-fits_github_banner_light.png"
    inkscape:export-xdpi="25.4"
@@ -28,11 +28,11 @@
      showgrid="false"
      showguides="true"
      inkscape:guide-bbox="true"
-     inkscape:zoom="0.55630209"
-     inkscape:cx="949.1246"
-     inkscape:cy="370.3024"
+     inkscape:zoom="0.39336498"
+     inkscape:cx="1295.2348"
+     inkscape:cy="467.75897"
      inkscape:window-width="1920"
-     inkscape:window-height="1015"
+     inkscape:window-height="1011"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -1443,7 +1443,7 @@
          id="text4748"><tspan
            sodipodi:role="line"
            id="tspan4746"
-           style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:56.4444px;font-family:Candara;-inkscape-font-specification:'Candara Italic';fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+           style="font-style:italic;font-variant:normal;font-weight:300;font-stretch:normal;font-size:56.4444px;font-family:Montserrat;-inkscape-font-specification:'Montserrat Light Italic';fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-opacity:1"
            x="-608.54675"
            y="237.01898">fits extension</tspan></text>
     </g>

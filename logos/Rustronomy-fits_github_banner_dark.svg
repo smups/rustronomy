@@ -7,7 +7,7 @@
    viewBox="0 0 1185.2046 253.27286"
    version="1.1"
    id="svg5"
-   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
    sodipodi:docname="Rustronomy-fits_github_banner_dark.svg"
    inkscape:export-filename="Rustronomy-fits_github_banner_dark.png"
    inkscape:export-xdpi="25.4"
@@ -28,13 +28,13 @@
      showgrid="false"
      showguides="true"
      inkscape:guide-bbox="true"
-     inkscape:zoom="0.38593943"
-     inkscape:cx="2255.5353"
-     inkscape:cy="-68.663624"
-     inkscape:window-width="2560"
-     inkscape:window-height="1377"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
+     inkscape:zoom="0.27290039"
+     inkscape:cx="1027.8476"
+     inkscape:cy="622.93792"
+     inkscape:window-width="1920"
+     inkscape:window-height="1011"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
      inkscape:current-layer="g1577" />
   <defs
@@ -1416,13 +1416,13 @@
          y="10.516192" />
       <text
          xml:space="preserve"
-         style="font-size:56.4444px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#14293a;fill-opacity:1;stroke:#14293a;stroke-width:0.264583;stroke-opacity:1"
+         style="font-size:56.4444px;line-height:1;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#14293a;fill-opacity:1;stroke:#14293a;stroke-width:0.264583;stroke-opacity:1"
          x="-607.75409"
          y="236.98309"
          id="text4748"><tspan
            sodipodi:role="line"
            id="tspan4746"
-           style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:56.4444px;font-family:Candara;-inkscape-font-specification:'Candara Italic';fill:#14293a;fill-opacity:1;stroke:#14293a;stroke-width:0.264583;stroke-opacity:1"
+           style="font-style:italic;font-variant:normal;font-weight:300;font-stretch:normal;font-size:56.4444px;font-family:Montserrat;-inkscape-font-specification:'Montserrat Light Italic';fill:#14293a;fill-opacity:1;stroke:#14293a;stroke-width:0.264583;stroke-opacity:1"
            x="-607.75409"
            y="236.98309">fits extension</tspan></text>
     </g>
