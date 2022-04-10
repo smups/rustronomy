@@ -7,19 +7,24 @@ Rustronomy is an astrophysics Rust project aimed at providing astrophysicists wi
 
 Rustronomy crates build upon the currently existing, frequently used crates in the Rust ecosystem to provide a standardised toolset for astronomy. This way, all crates in the Rustronomy ecosystem are interoperable with each other and with external crates using the same dependencies as the Rustronomy project. Another key goal of Rustronomy is interoperability of Rustronomy crates with Python and its extensive existing scientific computing ecosystem. It is already quite easy to create Python bindings for Rust crates, and Rustronomy crates with unique capabilities are encouraged to also include Python bindings.
 
+> ### Migration notice
+> Until recently, all rustronomy crates were in the same github repository. This has changed:
+> - the rustronomy-core crate can still be found in this repo
+> - the rustronomy-fits crate has been moved to a [seperate repo](https://github.com/smups/rustronomy-fits)
+> - the rustronomy-sadf crate has been **removed** since sadf is a personal project of mine and probably not of any use for people other than me.
+
 ### Organisation
-Rustronomy is a collection of interoperable crates from many different fields. Any crate that makes use of other Rustronomy crates and follows the [guidelines]() can be added to the Rustronomy repository. Each Rustronomy crate may have its own maintainers.
+Rustronomy is a collection of interoperable crates from many different fields. Any crate that is reasonably well maintained, followes the [guidelines]() and is interoperable with the other crates can be added as a rustronomy crate.
 
 ### Current Features
 Rustronomy is currently divided in three crates, each providing the following features:
-- **rustronomy-core**: common dependency,
-- **rustronomy-fits**: utility for reading and writing FITS files,
-- **rustronomy-asdf**: utility for reading and writing ASDF (Advanced Scientific Data Format) files
-Note: some of these crates are not finished yet, see their respective pages for more info on their progress.
+- **rustronomy-core**: common dependency, enables interoperability between rustronomy crates (source is in this repo)
+- **rustronomy-fits** [![](https://img.shields.io/badge/github-source-orange)](https://github.com/smups/rustronomy-fits): utility for reading and writing FITS (Flexible Image Transport System) files
 
 ### Planned Features
 Currently, the crates listed above are not finished yet, so any work on future expansions is postponed until those are finished (barred from the asdf crate since not that many people use asdf files yet). If anyone wishes to contribute code for these projects, feel free to do so if you are prepared to maintain your own Rustronomy component.
 Sugessted Features:
+- data analysis tools (sampling, baysian analysis etc...)
 - spectroscopy tools
 - high-contrast imaging tools
 - star-field tools (calculating star fluxes from a field etc...)
