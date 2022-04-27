@@ -17,9 +17,11 @@ Rustronomy crates build upon the currently existing, frequently used crates in t
 Rustronomy is a collection of interoperable crates from many different fields. Any crate that is reasonably well maintained, followes the [guidelines]() and is interoperable with the other crates can be added as a rustronomy crate.
 
 ### Current Features
-Rustronomy is currently divided in three crates, each providing the following features:
-- **rustronomy-core**: common dependency, enables interoperability between rustronomy crates (source is in this repo)
-- **rustronomy-fits** [![](https://img.shields.io/badge/github-source-orange)](https://github.com/smups/rustronomy-fits): utility for reading and writing FITS (Flexible Image Transport System) files
+Rustronomy is currently divided in two crates, each providing the following features:
+- [![](https://img.shields.io/crates/v/rustronomy-core)](https://crates.io/crates/rustronomy-core) <br>
+**rustronomy-core** - common dependency, enables interoperability between rustronomy crates (source is in this repo)
+- ![](https://img.shields.io/crates/v/rustronomy-fits) [![](https://img.shields.io/badge/github-source-orange)](https://github.com/smups/rustronomy-fits) <br>
+**rustronomy-fits** - utility for reading and writing FITS (Flexible Image Transport System) files
 
 ### Planned Features
 Currently, the crates listed above are not finished yet, so any work on future expansions is postponed until those are finished (barred from the asdf crate since not that many people use asdf files yet). If anyone wishes to contribute code for these projects, feel free to do so if you are prepared to maintain your own Rustronomy component.
