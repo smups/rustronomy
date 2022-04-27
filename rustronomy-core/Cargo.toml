@@ -1,9 +1,32 @@
+# Copyright (C) 2022 Raúl Wolters
+
+# This file is part of rustronomy.
+
+# rustronomy is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# rustronomy is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with rustronomy.  If not, see <http://www.gnu.org/licenses/>.
+
 [package]
 name = "rustronomy-core"
 version = "0.1.0"
 edition = "2021"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+readme = "./README.md"
+license = "GPL-3.0-or-later"
+repository = "https://github.com/smups/rustronomy/"
+homepage = "https://github.com/smups/rustronomy/"
+authors = ["Raúl Wolters <rawolters11@gmail.com>"]
+description = "core dependency for rustronomy crates providing interoperable types"
+keywords = ["astronomy", "astrophysics", "rustronomy"]
+categories = ["science"]
 
 [dependencies]
 byteorder = "1"
