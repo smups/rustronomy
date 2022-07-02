@@ -17,8 +17,22 @@
     along with rustronomy.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#![doc(html_logo_url="https://raw.githubusercontent.com/smups/rustronomy/main/logos/Rustronomy_ferris.png?raw=true")]
+//! This crate defines the shared API for all rustronomy-project crates.
+//! Its purpose is to provide the necessary traits and types to ensure
+//! interoperability within the rustronomy project.
+//! 
+//! See the module docs down below for more details regarding specific API's. 
+
 //Module Strucutre
 pub mod data_type_traits;
+
+/// Provides a high-level API for commonly used storage objects in astronomy,
+/// such as Images and Tables. Crates in the rustronomy ecosystem responsible
+/// for encoding/decoding specific file formats (such as [rustronomy-fits](https://github.com/smups/rustronomy-fits))
+/// use the containers defined in this trait to facilitate easy data access and
+/// conversion between storage formats.
+pub mod io;
 
 #[cfg(test)]
 mod test;
