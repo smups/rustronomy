@@ -24,14 +24,8 @@
 //! 
 //! See the module docs down below for more details regarding specific API's. 
 
-//Module Strucutre
+//Module Strucutre (module description is given in the module definition files)
 pub mod data_type_traits;
-
-/// Provides a high-level API for commonly used storage objects in astronomy,
-/// such as Images and Tables. Crates in the rustronomy ecosystem responsible
-/// for encoding/decoding specific file formats (such as [rustronomy-fits](https://github.com/smups/rustronomy-fits))
-/// use the containers defined in this trait to facilitate easy data access and
-/// conversion between storage formats.
 pub mod io;
 
 #[cfg(test)]
