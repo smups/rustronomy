@@ -27,7 +27,7 @@
 //! All storage objects defined in this module may contain metadata represented
 //! as `MetaDataTag`s, which are simple key-value pairs. Some metadata tags are
 //! so commonly used in astronomy (such as a tag for the telescope or author)
-//! that they have already been implemented here. In addtion, users can add
+//! that they have already been implemented here. In addition, users can add
 //! their own metadata tags. For more info, see the metadata module.
 
 /* (Module structure)
