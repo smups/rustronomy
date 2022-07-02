@@ -145,3 +145,32 @@ impl<T> Display for GenericMetaDataTag<T>
         write!(f, "<Generic Tag> \"{}\"={}", self.key, self.value.to_string())
     }
 }
+
+#[derive(Debug)]
+/// this non-generic tag should be used to specify the author(s) of the data
+/// contained within the data container.
+pub struct AuthorTag {
+    author: String
+}
+
+impl AuthorTag {
+    pub fn new(author: &str) -> AuthorTag {
+        AuthorTag { author: author.to_string() }
+    }
+}
+
+impl MetaDataTag for AuthorTag {
+    fn as_string_pair(self) -> (String, String) {
+        (AUTHOR.to_string(), self.author)
+    }
+
+    fn parse_string_pair(_: String, value: &str) -> Self {
+        AuthorTag { author: value.to_string() }
+    }
+}
+
+impl Display for AuthorTag {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+        write!(f, "<Author Tag> \"author\"={}", self.author)
+    }
+}
