@@ -29,4 +29,6 @@ keywords = ["astronomy", "astrophysics", "rustronomy"]
 categories = ["science"]
 
 [dependencies]
+ndarray = "0.15"
+num-traits = "0.2"
 byteorder = "1"

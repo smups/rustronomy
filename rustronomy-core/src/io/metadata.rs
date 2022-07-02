@@ -45,8 +45,10 @@ pub const RESERVED_TAGS: [&str; 2] = [
     AUTHOR, DATE
 ];
 
-const AUTHOR: &str = "author";
-const DATE: &str = "date";
+#[doc(hidden)]
+pub const AUTHOR: &str = "author";
+#[doc(hidden)]
+pub const DATE: &str = "date";
 
 #[derive(Debug)]
 /// this is the generic metadata tag consisting of a `String key` and a generic

@@ -34,3 +34,4 @@
     note: module-level documentation is supplied in the modules themselves.
 */
 pub mod metadata;
+pub mod image;
