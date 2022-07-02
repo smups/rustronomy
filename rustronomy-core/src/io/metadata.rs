@@ -40,16 +40,20 @@ use std::{
     str::FromStr
 };
 
-/*
-    These are the reserved tags. These may not be used as keys for generic tags.
-*/
+/// these tags are reserved for special use-cases and may not be used as generic tags
+pub const RESERVED_TAGS: [&str; 2] = [
+    AUTHOR, DATE
+];
+
 const AUTHOR: &str = "author";
 const DATE: &str = "date";
 
 #[derive(Debug)]
 /// this is the generic metadata tag consisting of a `String key` and a generic
 /// value of type `T`. Parsers will encode these generic tags as such: *non-reserved,
-/// generic tags*. If you want parsers to use special metadata fields (if the file format
+/// generic tags*.
+/// 
+/// If you want parsers to use special metadata fields (if the file format
 /// that is being parts supports such special fields), you should use one of the
 /// non-generic tags in this module. In addition, authors of file-format specific
 /// crates are encouraged to define non-generic tags specific to that file-format
@@ -63,8 +67,37 @@ const DATE: &str = "date";
 ///     let my_tag: MetaDataTag<i32> = MetaDataTag::new("my_favourite_number", 42);
 /// ```
 pub struct GenericMetaDataTag<T> where T: Display + Sized + Send + Sync + FromStr {
-    key: String,
-    value: T
+    pub key: String,
+    pub value: T
+}
+
+/// this trait is implemented by containers that store metadata tags
+pub trait MetaDataContainer<T>
+    where T: Display + Sized + Send + Sync + FromStr, <T as FromStr>::Err: Debug
+{
+    fn add_generic_tag(&mut self, tag: GenericMetaDataTag<T>) -> Result<(), MetaDataErr>;
+    fn remove_generic_tag(&mut self, key: &str) -> Result<GenericMetaDataTag<T>, MetaDataErr>;
+}
+
+#[derive(Debug)]
+/// this enum contains various error types that may occur when modifying a container
+/// with metadata tags
+pub enum MetaDataErr {
+    KeyNotFound(String),
+    RestrictedKey(String),
+    KeyExists(String)
+}
+
+impl std::error::Error for MetaDataErr {}
+impl Display for MetaDataErr {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+        use MetaDataErr::*;
+        match self {
+            KeyNotFound(key) => write!(f, "could not find key \"{key}\""),
+            RestrictedKey(key) => write!(f, "cannot modify tag with key \"{key}\" because it is restricted"),
+            KeyExists(key) => write!(f, "cannot add tag with key \"{key}\" because it already exists")
+        }
+    }
 }
 
 /// this is a utility trait implemented by all structs that may be used as a 
@@ -81,7 +114,7 @@ pub trait MetaDataTag {
 }
 
 impl<T> GenericMetaDataTag<T>
-    where T: Display + Sized + Send + Sync + FromStr, <T as FromStr>::Err: Debug
+    where T: Display + Sized + Send + Sync + FromStr
 {
     pub fn new(key: &str, value: T) -> Self {
         GenericMetaDataTag { key: key.to_string(), value }
@@ -106,32 +139,9 @@ impl<T> MetaDataTag for GenericMetaDataTag<T>
 }
 
 impl<T> Display for GenericMetaDataTag<T>
-    where T: Display +  Send + Sync + FromStr, <T as FromStr>::Err: Debug
+    where T: Display +  Send + Sync + FromStr
 {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         write!(f, "<Generic Tag> \"{}\"={}", self.key, self.value.to_string())
-    }
-}
-
-#[derive(Debug)]
-/// this non-generic tag should be used to specify the author(s) of the data
-/// contained within the data container.
-pub struct AuthorTag {
-    author: String
-}
-
-impl AuthorTag {
-    pub fn new(author: &str) -> AuthorTag {
-        AuthorTag { author: author.to_string() }
-    }
-}
-
-impl MetaDataTag for AuthorTag {
-    fn as_string_pair(self) -> (String, String) {
-        (AUTHOR.to_string(), self.author)
-    }
-
-    fn parse_string_pair(_: String, value: &str) -> Self {
-        AuthorTag { author: value.to_string() }
     }
 }
