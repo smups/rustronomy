@@ -36,12 +36,12 @@ use super::metadata::{
   GenericMetaDataTag, MetaDataContainer, MetaDataErr, MetaDataTag, AUTHOR, RESERVED_TAGS,
 };
 
-pub struct array<T: Num> {
+pub struct DataArray<T: Num> {
   data: Array<IxDyn, T>,
   meta: HashMap<String, String>,
 }
 
-impl<U: Num, T> MetaDataContainer<T> for array<U>
+impl<U: Num, T> MetaDataContainer<T> for DataArray<U>
 where
   T: Display + Sized + Send + Sync + FromStr,
   <T as FromStr>::Err: Debug,
@@ -80,10 +80,10 @@ where
   }
 }
 
-impl<U: Num> array<U> {
+impl<U: Num> DataArray<U> {
   /// constructs new array (without metadata tags) from 2D ndarray
   pub fn new(data: Array<IxDyn, U>) -> Self {
-      array {
+      DataArray {
           data,
           meta: HashMap::new(),
       }
@@ -105,7 +105,7 @@ impl<U: Num> array<U> {
   }
 }
 
-impl<U: Num + Dimension> Display for array<U> {
+impl<U: Num + Dimension> Display for DataArray<U> {
   fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
       writeln!(
           f,
