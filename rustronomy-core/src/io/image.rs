@@ -23,7 +23,7 @@
 use std::{
     collections::HashMap,
     fmt::{self, Formatter, Debug, Display},
-    str::FromStr
+    str::FromStr, mem, any
 };
 
 use ndarray::Array2;
@@ -43,7 +43,8 @@ pub struct Image<T: Num> {
 impl<U: Num, T> MetaDataContainer<T> for Image<U> 
 where T: Display + Sized + Send + Sync + FromStr, <T as FromStr>::Err: Debug
 {
-    fn add_generic_tag(&mut self, tag: GenericMetaDataTag<T>) -> Result<(), MetaDataErr>
+    fn add_generic_tag(&mut self, tag: GenericMetaDataTag<T>)
+        -> Result<(), MetaDataErr>
     {
         //(1) Check if the key is reserved
         if RESERVED_TAGS.contains(&tag.key.as_str()) {
@@ -103,10 +104,24 @@ impl<U: Num> Image<U> {
 impl<U: Num> Display for Image<U> {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         writeln!(f, ">============================<|RUSTRONOMY IMAGE 🦀🌌|>============================")?;
-        writeln!(f, ">author: {}", match self.get_author() {
-            None => "(not specified)",
-            Some(author) => author
+        writeln!(f, ">shape: ({}x{})", self.data.shape()[0], self.data.shape()[1])?;
+        writeln!(f, ">size: {}", {
+            let byte_size = self.data.len() * mem::size_of::<U>();
+            if byte_size <= 1000 {
+                format!("{}B", byte_size)
+            } else if byte_size >= 1_000_000 {
+                format!("{}kB", byte_size / 1000)
+            } else if byte_size >= 1_000_000_000 {
+                format!("{}MB", byte_size / 1_000_000)
+            } else {
+                format!("{}GB", byte_size / 1_000_000_000)
+            }
         })?;
-        writeln!(f, ">-------------------------------------------------------------------------------")
+        writeln!(f, ">datatype: {}", any::type_name::<U>())?;
+        writeln!(f, ">----------------------------------<|METADATA|>---------------------------------")?;
+        for (tag, val) in self.meta.iter() {
+            writeln!(f, ">\"{tag}\": {val}")?;
+        }
+        writeln!(f, ">===============================================================================")
     }
 }
