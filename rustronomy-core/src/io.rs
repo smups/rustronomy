@@ -35,3 +35,4 @@
 */
 pub mod image;
 pub mod metadata;
+pub mod array;
