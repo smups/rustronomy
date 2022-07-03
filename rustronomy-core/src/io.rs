@@ -33,6 +33,7 @@
 /* (Module structure)
     note: module-level documentation is supplied in the modules themselves.
 */
+pub mod array;
 pub mod image;
 pub mod metadata;
-pub mod array;
+pub mod table;
