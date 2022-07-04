@@ -33,9 +33,10 @@ use num_traits::Num;
 
 use super::metadata::{
   priv_hack::PrivDataContainer, GenericMetaDataTag, MetaDataContainer, MetaDataErr, MetaDataTag,
-  AUTHOR, RESERVED_TAGS,
+  AUTHOR,
 };
 
+#[derive(Debug, Clone)]
 /// Image container consisting of a 2D array of type `T` and metadata tags
 pub struct Image<T: Num> {
   data: Array2<T>,

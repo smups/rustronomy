@@ -34,15 +34,16 @@ use num_traits::Num;
 
 use super::metadata::{
   priv_hack::PrivDataContainer, GenericMetaDataTag, MetaDataContainer, MetaDataErr, MetaDataTag,
-  AUTHOR, RESERVED_TAGS,
+  AUTHOR
 };
 
-pub struct DataArray<T: Num> {
+#[derive(Debug, Clone)]
+pub struct DataArray<T: Num + Dimension> {
   data: Array<IxDyn, T>,
   meta: HashMap<String, String>,
 }
 
-impl<U: Num, T> PrivDataContainer<T> for DataArray<U>
+impl<U: Num + Dimension, T> PrivDataContainer<T> for DataArray<U>
 where
   T: Display + Sized + Send + Sync + FromStr,
   <T as FromStr>::Err: Debug,
@@ -71,14 +72,14 @@ where
   }
 }
 
-impl<U: Num, T> MetaDataContainer<T> for DataArray<U>
+impl<U: Num + Dimension, T> MetaDataContainer<T> for DataArray<U>
 where
   T: Display + Sized + Send + Sync + FromStr,
   <T as FromStr>::Err: Debug,
 {
 }
 
-impl<U: Num> DataArray<U> {
+impl<U: Num + Dimension> DataArray<U> {
   /// constructs new array (without metadata tags) from 2D ndarray
   pub fn new(data: Array<IxDyn, U>) -> Self {
     DataArray {
