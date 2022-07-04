@@ -40,14 +40,6 @@ use std::{
   str::FromStr,
 };
 
-/// these tags are reserved for special use-cases and may not be used as generic tags
-pub const RESERVED_TAGS: [&str; 2] = [AUTHOR, DATE];
-
-#[doc(hidden)]
-pub const AUTHOR: &str = "author";
-#[doc(hidden)]
-pub const DATE: &str = "date";
-
 #[derive(Debug, Clone)]
 /// this is the generic metadata tag consisting of a `String key` and a generic
 /// value of type `T`. Parsers will encode these generic tags as such: *non-reserved,
@@ -197,41 +189,42 @@ where
   }
 }
 
+/// utility macro to easily create restricted tags from tuple structs
+macro_rules! impl_tag {
+  ($tag_name:ty, $key:ident, $fmt:literal) => {
+    impl MetaDataTag for $tag_name {
+      fn as_string_pair(self) -> (String, String) {
+        ($key.to_string(), self.0.to_string())
+      }
+      fn parse_string_pair(_: String, value: &str) -> Self {
+        Self(value.to_string())
+      }
+    }
+
+    impl Display for $tag_name {
+      fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+        write!(f, $fmt, self.0)
+      }
+    }
+  };
+}
+
+/*
+  List of all the restricted tags
+*/
+/// these tags are reserved for special use-cases and may not be used as generic tags
+pub const RESERVED_TAGS: [&str; 2] = [AUTHOR, DATE];
+
 #[derive(Debug, Clone)]
 /// this non-generic tag should be used to specify the author(s) of the data
 /// contained within the data container.
-pub struct AuthorTag {
-  author: String,
-}
+pub struct AuthorTag(pub String);
+pub(crate) const AUTHOR: &str = "author";
+impl_tag!(AuthorTag, AUTHOR, "<Author Tag> \"author\"={}");
 
-impl AuthorTag {
-  /// creates new author tag
-  pub fn new(author: &str) -> AuthorTag {
-    AuthorTag {
-      author: author.to_string(),
-    }
-  }
-
-  /// returns inner author string
-  pub fn to_inner(self) -> String {
-    self.author
-  }
-}
-
-impl MetaDataTag for AuthorTag {
-  fn as_string_pair(self) -> (String, String) {
-    (AUTHOR.to_string(), self.author)
-  }
-
-  fn parse_string_pair(_: String, value: &str) -> Self {
-    AuthorTag {
-      author: value.to_string(),
-    }
-  }
-}
-
-impl Display for AuthorTag {
-  fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-    write!(f, "<Author Tag> \"author\"={}", self.author)
-  }
-}
+#[derive(Debug, Clone)]
+/// this non-generic tag should be used to specify the ISO date when the data
+/// container was last modified
+pub struct DateTag(pub String);
+pub(crate) const DATE: &str = "date";
+impl_tag!(DateTag, DATE, "<Date Tag> \"last modified\"={}");
