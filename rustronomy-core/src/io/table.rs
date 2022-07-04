@@ -20,7 +20,7 @@
 //! This module specifies a table container. Tables consist of named columns
 //! that hold a bunch of values of the same type. Tables should not be used to
 //! store large amounts of data.
-//! 
+//!
 //! Three column types are supported:
 //! - `Integer` always a `Vec<i64>`
 //! - `Float` always a `Vec<f64>`

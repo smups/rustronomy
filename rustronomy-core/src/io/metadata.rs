@@ -36,8 +36,8 @@
 //! - `"date"`
 
 use std::{
-    fmt::{self, Debug, Display, Formatter},
-    str::FromStr,
+  fmt::{self, Debug, Display, Formatter},
+  str::FromStr,
 };
 
 /// these tags are reserved for special use-cases and may not be used as generic tags
@@ -48,7 +48,7 @@ pub const AUTHOR: &str = "author";
 #[doc(hidden)]
 pub const DATE: &str = "date";
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 /// this is the generic metadata tag consisting of a `String key` and a generic
 /// value of type `T`. Parsers will encode these generic tags as such: *non-reserved,
 /// generic tags*.
@@ -68,47 +68,47 @@ pub const DATE: &str = "date";
 /// ```
 pub struct GenericMetaDataTag<T>
 where
-    T: Display + Sized + Send + Sync + FromStr,
+  T: Display + Sized + Send + Sync + FromStr,
 {
-    pub key: String,
-    pub value: T,
+  pub key: String,
+  pub value: T,
 }
 
 /// this trait is implemented by containers that store metadata tags
 pub trait MetaDataContainer<T>
 where
-    T: Display + Sized + Send + Sync + FromStr,
-    <T as FromStr>::Err: Debug,
+  T: Display + Sized + Send + Sync + FromStr,
+  <T as FromStr>::Err: Debug,
 {
-    fn add_generic_tag(&mut self, tag: GenericMetaDataTag<T>) -> Result<(), MetaDataErr>;
-    fn remove_generic_tag(&mut self, key: &str) -> Result<GenericMetaDataTag<T>, MetaDataErr>;
+  fn add_generic_tag(&mut self, tag: GenericMetaDataTag<T>) -> Result<(), MetaDataErr>;
+  fn remove_generic_tag(&mut self, key: &str) -> Result<GenericMetaDataTag<T>, MetaDataErr>;
 }
 
 #[derive(Debug)]
 /// this enum contains various error types that may occur when modifying a container
 /// with metadata tags
 pub enum MetaDataErr {
-    KeyNotFound(String),
-    RestrictedKey(String),
-    KeyExists(String),
+  KeyNotFound(String),
+  RestrictedKey(String),
+  KeyExists(String),
 }
 
 impl std::error::Error for MetaDataErr {}
 impl Display for MetaDataErr {
-    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-        use MetaDataErr::*;
-        match self {
-            KeyNotFound(key) => write!(f, "could not find key \"{key}\""),
-            RestrictedKey(key) => write!(
-                f,
-                "cannot modify tag with key \"{key}\" because it is restricted"
-            ),
-            KeyExists(key) => write!(
-                f,
-                "cannot add tag with key \"{key}\" because it already exists"
-            ),
-        }
+  fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+    use MetaDataErr::*;
+    match self {
+      KeyNotFound(key) => write!(f, "could not find key \"{key}\""),
+      RestrictedKey(key) => write!(
+        f,
+        "cannot modify tag with key \"{key}\" because it is restricted"
+      ),
+      KeyExists(key) => write!(
+        f,
+        "cannot add tag with key \"{key}\" because it already exists"
+      ),
     }
+  }
 }
 
 /// this is a utility trait implemented by all structs that may be used as a
@@ -116,83 +116,83 @@ impl Display for MetaDataErr {
 /// string pairs and the actual metadata tags. Special care should be taken when
 /// converting between tags
 pub trait MetaDataTag {
-    fn as_string_pair(self) -> (String, String);
-    /// # panics
-    /// this function may panic if the `&str` provided in the value field cannot
-    /// be parsed to the desired metadata tag. This can occur if an invalid key-value
-    /// pair was inserted in the metadata storage container.
-    fn parse_string_pair(key: String, value: &str) -> Self;
+  fn as_string_pair(self) -> (String, String);
+  /// # panics
+  /// this function may panic if the `&str` provided in the value field cannot
+  /// be parsed to the desired metadata tag. This can occur if an invalid key-value
+  /// pair was inserted in the metadata storage container.
+  fn parse_string_pair(key: String, value: &str) -> Self;
 }
 
 impl<T> MetaDataTag for GenericMetaDataTag<T>
 where
-    T: Display + Sized + Send + Sync + FromStr,
-    <T as FromStr>::Err: Debug,
+  T: Display + Sized + Send + Sync + FromStr,
+  <T as FromStr>::Err: Debug,
 {
-    fn as_string_pair(self) -> (String, String) {
-        let key = self.key;
-        let value = T::to_string(&self.value);
-        (key, value)
-    }
+  fn as_string_pair(self) -> (String, String) {
+    let key = self.key;
+    let value = T::to_string(&self.value);
+    (key, value)
+  }
 
-    fn parse_string_pair(key: String, value: &str) -> GenericMetaDataTag<T> {
-        //This should never panic since the value field may only be filled by
-        //calling .to_string() on T
-        let value = T::from_str(value)
-            .expect("Could not parse tag data. Are you sure you provided the right key?");
-        GenericMetaDataTag { key, value }
-    }
+  fn parse_string_pair(key: String, value: &str) -> GenericMetaDataTag<T> {
+    //This should never panic since the value field may only be filled by
+    //calling .to_string() on T
+    let value = T::from_str(value)
+      .expect("Could not parse tag data. Are you sure you provided the right key?");
+    GenericMetaDataTag { key, value }
+  }
 }
 
 impl<T> Display for GenericMetaDataTag<T>
 where
-    T: Display + Send + Sync + FromStr,
+  T: Display + Send + Sync + FromStr,
 {
-    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-        write!(
-            f,
-            "<Generic Tag> \"{}\"={}",
-            self.key,
-            self.value.to_string()
-        )
-    }
+  fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+    write!(
+      f,
+      "<Generic Tag> \"{}\"={}",
+      self.key,
+      self.value.to_string()
+    )
+  }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 /// this non-generic tag should be used to specify the author(s) of the data
 /// contained within the data container.
 pub struct AuthorTag {
-    author: String,
+  author: String,
 }
 
 impl AuthorTag {
-    /// creates new author tag
-    pub fn new(author: &str) -> AuthorTag {
-        AuthorTag {
-            author: author.to_string(),
-        }
+  /// creates new author tag
+  pub fn new(author: &str) -> AuthorTag {
+    AuthorTag {
+      author: author.to_string(),
     }
+  }
 
-    /// returns inner author string
-    pub fn to_inner(self) -> String {
-        self.author
-    }
+  /// returns inner author string
+  pub fn to_inner(self) -> String {
+    self.author
+  }
 }
 
 impl MetaDataTag for AuthorTag {
-    fn as_string_pair(self) -> (String, String) {
-        (AUTHOR.to_string(), self.author)
-    }
+  fn as_string_pair(self) -> (String, String) {
+    (AUTHOR.to_string(), self.author)
+  }
 
-    fn parse_string_pair(_: String, value: &str) -> Self {
-        AuthorTag {
-            author: value.to_string(),
-        }
+  fn parse_string_pair(_: String, value: &str) -> Self {
+    AuthorTag {
+      author: value.to_string(),
     }
+  }
 }
 
 impl Display for AuthorTag {
-    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-        write!(f, "<Author Tag> \"author\"={}", self.author)
-    }
+  fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+    write!(f, "<Author Tag> \"author\"={}", self.author)
+  }
 }

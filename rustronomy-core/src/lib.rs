@@ -18,7 +18,7 @@
 */
 
 #![doc(
-    html_logo_url = "https://raw.githubusercontent.com/smups/rustronomy/main/logos/Rustronomy_ferris.png?raw=true"
+  html_logo_url = "https://raw.githubusercontent.com/smups/rustronomy/main/logos/Rustronomy_ferris.png?raw=true"
 )]
 //! This crate defines the shared API for all rustronomy-project crates.
 //! Its purpose is to provide the necessary traits and types to ensure
