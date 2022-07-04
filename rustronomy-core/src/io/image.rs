@@ -33,7 +33,6 @@ use num_traits::Num;
 
 use super::metadata::{
   priv_hack::PrivDataContainer, GenericMetaDataTag, MetaDataContainer, MetaDataErr, MetaDataTag,
-  AUTHOR,
 };
 
 #[derive(Debug, Clone)]
@@ -109,18 +108,7 @@ impl<U: Num> Display for Image<U> {
       ">============================<|RUSTRONOMY IMAGE 🦀🌌|>============================"
     )?;
     writeln!(f, ">shape: ({}x{})", self.data.shape()[0], self.data.shape()[1])?;
-    writeln!(f, ">size: {}", {
-      let byte_size = self.data.len() * mem::size_of::<U>();
-      if byte_size <= 1000 {
-        format!("{}B", byte_size)
-      } else if byte_size >= 1_000_000 {
-        format!("{}kB", byte_size / 1000)
-      } else if byte_size >= 1_000_000_000 {
-        format!("{}MB", byte_size / 1_000_000)
-      } else {
-        format!("{}GB", byte_size / 1_000_000_000)
-      }
-    })?;
+    writeln!(f, ">size: {}", super::fmt_byte_size(self.data.len() * mem::size_of::<U>()))?;
     writeln!(f, ">datatype: {}", any::type_name::<U>())?;
     writeln!(
       f,

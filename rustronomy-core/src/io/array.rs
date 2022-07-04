@@ -34,7 +34,6 @@ use num_traits::Num;
 
 use super::metadata::{
   priv_hack::PrivDataContainer, GenericMetaDataTag, MetaDataContainer, MetaDataErr, MetaDataTag,
-  AUTHOR,
 };
 
 #[derive(Debug, Clone)]
@@ -96,6 +95,7 @@ impl<U: Num + Dimension> DataArray<U> {
     DataArray { data, meta: HashMap::new() }
   }
 
+  #[inline]
   /// returns array data throwing away the metadata tags
   pub fn data(self) -> Array<IxDyn, U> {
     self.data
@@ -114,18 +114,7 @@ impl<U: Num + Dimension> Display for DataArray<U> {
       write!(f, "{dim},")?;
     }
     write!(f, "\u{0008})\n")?;
-    writeln!(f, ">size: {}", {
-      let byte_size = self.data.len() * mem::size_of::<U>();
-      if byte_size <= 1000 {
-        format!("{}B", byte_size)
-      } else if byte_size >= 1_000_000 {
-        format!("{}kB", byte_size / 1000)
-      } else if byte_size >= 1_000_000_000 {
-        format!("{}MB", byte_size / 1_000_000)
-      } else {
-        format!("{}GB", byte_size / 1_000_000_000)
-      }
-    })?;
+    writeln!(f, ">size: {}", super::fmt_byte_size(self.data.len() * mem::size_of::<U>()))?;
     writeln!(f, ">datatype: {}", any::type_name::<U>())?;
     writeln!(
       f,

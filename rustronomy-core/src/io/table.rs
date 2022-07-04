@@ -31,9 +31,12 @@
 
 use std::{
   collections::HashMap,
-  fmt::{Debug, Display},
+  fmt::{self, Debug, Display, Formatter},
+  mem,
   str::FromStr,
 };
+
+use indexmap::IndexMap;
 
 use super::metadata::{
   priv_hack::PrivDataContainer, GenericMetaDataTag, MetaDataContainer, MetaDataErr, MetaDataTag,
@@ -41,8 +44,8 @@ use super::metadata::{
 
 #[derive(Debug, Clone)]
 pub struct Table {
-  data: Vec<Col>,
-  lookup_tbl: HashMap<String, usize>,
+  //Indexmap to provide easy iteration
+  data: IndexMap<String, Col>,
   meta: HashMap<String, String>,
 }
 
@@ -50,7 +53,47 @@ pub struct Table {
 pub enum Col {
   Integer(Vec<i64>),
   Float(Vec<f64>),
-  Text(String),
+  Text(Vec<String>),
+}
+
+#[derive(Debug)]
+pub enum TableErr {
+  ColNoExist(String),
+}
+
+impl std::error::Error for TableErr {}
+impl Display for TableErr {
+  fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+    use TableErr::*;
+    match self {
+      ColNoExist(col_name) => write!(f, "no column named \"{col_name}\" exists"),
+    }
+  }
+}
+
+impl Col {
+  #[inline]
+  /// returns the number of elements in the column
+  pub fn len(&self) -> usize {
+    use Col::*;
+    match self {
+      Integer(vec) => vec.len(),
+      Float(vec) => vec.len(),
+      Text(vec) => vec.len(),
+    }
+  }
+
+  /// returns the total size of the column in bytes
+  pub fn size(&self) -> usize {
+    //total size = discriminant + usize + the size of the underlying vector
+    mem::size_of::<Self>()
+      + self.len()
+        * match self {
+          Col::Integer(_) => mem::size_of::<i64>(),
+          Col::Float(_) => mem::size_of::<f64>(),
+          Col::Text(vec) => vec.iter().map(|string| string.bytes().len()).sum(),
+        }
+  }
 }
 
 impl<T> PrivDataContainer<T> for Table
@@ -98,4 +141,88 @@ where
   T: Display + Sized + Send + Sync + FromStr,
   <T as FromStr>::Err: Debug,
 {
+}
+
+impl Table {
+  /// creates an empty table without metadata
+  pub fn new() -> Table {
+    Table { data: IndexMap::new(), meta: HashMap::new() }
+  }
+
+  #[inline]
+  /// adds column to the table and gives it a name, if specified. If a column
+  /// with the same name already exists, it will be overridden.
+  pub fn set_col(&mut self, col_name: &str, col: Col) {
+    self.data.insert(col_name.to_string(), col);
+  }
+
+  #[inline]
+  /// returns reference to the column with the name `col_name` if one exists,
+  /// `None` otherwise.
+  pub fn get_col(&self, col_name: &str) -> Option<&Col> {
+    self.data.get(col_name)
+  }
+
+  #[inline]
+  /// returns mutable reference to the column with the name `col_name` if one
+  /// exists, `None` otherwise.
+  pub fn get_col_mut(&mut self, col_name: &str) -> Option<&mut Col> {
+    self.data.get_mut(col_name)
+  }
+
+  #[inline]
+  /// removes column with the name `col_name` if one exists and returns it.
+  /// Returns `None` if no column named `col_name` exists.
+  pub fn remove_col(&mut self, col_name: &str) -> Option<Col> {
+    self.data.remove(col_name)
+  }
+
+  #[inline]
+  /// returns vec of (column-name, column) pairs, discarding the metadata tags
+  pub fn data(self) -> Vec<(String, Col)> {
+    self.data.into_iter().collect()
+  }
+
+  #[inline]
+  /// returns vec of columns discarding column names and metadata tags
+  pub fn data_unnamed(self) -> Vec<Col> {
+    self.data.into_values().collect()
+  }
+}
+
+impl Display for Table {
+  fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+    writeln!(
+      f,
+      ">=============================<|RUSTRONOMY TABLE 🦀🌌|>============================"
+    )?;
+    writeln!(f, ">number of colums: {}", self.data.len())?;
+    write!(f, ">shape: (")?;
+    for (_name, val) in self.data.iter() {
+      write!(f, "{},", val.len())?;
+    }
+    write!(f, "\u{0008})\n")?;
+    write!(
+      f,
+      ">total size: {}",
+      super::fmt_byte_size(self.data.iter().map(|(_name, col)| col.size()).sum())
+    )?;
+    writeln!(
+      f,
+      ">-----------------------------------<|COLUMNS|>----------------------------------"
+    )?;
+    for (col_name, col) in self.data.iter() {
+      writeln!(f, ">[{}]", col_name)?;
+      writeln!(f, ">    number of elements: {}", col.len())?;
+      writeln!(f, ">    size: {}", super::fmt_byte_size(col.size()))?;
+    }
+    writeln!(
+      f,
+      ">----------------------------------<|METADATA|>---------------------------------"
+    )?;
+    for (tag, val) in self.meta.iter() {
+      writeln!(f, ">\"{tag}\": {val}")?;
+    }
+    writeln!(f, ">===============================================================================")
+  }
 }

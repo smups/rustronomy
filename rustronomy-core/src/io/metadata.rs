@@ -89,7 +89,11 @@ where
   /// reserved tags cannot be changed manually, but can be copied without any
   /// issues. Therefore, you may supply a restricted key to this function.
   fn get_tag(&self, key: &str) -> Option<GenericMetaDataTag<T>> {
-    if let Ok(tag) = self.get_priv_tag(key) { Some(tag) } else { None }
+    if let Ok(tag) = self.get_priv_tag(key) {
+      Some(tag)
+    } else {
+      None
+    }
   }
 
   /// removes a generic metadata tag from a data container. Returns an error if
