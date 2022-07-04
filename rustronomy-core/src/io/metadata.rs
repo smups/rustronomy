@@ -1,20 +1,20 @@
 /*
-    Copyright (C) 2022 Raúl Wolters
+  Copyright (C) 2022 Raúl Wolters
 
-    This file is part of rustronomy-core.
+  This file is part of rustronomy-core.
 
-    rustronomy is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+  rustronomy is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
 
-    rustronomy is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+  rustronomy is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with rustronomy.  If not, see <http://www.gnu.org/licenses/>.
+  You should have received a copy of the GNU General Public License
+  along with rustronomy.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 //! this module provides a generic `MetaDataTag<T>` used to add metadata to data
@@ -74,14 +74,53 @@ where
   pub value: T,
 }
 
-/// this trait is implemented by containers that store metadata tags
-pub trait MetaDataContainer<T>
+/// this trait is implemented by containers that store metadata tags.
+pub trait MetaDataContainer<T>: priv_hack::PrivDataContainer<T>
 where
   T: Display + Sized + Send + Sync + FromStr,
   <T as FromStr>::Err: Debug,
 {
-  fn add_generic_tag(&mut self, tag: GenericMetaDataTag<T>) -> Result<(), MetaDataErr>;
-  fn remove_generic_tag(&mut self, key: &str) -> Result<GenericMetaDataTag<T>, MetaDataErr>;
+  /// adds a generic metadata tag to a data container. Returns an error if the
+  /// supplied tag is restricted or if it already exists
+  fn add_generic_tag(&mut self, tag: GenericMetaDataTag<T>) -> Result<(), MetaDataErr> {
+    //(1) Check if the key is reserved
+    if RESERVED_TAGS.contains(&tag.key.as_str()) {
+      return Err(MetaDataErr::RestrictedKey(tag.key));
+    }
+
+    //(R) return the non-restricted key
+    self.add_priv_tag(tag)
+  }
+
+  /// removes a generic metadata tag from a data container. Returns an error if
+  /// the supplied tag is restricted or if the tag does not exist.
+  fn remove_generic_tag(&mut self, key: &str) -> Result<GenericMetaDataTag<T>, MetaDataErr> {
+    //(1) Check if the key is reserved
+    if RESERVED_TAGS.contains(&key) {
+      return Err(MetaDataErr::RestrictedKey(key.to_string()));
+    }
+
+    //(R) remove the non-restricted key
+    self.remove_priv_tag(key)
+  }
+}
+
+pub(crate) mod priv_hack {
+  use std::{
+    fmt::{Debug, Display},
+    str::FromStr,
+  };
+
+  use super::{GenericMetaDataTag, MetaDataErr};
+
+  pub trait PrivDataContainer<T>
+  where
+    T: Display + Sized + Send + Sync + FromStr,
+    <T as FromStr>::Err: Debug,
+  {
+    fn add_priv_tag(&mut self, tag: GenericMetaDataTag<T>) -> Result<(), MetaDataErr>;
+    fn remove_priv_tag(&mut self, key: &str) -> Result<GenericMetaDataTag<T>, MetaDataErr>;
+  }
 }
 
 #[derive(Debug)]
