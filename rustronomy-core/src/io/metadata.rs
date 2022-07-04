@@ -124,18 +124,6 @@ pub trait MetaDataTag {
     fn parse_string_pair(key: String, value: &str) -> Self;
 }
 
-impl<T> GenericMetaDataTag<T>
-where
-    T: Display + Sized + Send + Sync + FromStr,
-{
-    pub fn new(key: &str, value: T) -> Self {
-        GenericMetaDataTag {
-            key: key.to_string(),
-            value,
-        }
-    }
-}
-
 impl<T> MetaDataTag for GenericMetaDataTag<T>
 where
     T: Display + Sized + Send + Sync + FromStr,
