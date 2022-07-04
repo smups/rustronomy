@@ -7,7 +7,10 @@
 ### _this is the homepage of rustronomy-core, the shared core dependency for all rustronomy crates_
 The `rustronomy-core` crate provides types and traits that ensure interoperability between rustronomy crates. This crate should be updated very infrequently since all other rustronomy crates depend on its public API and breaking changes would require a large rewrite. Therefore, the functionality provided by `rustronomy-core` should be kept to a minimum. 
 
-> **this crate is not meant to be used as a stand-alone crate. It should be used exclusively as a dependency for other crates in the rustronomy project**
+# Functionality [(read the docs)](https://docs.rs/rustronomy-core/0.1.0/rustronomy_core/)
+Currently, `rustronomy-core` only provides shared data containers. Shared data 
+containers are used as common data-container types between rustronomy crates 
+and support metadata.
 
 # License
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
