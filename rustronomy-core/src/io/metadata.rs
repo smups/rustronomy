@@ -147,6 +147,7 @@ pub(crate) mod priv_hack {
 }
 
 #[derive(Debug)]
+#[non_exhaustive]
 /// this enum contains various error types that may occur when modifying a container
 /// with metadata tags
 pub enum MetaDataErr {
