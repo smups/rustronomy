@@ -43,6 +43,8 @@ use super::metadata::{
 };
 
 #[derive(Debug, Clone)]
+/// the table data container. Consists of named columns and metadata tags. See
+/// the module-level documentation for more details.
 pub struct Table {
   //Indexmap to provide easy iteration
   data: IndexMap<String, Col>,
@@ -50,25 +52,21 @@ pub struct Table {
 }
 
 #[derive(Debug, Clone)]
+#[non_exhaustive]
+/// columns are the constituent parts of tables. They consist of vectors holding
+/// elements of the same type. Types are differentiated via the variants of this
+/// enum.
+/// 
+/// Right now, 3 variants are supported:
+/// - `Integer` always a `Vec<i64>`
+/// - `Float` always a `Vec<f64>`
+/// - `Text` always a `Vec<String>`
+/// In the future, more variants may be added as necessary. As such, this enum
+/// is marked as `#[non_exhaustive]`.
 pub enum Col {
   Integer(Vec<i64>),
   Float(Vec<f64>),
   Text(Vec<String>),
-}
-
-#[derive(Debug)]
-pub enum TableErr {
-  ColNoExist(String),
-}
-
-impl std::error::Error for TableErr {}
-impl Display for TableErr {
-  fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-    use TableErr::*;
-    match self {
-      ColNoExist(col_name) => write!(f, "no column named \"{col_name}\" exists"),
-    }
-  }
 }
 
 impl Col {
