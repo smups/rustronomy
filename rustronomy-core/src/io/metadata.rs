@@ -28,9 +28,9 @@
 //! facilitate easy conversion between tags and their string representations, all
 //! metadata tags should implement `MetaDataTag` trait.
 //!
-//! ## Restricted keys
+//! ## reserved keys
 //! Specific metadata tags are implemented by reserving keys. You cannot create
-//! a generic metadata tag using a restricted key. The keys listed here are reserved
+//! a generic metadata tag using a reserved key. The keys listed here are reserved
 //! by the non-generic tags defined in the core crate.
 //! - `"author"` used to indicate the author of a data container
 //! - `"date"` specifies when a data container was last modified
@@ -73,27 +73,57 @@ where
   <T as FromStr>::Err: Debug,
 {
   /// adds a generic metadata tag to a data container. Returns an error if the
-  /// supplied tag is restricted or if it already exists
-  fn add_generic_tag(&mut self, tag: GenericMetaDataTag<T>) -> Result<(), MetaDataErr> {
+  /// supplied tag is reserved. If the tag already exists, the old value will
+  /// be overridden.
+  fn set_generic_tag(&mut self, tag: GenericMetaDataTag<T>) -> Result<(), MetaDataErr> {
     //(1) Check if the key is reserved
     if RESERVED_TAGS.contains(&tag.key.as_str()) {
-      return Err(MetaDataErr::RestrictedKey(tag.key));
+      return Err(MetaDataErr::ReservedKey(tag.key));
     }
 
-    //(R) return the non-restricted key
-    self.add_priv_tag(tag)
+    //(R) return the non-reserved key
+    self.set_priv_tag(tag)
+  }
+
+  /// returns a copy of the tag associated with the supplied key, if it exists.
+  /// reserved tags cannot be changed manually, but can be copied without any
+  /// issues. Therefore, you may supply a restricted key to this function.
+  fn get_tag(&self, key: &str) -> Option<GenericMetaDataTag<T>> {
+    if let Ok(tag) = self.get_priv_tag(key) {
+      Some(tag)
+    } else {
+      None
+    }
   }
 
   /// removes a generic metadata tag from a data container. Returns an error if
-  /// the supplied tag is restricted or if the tag does not exist.
+  /// the supplied tag is reserved or if the tag does not exist.
   fn remove_generic_tag(&mut self, key: &str) -> Result<GenericMetaDataTag<T>, MetaDataErr> {
     //(1) Check if the key is reserved
     if RESERVED_TAGS.contains(&key) {
-      return Err(MetaDataErr::RestrictedKey(key.to_string()));
+      return Err(MetaDataErr::ReservedKey(key.to_string()));
     }
 
-    //(R) remove the non-restricted key
+    //(R) remove the non-reserved key
     self.remove_priv_tag(key)
+  }
+
+  /*
+    Metadata containers should also be able to be tagged with non-generic tags
+  */
+  fn set_author(&mut self, author: &str) -> Result<(), MetaDataErr> {
+    self.set_priv_tag(AuthorTag(author.to_string()))
+  }
+  fn get_author(&self) -> Option<String> {
+    if let Some(tag) = self.get_tag(AUTHOR) {
+      Some(tag.value.to_string())
+    } else {
+      None
+    }
+  }
+  fn remove_author(&mut self) -> Result<(), MetaDataErr> {
+    self.remove_priv_tag(AUTHOR)?;
+    Ok(())
   }
 }
 
@@ -103,14 +133,15 @@ pub(crate) mod priv_hack {
     str::FromStr,
   };
 
-  use super::{GenericMetaDataTag, MetaDataErr};
+  use super::{GenericMetaDataTag, MetaDataErr, MetaDataTag};
 
   pub trait PrivDataContainer<T>
   where
     T: Display + Sized + Send + Sync + FromStr,
     <T as FromStr>::Err: Debug,
   {
-    fn add_priv_tag(&mut self, tag: GenericMetaDataTag<T>) -> Result<(), MetaDataErr>;
+    fn set_priv_tag(&mut self, tag: impl MetaDataTag) -> Result<(), MetaDataErr>;
+    fn get_priv_tag(&self, key: &str) -> Result<GenericMetaDataTag<T>, MetaDataErr>;
     fn remove_priv_tag(&mut self, key: &str) -> Result<GenericMetaDataTag<T>, MetaDataErr>;
   }
 }
@@ -120,7 +151,7 @@ pub(crate) mod priv_hack {
 /// with metadata tags
 pub enum MetaDataErr {
   KeyNotFound(String),
-  RestrictedKey(String),
+  ReservedKey(String),
   KeyExists(String),
 }
 
@@ -130,9 +161,9 @@ impl Display for MetaDataErr {
     use MetaDataErr::*;
     match self {
       KeyNotFound(key) => write!(f, "could not find key \"{key}\""),
-      RestrictedKey(key) => write!(
+      ReservedKey(key) => write!(
         f,
-        "cannot modify tag with key \"{key}\" because it is restricted"
+        "cannot modify tag with key \"{key}\" because it is reserved"
       ),
       KeyExists(key) => write!(
         f,
@@ -147,6 +178,7 @@ impl Display for MetaDataErr {
 /// string pairs and the actual metadata tags. Special care should be taken when
 /// converting between tags
 pub trait MetaDataTag {
+  fn get_key(&self) -> &str;
   fn as_string_pair(self) -> (String, String);
   /// # panics
   /// this function may panic if the `&str` provided in the value field cannot
@@ -160,6 +192,10 @@ where
   T: Display + Sized + Send + Sync + FromStr,
   <T as FromStr>::Err: Debug,
 {
+  fn get_key(&self) -> &str {
+    &self.key
+  }
+
   fn as_string_pair(self) -> (String, String) {
     let key = self.key;
     let value = T::to_string(&self.value);
@@ -189,15 +225,18 @@ where
   }
 }
 
-/// utility macro to easily create restricted tags from tuple structs
+/// utility macro to easily create reserved tags from tuple structs
 macro_rules! impl_tag {
-  ($tag_name:ty, $key:ident, $fmt:literal) => {
+  ($tag_name:path, $inner:ty, $key:ident, $fmt:literal) => {
     impl MetaDataTag for $tag_name {
+      fn get_key(&self) -> &str {
+        $key
+      }
       fn as_string_pair(self) -> (String, String) {
         ($key.to_string(), self.0.to_string())
       }
       fn parse_string_pair(_: String, value: &str) -> Self {
-        Self(value.to_string())
+        $tag_name(value.to_string())
       }
     }
 
@@ -206,15 +245,30 @@ macro_rules! impl_tag {
         write!(f, $fmt, self.0)
       }
     }
+
+    impl From<$tag_name> for GenericMetaDataTag<$inner> {
+      fn from(reserved_tag: $tag_name) -> GenericMetaDataTag<$inner> {
+        GenericMetaDataTag {
+          key: $key.to_string(),
+          value: reserved_tag.0,
+        }
+      }
+    }
+
+    impl From<$inner> for $tag_name {
+      fn from(inner: $inner) -> $tag_name {
+        $tag_name(inner)
+      }
+    }
   };
 }
 
 /*
-  List of all the restricted tags. If you add a restricted tag, make sure to:
+  List of all the reserved tags. If you add a reserved tag, make sure to:
     (1) add it to the RESERVED_TAGS array
     (2) run the impl_tag! macro
-    (3) specify the restricted key in the struct-level docs
-    (4) add the restricted key (with description) to the restricted keys list in
+    (3) specify the reserved key in the struct-level docs
+    (4) add the reserved key (with description) to the reserved keys list in
         the module-level docs.
   Thx!
 */
@@ -222,15 +276,15 @@ macro_rules! impl_tag {
 pub const RESERVED_TAGS: [&str; 2] = [AUTHOR, DATE];
 
 #[derive(Debug, Clone)]
-/// this restricted tag specifies the author(s) of the data contained within
-/// the data container. It corresponds to the restricted `author` key.
+/// this reserved tag specifies the author(s) of the data contained within
+/// the data container. It corresponds to the reserved `author` key.
 pub struct AuthorTag(pub String);
 pub(crate) const AUTHOR: &str = "author";
-impl_tag!(AuthorTag, AUTHOR, "<Author Tag> \"author\"={}");
+impl_tag!(AuthorTag, String, AUTHOR, "<Author Tag> \"author\"={}");
 
 #[derive(Debug, Clone)]
-/// this restricted tag specifies the ISO date when the data container was last
-/// modified. It corresponds to the restricted `date` key.
+/// this reserved tag specifies the ISO date when the data container was last
+/// modified. It corresponds to the reserved `date` key.
 pub struct DateTag(pub String);
 pub(crate) const DATE: &str = "date";
-impl_tag!(DateTag, DATE, "<Date Tag> \"last modified\"={}");
+impl_tag!(DateTag, String, DATE, "<Date Tag> \"last modified\"={}");
