@@ -93,25 +93,12 @@ where
 impl<U: Num> Image<U> {
   /// constructs new image (without metadata tags) from 2D ndarray
   pub fn new(data: Array2<U>) -> Self {
-    Image {
-      data,
-      meta: HashMap::new(),
-    }
+    Image { data, meta: HashMap::new() }
   }
 
   /// returns image data throwing away the metadata tags
   pub fn data(self) -> Array2<U> {
     self.data
-  }
-
-  /// set the author of the image to the supplied value
-  pub fn set_author(&mut self, author: &str) {
-    self.meta.insert(AUTHOR.to_string(), author.to_string());
-  }
-
-  /// returns the author of the image, if one was specified
-  pub fn get_author(&self) -> Option<&String> {
-    self.meta.get(AUTHOR)
   }
 }
 
@@ -121,12 +108,7 @@ impl<U: Num> Display for Image<U> {
       f,
       ">============================<|RUSTRONOMY IMAGE 🦀🌌|>============================"
     )?;
-    writeln!(
-      f,
-      ">shape: ({}x{})",
-      self.data.shape()[0],
-      self.data.shape()[1]
-    )?;
+    writeln!(f, ">shape: ({}x{})", self.data.shape()[0], self.data.shape()[1])?;
     writeln!(f, ">size: {}", {
       let byte_size = self.data.len() * mem::size_of::<U>();
       if byte_size <= 1000 {
@@ -147,9 +129,6 @@ impl<U: Num> Display for Image<U> {
     for (tag, val) in self.meta.iter() {
       writeln!(f, ">\"{tag}\": {val}")?;
     }
-    writeln!(
-      f,
-      ">==============================================================================="
-    )
+    writeln!(f, ">===============================================================================")
   }
 }

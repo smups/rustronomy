@@ -89,11 +89,7 @@ where
   /// reserved tags cannot be changed manually, but can be copied without any
   /// issues. Therefore, you may supply a restricted key to this function.
   fn get_tag(&self, key: &str) -> Option<GenericMetaDataTag<T>> {
-    if let Ok(tag) = self.get_priv_tag(key) {
-      Some(tag)
-    } else {
-      None
-    }
+    if let Ok(tag) = self.get_priv_tag(key) { Some(tag) } else { None }
   }
 
   /// removes a generic metadata tag from a data container. Returns an error if
@@ -161,14 +157,8 @@ impl Display for MetaDataErr {
     use MetaDataErr::*;
     match self {
       KeyNotFound(key) => write!(f, "could not find key \"{key}\""),
-      ReservedKey(key) => write!(
-        f,
-        "cannot modify tag with key \"{key}\" because it is reserved"
-      ),
-      KeyExists(key) => write!(
-        f,
-        "cannot add tag with key \"{key}\" because it already exists"
-      ),
+      ReservedKey(key) => write!(f, "cannot modify tag with key \"{key}\" because it is reserved"),
+      KeyExists(key) => write!(f, "cannot add tag with key \"{key}\" because it already exists"),
     }
   }
 }
@@ -216,12 +206,7 @@ where
   T: Display + Send + Sync + FromStr,
 {
   fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-    write!(
-      f,
-      "<Generic Tag> \"{}\"={}",
-      self.key,
-      self.value.to_string()
-    )
+    write!(f, "<Generic Tag> \"{}\"={}", self.key, self.value.to_string())
   }
 }
 
@@ -248,10 +233,7 @@ macro_rules! impl_tag {
 
     impl From<$tag_name> for GenericMetaDataTag<$inner> {
       fn from(reserved_tag: $tag_name) -> GenericMetaDataTag<$inner> {
-        GenericMetaDataTag {
-          key: $key.to_string(),
-          value: reserved_tag.0,
-        }
+        GenericMetaDataTag { key: $key.to_string(), value: reserved_tag.0 }
       }
     }
 

@@ -93,25 +93,12 @@ where
 impl<U: Num + Dimension> DataArray<U> {
   /// constructs new array (without metadata tags) from 2D ndarray
   pub fn new(data: Array<IxDyn, U>) -> Self {
-    DataArray {
-      data,
-      meta: HashMap::new(),
-    }
+    DataArray { data, meta: HashMap::new() }
   }
 
   /// returns array data throwing away the metadata tags
   pub fn data(self) -> Array<IxDyn, U> {
     self.data
-  }
-
-  /// set the author of the array to the supplied value
-  pub fn set_author(&mut self, author: &str) {
-    self.meta.insert(AUTHOR.to_string(), author.to_string());
-  }
-
-  /// returns the author of the array, if one was specified
-  pub fn get_author(&self) -> Option<&String> {
-    self.meta.get(AUTHOR)
   }
 }
 
@@ -147,9 +134,6 @@ impl<U: Num + Dimension> Display for DataArray<U> {
     for (tag, val) in self.meta.iter() {
       writeln!(f, ">\"{tag}\": {val}")?;
     }
-    writeln!(
-      f,
-      ">==============================================================================="
-    )
+    writeln!(f, ">===============================================================================")
   }
 }

@@ -21,3 +21,6 @@
 # 2 space tabs are not a formal requirement for rustfmt, crate authors can use
 # whatever they like, as long as they do so through configuring rustfmt
 tab_spaces = 2
+
+#allow for one-liners to take up a full line
+use_small_heuristics = "Max"
