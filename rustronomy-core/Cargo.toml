@@ -32,4 +32,3 @@ categories = ["science"]
 ndarray = "0.15"
 num-traits = "0.2"
 indexmap = "1"
-byteorder = "1"
