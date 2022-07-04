@@ -7,12 +7,6 @@ Rustronomy is an astrophysics Rust project aimed at providing astrophysicists wi
 
 Rustronomy crates build upon the currently existing, frequently used crates in the Rust ecosystem to provide a standardised toolset for astronomy. This way, all crates in the Rustronomy ecosystem are interoperable with each other and with external crates using the same dependencies as the Rustronomy project. Another key goal of Rustronomy is interoperability of Rustronomy crates with Python and its extensive existing scientific computing ecosystem. It is already quite easy to create Python bindings for Rust crates, and Rustronomy crates with unique capabilities are encouraged to also include Python bindings.
 
-> ### Migration notice
-> Until recently, all rustronomy crates were in the same github repository. This has changed:
-> - the rustronomy-core crate can still be found in this repo
-> - the rustronomy-fits crate has been moved to a [seperate repo](https://github.com/smups/rustronomy-fits)
-> - the rustronomy-sadf crate has been **removed** since sadf is a personal project of mine and probably not of any use for people other than me.
-
 ### Organisation
 Rustronomy is a collection of interoperable crates from many different fields. Any crate that is reasonably well maintained, followes the [guidelines]() and is interoperable with the other crates can be added as a rustronomy crate.
 

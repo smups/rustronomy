@@ -15,20 +15,12 @@
 # You should have received a copy of the GNU General Public License
 # along with rustronomy.  If not, see <http://www.gnu.org/licenses/>.
 
-[package]
-name = "rustronomy-core"
-version = "0.2.0"
-edition = "2021"
-readme = "./README.md"
-license = "GPL-3.0-or-later"
-repository = "https://github.com/smups/rustronomy/"
-homepage = "https://github.com/smups/rustronomy/"
-authors = ["Raúl Wolters <rawolters11@gmail.com>"]
-description = "core dependency for rustronomy crates providing interoperable types"
-keywords = ["astronomy", "astrophysics", "rustronomy"]
-categories = ["science"]
+# Why 2 space tabs? Rust requires so much indentation that 4 space tabs often
+# restrict the length of code that fits on one line.
+#
+# 2 space tabs are not a formal requirement for rustfmt, crate authors can use
+# whatever they like, as long as they do so through configuring rustfmt
+tab_spaces = 2
 
-[dependencies]
-ndarray = "0.15"
-num-traits = "0.2"
-indexmap = "1"
+#allow for one-liners to take up a full line
+use_small_heuristics = "Max"
