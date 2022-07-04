@@ -34,7 +34,7 @@ use num_traits::Num;
 
 use super::metadata::{
   priv_hack::PrivDataContainer, GenericMetaDataTag, MetaDataContainer, MetaDataErr, MetaDataTag,
-  AUTHOR
+  AUTHOR,
 };
 
 #[derive(Debug, Clone)]
