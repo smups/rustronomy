@@ -32,8 +32,8 @@
 //! Specific metadata tags are implemented by reserving keys. You cannot create
 //! a generic metadata tag using a restricted key. The keys listed here are reserved
 //! by the non-generic tags defined in the core crate.
-//! - `"author"`
-//! - `"date"`
+//! - `"author"` used to indicate the author of a data container
+//! - `"date"` specifies when a data container was last modified
 
 use std::{
   fmt::{self, Debug, Display, Formatter},
@@ -210,21 +210,27 @@ macro_rules! impl_tag {
 }
 
 /*
-  List of all the restricted tags
+  List of all the restricted tags. If you add a restricted tag, make sure to:
+    (1) add it to the RESERVED_TAGS array
+    (2) run the impl_tag! macro
+    (3) specify the restricted key in the struct-level docs
+    (4) add the restricted key (with description) to the restricted keys list in
+        the module-level docs.
+  Thx!
 */
 /// these tags are reserved for special use-cases and may not be used as generic tags
 pub const RESERVED_TAGS: [&str; 2] = [AUTHOR, DATE];
 
 #[derive(Debug, Clone)]
-/// this non-generic tag should be used to specify the author(s) of the data
-/// contained within the data container.
+/// this restricted tag specifies the author(s) of the data contained within
+/// the data container. It corresponds to the restricted `author` key.
 pub struct AuthorTag(pub String);
 pub(crate) const AUTHOR: &str = "author";
 impl_tag!(AuthorTag, AUTHOR, "<Author Tag> \"author\"={}");
 
 #[derive(Debug, Clone)]
-/// this non-generic tag should be used to specify the ISO date when the data
-/// container was last modified
+/// this restricted tag specifies the ISO date when the data container was last
+/// modified. It corresponds to the restricted `date` key.
 pub struct DateTag(pub String);
 pub(crate) const DATE: &str = "date";
 impl_tag!(DateTag, DATE, "<Date Tag> \"last modified\"={}");
