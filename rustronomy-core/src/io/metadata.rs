@@ -206,7 +206,7 @@ where
   T: Display + Send + Sync + FromStr,
 {
   fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-    write!(f, "<Generic Tag> \"{}\"={}", self.key, self.value.to_string())
+    write!(f, "<GenericTag> \"{}\"={}", self.key, self.value.to_string())
   }
 }
 
@@ -262,11 +262,11 @@ pub const RESERVED_TAGS: [&str; 2] = [AUTHOR, DATE];
 /// the data container. It corresponds to the reserved `author` key.
 pub struct AuthorTag(pub String);
 pub(crate) const AUTHOR: &str = "author";
-impl_tag!(AuthorTag, String, AUTHOR, "<Author Tag> \"author\"={}");
+impl_tag!(AuthorTag, String, AUTHOR, "<AuthorTag> \"author\"={}");
 
 #[derive(Debug, Clone)]
 /// this reserved tag specifies the ISO date when the data container was last
 /// modified. It corresponds to the reserved `date` key.
 pub struct DateTag(pub String);
 pub(crate) const DATE: &str = "date";
-impl_tag!(DateTag, String, DATE, "<Date Tag> \"last modified\"={}");
+impl_tag!(DateTag, String, DATE, "<DateTag> \"last modified\"={}");
