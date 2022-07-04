@@ -27,7 +27,6 @@
 //! See the module docs down below for more details regarding specific API's.
 
 //Module Strucutre (module description is given in the module definition files)
-pub mod data_type_traits;
 pub mod io;
 
 #[cfg(test)]
