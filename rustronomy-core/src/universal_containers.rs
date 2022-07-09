@@ -31,13 +31,20 @@
 //! their own metadata tags. For more info, see the metadata module.
 
 /* (Module structure)
-    note: module-level documentation is supplied in the modules themselves.
+  note: module-level documentation is supplied in the modules themselves.
 */
 pub mod array;
 pub mod image;
 pub mod metadata;
 pub mod table;
 
+// Handy re-exports (v0.2.1 and higher)
+pub use array::DataArray;
+pub use image::Image;
+pub use table::{Col, Table};
+pub use metadata::{MetaDataTag, MetaDataContainer};
+
+// utility for formatting byte sizes
 pub(crate) fn fmt_byte_size(byte_size: usize) -> String {
   if byte_size <= 1000 {
     format!("{}B", byte_size)
