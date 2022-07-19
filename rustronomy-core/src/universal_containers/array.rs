@@ -37,12 +37,12 @@ use super::metadata::{
 };
 
 #[derive(Debug, Clone)]
-pub struct DataArray<T: Num + Dimension> {
-  data: Array<IxDyn, T>,
+pub struct DataArray<T: Num> {
+  data: Array<T, IxDyn>,
   meta: HashMap<String, String>,
 }
 
-impl<U: Num + Dimension, T> PrivDataContainer<T> for DataArray<U>
+impl<U: Num, T> PrivDataContainer<T> for DataArray<U>
 where
   T: Display + Sized + Send + Sync + FromStr,
   <T as FromStr>::Err: Debug,
@@ -89,15 +89,15 @@ where
 {
 }
 
-impl<U: Num + Dimension> DataArray<U> {
+impl<U: Num> DataArray<U> {
   /// constructs new array (without metadata tags) from 2D ndarray
-  pub fn new(data: Array<IxDyn, U>) -> Self {
+  pub fn new(data: Array<U, IxDyn>) -> Self {
     DataArray { data, meta: HashMap::new() }
   }
 
   #[inline]
   /// returns array data throwing away the metadata tags
-  pub fn data(self) -> Array<IxDyn, U> {
+  pub fn data(self) -> Array<U, IxDyn> {
     self.data
   }
 }
