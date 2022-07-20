@@ -33,7 +33,18 @@
 //! a generic metadata tag using a reserved key. The keys listed here are reserved
 //! by the non-generic tags defined in the core crate.
 //! - `"author"` used to indicate the author of a data container
-//! - `"date"` specifies when a data container was last modified
+//! - `"date"` specifies when the data was collected
+//! - `"last_modified"` specifies when the data was last modified
+//! - `"object"` specifies the object(s) observed to produce the data
+//! - `"organisation"` specifies the organisation(s) responsible for producing
+//! the data
+//! - `"telescope"` specifies the telescope used to produce the data
+//! - `"instrument"` specifies the instrument used to produce the data.
+//! This keyword is to be used in conjunction with the `telescope` keyword
+//! - `"reference"` specifies a reference to a publication accompanying the data.
+//! It is recommended to use a [DOI](https://doi.org) or
+//! [ADS](https://ads.harvard.edu) format.
+//! - `"exposure_time"` specifies the exposure time in seconds of the image
 
 use std::{
   fmt::{self, Debug, Display, Formatter},
@@ -217,7 +228,7 @@ where
 
 /// utility macro to easily create reserved tags from tuple structs
 macro_rules! impl_tag {
-  ($tag_name:path, $inner:ty, $key:ident, $fmt:literal) => {
+  ($tag_name:path, $key:ident, $fmt:literal) => {
     impl MetaDataTag for $tag_name {
       fn get_key(&self) -> &str {
         $key
@@ -236,14 +247,14 @@ macro_rules! impl_tag {
       }
     }
 
-    impl From<$tag_name> for GenericMetaDataTag<$inner> {
-      fn from(reserved_tag: $tag_name) -> GenericMetaDataTag<$inner> {
+    impl From<$tag_name> for GenericMetaDataTag<String> {
+      fn from(reserved_tag: $tag_name) -> GenericMetaDataTag<String> {
         GenericMetaDataTag { key: $key.to_string(), value: reserved_tag.0 }
       }
     }
 
-    impl From<$inner> for $tag_name {
-      fn from(inner: $inner) -> $tag_name {
+    impl From<String> for $tag_name {
+      fn from(inner: String) -> $tag_name {
         $tag_name(inner)
       }
     }
@@ -260,18 +271,93 @@ macro_rules! impl_tag {
   Thx!
 */
 /// these tags are reserved for special use-cases and may not be used as generic tags
-pub const RESERVED_TAGS: [&str; 2] = [AUTHOR, DATE];
+pub const RESERVED_TAGS: [&str; 9] = [
+  AUTHOR, DATE, LAST_MODIFIED, OBJECT, ORGANISATION, TELESCOPE, INSTRUMENT,
+  REFERENCE, EXPOSURE_TIME
+];
 
 #[derive(Debug, Clone)]
 /// this reserved tag specifies the author(s) of the data contained within
 /// the data container. It corresponds to the reserved `author` key.
 pub struct AuthorTag(pub String);
 pub(crate) const AUTHOR: &str = "author";
-impl_tag!(AuthorTag, String, AUTHOR, "<AuthorTag> \"author\"={}");
+impl_tag!(AuthorTag, AUTHOR, "<RESERVED> \"author\"={}");
+
+#[derive(Debug, Clone)]
+/// this reserved tag specifies the ISO date when the data held in the data
+/// container was collected. It corresponds to the reserved `date` key.
+pub struct DateTag(pub String);
+pub(crate) const DATE: &str = "date";
+impl_tag!(DateTag, DATE, "<RESERVED> \"data creation date\"={}");
 
 #[derive(Debug, Clone)]
 /// this reserved tag specifies the ISO date when the data container was last
-/// modified. It corresponds to the reserved `date` key.
-pub struct DateTag(pub String);
-pub(crate) const DATE: &str = "date";
-impl_tag!(DateTag, String, DATE, "<DateTag> \"last modified\"={}");
+/// modified. It corresponds to the reserved `last_modified` key.
+pub struct LastModifiedTag(pub String);
+pub(crate) const LAST_MODIFIED: &str = "last_modified";
+impl_tag!(LastModifiedTag, LAST_MODIFIED, "<RESERVED> \"last modified\"={}");
+
+#[derive(Debug, Clone)]
+/// this reserved tag specifies the (astronomical) object that was observed to
+/// produce the data in this container. It corresponds to the `object` key.
+pub struct ObjectTag(pub String);
+pub(crate) const OBJECT: &str = "object";
+impl_tag!(ObjectTag, OBJECT, "<RESERVED> \"observed object\"={}");
+
+#[derive(Debug, Clone)]
+/// this reserved tag specifies the organisation responsible for producing the
+/// data in this container. It corresponds to the reserved `organisation` key.
+pub struct OrgTag(pub String);
+pub(crate) const ORGANISATION: &str = "organisation";
+impl_tag!(OrgTag, ORGANISATION, "<RESERVED> \"organisation\"={}");
+
+#[derive(Debug, Clone)]
+/// this reserved tag specifies the telescope used in producing the data 
+/// in this container. It corresponds to the reserved `telescope` key.
+pub struct TelescopeTag(pub String);
+pub(crate) const TELESCOPE: &str = "telescope";
+impl_tag!(TelescopeTag, TELESCOPE, "<RESERVED> \"telescope\"={}");
+
+#[derive(Debug, Clone)]
+/// this reserved tag specifies the instrument used in producing the data 
+/// in this container. It corresponds to the reserved `instrument` key.
+pub struct InstrumentTag(pub String);
+pub(crate) const INSTRUMENT: &str = "instrument";
+impl_tag!(InstrumentTag, INSTRUMENT, "<RESERVED> \"instrument\"={}");
+
+#[derive(Debug, Clone)]
+/// this reserved tag specifies a reference to a publication relevant to the 
+/// datacontainer. It corresponds to the reserved `reference` key.
+pub struct ReferenceTag(pub String);
+pub(crate) const REFERENCE: &str = "reference";
+impl_tag!(ReferenceTag, REFERENCE, "<RESERVED> \"reference publication\"={}");
+
+#[derive(Debug, Clone)]
+/// this reserved tag specifies a reference to a publication relevant to the 
+/// datacontainer. It corresponds to the reserved `reference` key.
+pub struct ExpTimeTag(pub u64); //<- requires manual implementation :c
+pub(crate) const EXPOSURE_TIME: &str = "exposure_time";
+
+impl MetaDataTag for ExpTimeTag {
+  fn get_key(&self) -> &str { EXPOSURE_TIME }
+
+  fn as_string_pair(self) -> (String, String) {
+    (EXPOSURE_TIME.to_string(), self.0.to_string())
+  }
+
+  fn parse_string_pair(_: String, value: &str) -> Self {
+    ExpTimeTag(value.parse().unwrap()) //<- panics if value is invalid, too bad
+  }
+}
+
+impl From<u64> for ExpTimeTag {
+  fn from(exposure_time: u64) -> Self {
+    ExpTimeTag(exposure_time)
+  }
+}
+
+impl From<ExpTimeTag> for GenericMetaDataTag<u64> {
+  fn from(tag: ExpTimeTag) -> Self {
+    GenericMetaDataTag { key: EXPOSURE_TIME.to_string(), value: tag.0 }
+  }
+}
