@@ -272,8 +272,15 @@ macro_rules! impl_tag {
 */
 /// these tags are reserved for special use-cases and may not be used as generic tags
 pub const RESERVED_TAGS: [&str; 9] = [
-  AUTHOR, DATE, LAST_MODIFIED, OBJECT, ORGANISATION, TELESCOPE, INSTRUMENT,
-  REFERENCE, EXPOSURE_TIME
+  AUTHOR,
+  DATE,
+  LAST_MODIFIED,
+  OBJECT,
+  ORGANISATION,
+  TELESCOPE,
+  INSTRUMENT,
+  REFERENCE,
+  EXPOSURE_TIME,
 ];
 
 #[derive(Debug, Clone)]
@@ -312,34 +319,36 @@ pub(crate) const ORGANISATION: &str = "organisation";
 impl_tag!(OrgTag, ORGANISATION, "<RESERVED> \"organisation\"={}");
 
 #[derive(Debug, Clone)]
-/// this reserved tag specifies the telescope used in producing the data 
+/// this reserved tag specifies the telescope used in producing the data
 /// in this container. It corresponds to the reserved `telescope` key.
 pub struct TelescopeTag(pub String);
 pub(crate) const TELESCOPE: &str = "telescope";
 impl_tag!(TelescopeTag, TELESCOPE, "<RESERVED> \"telescope\"={}");
 
 #[derive(Debug, Clone)]
-/// this reserved tag specifies the instrument used in producing the data 
+/// this reserved tag specifies the instrument used in producing the data
 /// in this container. It corresponds to the reserved `instrument` key.
 pub struct InstrumentTag(pub String);
 pub(crate) const INSTRUMENT: &str = "instrument";
 impl_tag!(InstrumentTag, INSTRUMENT, "<RESERVED> \"instrument\"={}");
 
 #[derive(Debug, Clone)]
-/// this reserved tag specifies a reference to a publication relevant to the 
+/// this reserved tag specifies a reference to a publication relevant to the
 /// datacontainer. It corresponds to the reserved `reference` key.
 pub struct ReferenceTag(pub String);
 pub(crate) const REFERENCE: &str = "reference";
 impl_tag!(ReferenceTag, REFERENCE, "<RESERVED> \"reference publication\"={}");
 
 #[derive(Debug, Clone)]
-/// this reserved tag specifies a reference to a publication relevant to the 
+/// this reserved tag specifies a reference to a publication relevant to the
 /// datacontainer. It corresponds to the reserved `reference` key.
 pub struct ExpTimeTag(pub u64); //<- requires manual implementation :c
 pub(crate) const EXPOSURE_TIME: &str = "exposure_time";
 
 impl MetaDataTag for ExpTimeTag {
-  fn get_key(&self) -> &str { EXPOSURE_TIME }
+  fn get_key(&self) -> &str {
+    EXPOSURE_TIME
+  }
 
   fn as_string_pair(self) -> (String, String) {
     (EXPOSURE_TIME.to_string(), self.0.to_string())

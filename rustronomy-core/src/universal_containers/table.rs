@@ -56,7 +56,7 @@ pub struct Table {
 /// columns are the constituent parts of tables. They consist of vectors holding
 /// elements of the same type. Types are differentiated via the variants of this
 /// enum.
-/// 
+///
 /// Right now, 3 variants are supported:
 /// - `Integer` always a `Vec<i64>`
 /// - `Float` always a `Vec<f64>`

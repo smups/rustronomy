@@ -41,8 +41,8 @@ pub mod table;
 // Handy re-exports (v0.2.1 and higher)
 pub use array::DataArray;
 pub use image::Image;
+pub use metadata::{MetaDataContainer, MetaDataTag};
 pub use table::{Col, Table};
-pub use metadata::{MetaDataTag, MetaDataContainer};
 
 // utility for formatting byte sizes
 pub(crate) fn fmt_byte_size(byte_size: usize) -> String {
