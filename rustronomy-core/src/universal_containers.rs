@@ -38,6 +38,8 @@ pub mod image;
 pub mod metadata;
 pub mod table;
 
+mod metadata2;
+
 // Handy re-exports (v0.2.1 and higher)
 pub use array::DataArray;
 pub use image::Image;
