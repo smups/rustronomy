@@ -32,7 +32,7 @@ use ndarray::{Array, Dimension, IxDyn};
 use num_traits::Num;
 
 use super::metadata::{
-  private_container::PrivContainer, MetaDataContainer, MetaDataTag, PubContainer, TagError,
+  private_container::PrivContainer, MetaDataContainer, PubContainer,
 };
 
 #[derive(Debug, Clone)]

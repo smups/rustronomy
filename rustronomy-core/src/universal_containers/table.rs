@@ -38,7 +38,7 @@ use std::{
 use indexmap::IndexMap;
 
 use super::metadata::{
-  private_container::PrivContainer, MetaDataContainer, MetaDataTag, PubContainer, TagError,
+  private_container::PrivContainer, MetaDataContainer, PubContainer,
 };
 
 #[derive(Debug, Clone)]

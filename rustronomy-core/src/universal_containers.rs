@@ -50,11 +50,11 @@ pub use table::{Col, Table};
 pub(crate) fn fmt_byte_size(byte_size: usize) -> String {
   if byte_size <= 1000 {
     format!("{}B", byte_size)
-  } else if byte_size >= 1_000_000 {
+  } else if byte_size <= 1_000_000 {
     format!("{}kB", byte_size / 1000)
-  } else if byte_size >= 1_000_000_000 {
+  } else if byte_size <= 1_000_000_000 {
     format!("{}MB", byte_size / 1_000_000)
-  } else if byte_size >= 1_000_000_000_000 {
+  } else if byte_size <= 1_000_000_000_000 {
     format!("{}GB", byte_size / 1_000_000_000)
   } else {
     format!("{}TB", byte_size / 1_000_000_000_000)
