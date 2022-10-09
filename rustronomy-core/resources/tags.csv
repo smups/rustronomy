@@ -1,0 +1,12 @@
+#General tags
+author,Author,author,String
+date,Date,data creation date,chrono::DateTime<chrono::Utc>
+last_modified,LastModified,date file was last modified,chrono::DateTime<chrono::Utc>
+organisation,Organisation,data was created by,String
+reference,Reference,reference publication for data,String
+reference_doi,ReferenceDOI,doi of reference publication,String
+#General Astronomy tags
+telescope,Telescope,telescope,String
+instrument,Instrument,instrument,String
+object,Object,observed object,String
+exposure_time,ExposureTime,exposure time in ms,u64
