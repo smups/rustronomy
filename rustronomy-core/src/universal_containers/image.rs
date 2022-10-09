@@ -30,7 +30,9 @@ use std::{
 use ndarray::Array2;
 use num_traits::Num;
 
-use super::metadata::{private_container::PrivContainer, MetaDataContainer, MetaDataTag, TagError, PubContainer};
+use super::metadata::{
+  private_container::PrivContainer, MetaDataContainer, MetaDataTag, PubContainer, TagError,
+};
 
 #[derive(Debug, Clone)]
 /// Image container consisting of a 2D array of type `T` and metadata tags

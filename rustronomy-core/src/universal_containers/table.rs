@@ -37,7 +37,9 @@ use std::{
 
 use indexmap::IndexMap;
 
-use super::metadata::{private_container::PrivContainer, MetaDataContainer, MetaDataTag, TagError, PubContainer};
+use super::metadata::{
+  private_container::PrivContainer, MetaDataContainer, MetaDataTag, PubContainer, TagError,
+};
 
 #[derive(Debug, Clone)]
 /// the table data container. Consists of named columns and metadata tags. See

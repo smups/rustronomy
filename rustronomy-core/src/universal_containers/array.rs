@@ -31,7 +31,9 @@ use std::{
 use ndarray::{Array, Dimension, IxDyn};
 use num_traits::Num;
 
-use super::metadata::{private_container::PrivContainer, MetaDataContainer, MetaDataTag, TagError, PubContainer};
+use super::metadata::{
+  private_container::PrivContainer, MetaDataContainer, MetaDataTag, PubContainer, TagError,
+};
 
 #[derive(Debug, Clone)]
 pub struct DataArray<T: Num> {

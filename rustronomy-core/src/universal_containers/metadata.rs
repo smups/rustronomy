@@ -94,14 +94,13 @@ pub(crate) mod private_container {
 }
 
 pub trait PubContainer: self::private_container::PrivContainer {
-
   fn remove_generic_tag<T>(&mut self, key: &str) -> Result<T, TagError>
   where
     T: FromStr,
     <T as FromStr>::Err: std::fmt::Debug,
   {
     if super::tags::RESTRICTED_TAGS.contains(&key) {
-      return Err(TagError::RestrictedTagError(key.to_string()))
+      return Err(TagError::RestrictedTagError(key.to_string()));
     }
     match self.remove_tag_str(key) {
       Some(string) => match string.parse::<T>() {
@@ -118,7 +117,7 @@ pub trait PubContainer: self::private_container::PrivContainer {
     <T as FromStr>::Err: std::fmt::Debug,
   {
     if super::tags::RESTRICTED_TAGS.contains(&key) {
-      return Err(TagError::RestrictedTagError(key.to_string()))
+      return Err(TagError::RestrictedTagError(key.to_string()));
     }
     match self.insert_tag_str(&key, &format!("{val:?}")) {
       Some(string) => match string.parse::<T>() {

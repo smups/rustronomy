@@ -17,10 +17,10 @@
     along with rustronomy.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-use crate::universal_containers::{Table, MetaDataContainer, metadata::PubContainer};
+use crate::universal_containers::{metadata::PubContainer, MetaDataContainer, Table};
 
 #[test]
 fn test() {
-    let mut tbl = Table::new();
-    tbl.insert_generic_tag("author", "jan misli".to_string());
+  let mut tbl = Table::new();
+  tbl.insert_generic_tag("author", "jan misli".to_string());
 }
