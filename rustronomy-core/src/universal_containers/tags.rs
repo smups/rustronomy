@@ -297,8 +297,8 @@ impl MetaDataTag for ExposureTime {
 }
 
 pub trait MetaDataContainer: PrivContainer + PubContainer {
-fn remove_author(&mut self, key: &str) -> Result<String, TagError> {
-  match self.remove_tag::<Author>(key) {
+fn remove_author(&mut self) -> Result<String, TagError> {
+  match self.remove_tag::<Author>() {
     Ok(tag) => Ok(tag.into()),
     Err(err) => Err(err)
   }
@@ -314,8 +314,8 @@ fn has_author(&self) -> bool {
   self.has_tag::<Author>()
 }
 
-fn remove_date(&mut self, key: &str) -> Result<chrono::DateTime<chrono::Utc>, TagError> {
-  match self.remove_tag::<Date>(key) {
+fn remove_date(&mut self) -> Result<chrono::DateTime<chrono::Utc>, TagError> {
+  match self.remove_tag::<Date>() {
     Ok(tag) => Ok(tag.into()),
     Err(err) => Err(err)
   }
@@ -331,8 +331,8 @@ fn has_date(&self) -> bool {
   self.has_tag::<Date>()
 }
 
-fn remove_last_modified(&mut self, key: &str) -> Result<chrono::DateTime<chrono::Utc>, TagError> {
-  match self.remove_tag::<LastModified>(key) {
+fn remove_last_modified(&mut self) -> Result<chrono::DateTime<chrono::Utc>, TagError> {
+  match self.remove_tag::<LastModified>() {
     Ok(tag) => Ok(tag.into()),
     Err(err) => Err(err)
   }
@@ -348,8 +348,8 @@ fn has_last_modified(&self) -> bool {
   self.has_tag::<LastModified>()
 }
 
-fn remove_organisation(&mut self, key: &str) -> Result<String, TagError> {
-  match self.remove_tag::<Organisation>(key) {
+fn remove_organisation(&mut self) -> Result<String, TagError> {
+  match self.remove_tag::<Organisation>() {
     Ok(tag) => Ok(tag.into()),
     Err(err) => Err(err)
   }
@@ -365,8 +365,8 @@ fn has_organisation(&self) -> bool {
   self.has_tag::<Organisation>()
 }
 
-fn remove_reference(&mut self, key: &str) -> Result<String, TagError> {
-  match self.remove_tag::<Reference>(key) {
+fn remove_reference(&mut self) -> Result<String, TagError> {
+  match self.remove_tag::<Reference>() {
     Ok(tag) => Ok(tag.into()),
     Err(err) => Err(err)
   }
@@ -382,8 +382,8 @@ fn has_reference(&self) -> bool {
   self.has_tag::<Reference>()
 }
 
-fn remove_reference_doi(&mut self, key: &str) -> Result<String, TagError> {
-  match self.remove_tag::<ReferenceDOI>(key) {
+fn remove_reference_doi(&mut self) -> Result<String, TagError> {
+  match self.remove_tag::<ReferenceDOI>() {
     Ok(tag) => Ok(tag.into()),
     Err(err) => Err(err)
   }
@@ -399,8 +399,8 @@ fn has_reference_doi(&self) -> bool {
   self.has_tag::<ReferenceDOI>()
 }
 
-fn remove_telescope(&mut self, key: &str) -> Result<String, TagError> {
-  match self.remove_tag::<Telescope>(key) {
+fn remove_telescope(&mut self) -> Result<String, TagError> {
+  match self.remove_tag::<Telescope>() {
     Ok(tag) => Ok(tag.into()),
     Err(err) => Err(err)
   }
@@ -416,8 +416,8 @@ fn has_telescope(&self) -> bool {
   self.has_tag::<Telescope>()
 }
 
-fn remove_instrument(&mut self, key: &str) -> Result<String, TagError> {
-  match self.remove_tag::<Instrument>(key) {
+fn remove_instrument(&mut self) -> Result<String, TagError> {
+  match self.remove_tag::<Instrument>() {
     Ok(tag) => Ok(tag.into()),
     Err(err) => Err(err)
   }
@@ -433,8 +433,8 @@ fn has_instrument(&self) -> bool {
   self.has_tag::<Instrument>()
 }
 
-fn remove_object(&mut self, key: &str) -> Result<String, TagError> {
-  match self.remove_tag::<Object>(key) {
+fn remove_object(&mut self) -> Result<String, TagError> {
+  match self.remove_tag::<Object>() {
     Ok(tag) => Ok(tag.into()),
     Err(err) => Err(err)
   }
@@ -450,8 +450,8 @@ fn has_object(&self) -> bool {
   self.has_tag::<Object>()
 }
 
-fn remove_exposure_time(&mut self, key: &str) -> Result<u64, TagError> {
-  match self.remove_tag::<ExposureTime>(key) {
+fn remove_exposure_time(&mut self) -> Result<u64, TagError> {
+  match self.remove_tag::<ExposureTime>() {
     Ok(tag) => Ok(tag.into()),
     Err(err) => Err(err)
   }

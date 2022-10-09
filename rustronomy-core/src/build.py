@@ -109,8 +109,8 @@ impl MetaDataTag for {type_name} {{
 pub trait MetaDataContainer: PrivContainer + PubContainer {{""".encode());
   for tag_string, type_name, _, inner_type in tags:
     out.write(f"""
-fn remove_{tag_string}(&mut self, key: &str) -> Result<{inner_type}, TagError> {{
-  match self.remove_tag::<{type_name}>(key) {{
+fn remove_{tag_string}(&mut self) -> Result<{inner_type}, TagError> {{
+  match self.remove_tag::<{type_name}>() {{
     Ok(tag) => Ok(tag.into()),
     Err(err) => Err(err)
   }}

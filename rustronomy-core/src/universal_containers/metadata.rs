@@ -59,24 +59,23 @@ pub(crate) mod private_container {
   use std::str::FromStr;
 
   pub trait PrivContainer {
-    fn remove_tag_str(&mut self, key: &str) -> Option<String>;
 
-    fn remove_tag<T>(&mut self, key: &str) -> Result<T, TagError>
+    fn remove_tag_str(&mut self, key: &str) -> Option<String>;
+    fn remove_tag<T>(&mut self) -> Result<T, TagError>
     where
       T: MetaDataTag,
       <<T as MetaDataTag>::ValueType as FromStr>::Err: std::fmt::Debug,
     {
-      match self.remove_tag_str(key) {
+      match self.remove_tag_str(T::KEY) {
         Some(string) => match string.parse::<T::ValueType>() {
           Ok(value) => Ok(value.into()),
           Err(err) => Err(TagError::TagParseError(format!("{err:?}"))),
         },
-        None => Err(TagError::TagNotFoundError(key.to_string())),
+        None => Err(TagError::TagNotFoundError(T::KEY.to_string())),
       }
     }
 
     fn insert_tag_str(&mut self, parsed_tag: &str, key: &str) -> Option<String>;
-
     fn insert_tag<T>(&mut self, tag: T) -> Result<Option<T>, TagError>
     where
       T: MetaDataTag,
@@ -133,12 +132,12 @@ pub trait PubContainer: self::private_container::PrivContainer {
     if super::tags::RESTRICTED_TAGS.contains(&key) {
       return Err(TagError::RestrictedTagError(key.to_string()));
     }
-    match self.insert_tag_str(&key, &format!("{val:?}")) {
+    match self.insert_tag_str(&format!("{val:?}"), &key) {
       Some(string) => match string.parse::<T>() {
         Ok(value) => Ok(Some(value)),
         Err(err) => Err(TagError::TagParseError(format!("{err:?}"))),
       },
-      None => Err(TagError::TagNotFoundError(key.to_string())),
+      None => Ok(None),
     }
   }
 }

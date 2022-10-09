@@ -104,7 +104,7 @@ impl PrivContainer for Table {
 
   fn has_tag_str(&self, key: &str) -> bool {
     self.meta.contains_key(key)
-}
+  }
 }
 
 impl PubContainer for Table {}
