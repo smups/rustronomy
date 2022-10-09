@@ -52,7 +52,7 @@ impl<U: Num> PrivContainer for Image<U> {
 
   fn has_tag_str(&self, key: &str) -> bool {
     self.meta.contains_key(key)
-}
+  }
 }
 
 impl<U: Num> PubContainer for Image<U> {}

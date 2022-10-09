@@ -17,21 +17,27 @@
   along with rustronomy.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//! this module provides a generic `MetaDataTag<T>` used to add metadata to data
-//! containers. Some file formats have special metadata fields. In this case,
-//! you may want to use one of the specific metadata tags provided down below.
+//! Metadata may be added to a data container in the form of key-value pairs.
+//! To provide interoperability between storage formats, certain keys are restricted
+//! and may only be added via specialised functions implemented by the metadata
+//! container. All relevant types and traits for metadata tags and containers are
+//! implemented in this module.
 //!
-//! ## Tag storage
-//! Tags are meant to be stored in a `HashMap<String, String>`-like format. This
-//! means that no two metadata tags may have the same key. Objects that store
-//! metadata should therefore not allow the user to store the same key twice. To
-//! facilitate easy conversion between tags and their string representations, all
-//! metadata tags should implement `MetaDataTag` trait.
+//! A list of restricted keys for metadata tags can be found in the documentation
+//! of the `MetaDataContainer` trait.
 
 use std::{fmt::Debug, str::FromStr};
 
 pub use super::tags::MetaDataContainer;
 
+/// The `MetaDataTag` trait specifies methods that must be implemented by a type
+/// to be used as a metadata tag. This trait may be implemented by the user to
+/// create custom metadata tags.
+///
+/// The `MetaDataTag` trait specifies the key corresponding to the metadata tag,
+/// and the datatype of the value contained by it. In additon, the type implementing
+/// `MetaDataTag` must be freely transformable from and into its inner type AND
+/// a string.
 pub trait MetaDataTag: Sized + From<Self::ValueType> + Into<Self::ValueType>
 where
   Self::ValueType: FromStr,
@@ -48,18 +54,37 @@ where
 }
 
 #[derive(Debug)]
+#[non_exhaustive]
+/// This error type describes all errors that may occur when parsing entries in
+/// the metadata container to `impl MetaDataTag`s. It is marked `#[non_exhaustive]`.
 pub enum TagError {
   TagParseError(String),
   TagNotFoundError(String),
   RestrictedTagError(String),
 }
+impl std::fmt::Display for TagError {
+  fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+    use TagError::*;
+    match self {
+      TagParseError(parse_error) => {
+        write!(f, "could not parse data found as a metadata tag. Reason:\"{parse_error}\"")
+      }
+      TagNotFoundError(tag) => {
+        write!(f, "the tag \"{tag}\" is not specified by this metadata container")
+      }
+      RestrictedTagError(tag) => {
+        write!(f, "the tag\"{tag}\" is restricted and cannot be accessed directly")
+      }
+    }
+  }
+}
+impl std::error::Error for TagError {}
 
 pub(crate) mod private_container {
   use super::{MetaDataTag, TagError};
   use std::str::FromStr;
 
   pub trait PrivContainer {
-
     fn remove_tag_str(&mut self, key: &str) -> Option<String>;
     fn remove_tag<T>(&mut self) -> Result<T, TagError>
     where
@@ -96,13 +121,16 @@ pub(crate) mod private_container {
       T: MetaDataTag,
       <<T as MetaDataTag>::ValueType as FromStr>::Err: std::fmt::Debug,
     {
-      return self.has_tag_str(T::KEY)
+      return self.has_tag_str(T::KEY);
     }
   }
 }
 
+/// The `PubContainer` trait contains methods to modify and parse generic
+/// (non-reserved) metadata tags. These methods will return an error if the key
+/// specified in the function call is one of the reserved keys. See the
+/// `MetaDataContainer` type for a list of reserved tags.
 pub trait PubContainer: self::private_container::PrivContainer {
-
   fn has_generic_tag(&self, key: &str) -> bool {
     self.has_tag_str(key)
   }

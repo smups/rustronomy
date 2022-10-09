@@ -51,21 +51,8 @@ with open(cwd + tag_output, "wb") as out:
 
   You should have received a copy of the GNU General Public License
   along with rustronomy.  If not, see <http://www.gnu.org/licenses/>.
-*/""".encode())
-  
-  #now we add the doc comments
-  out.write(f"""
-//! The currently restricted tags are:
-//! | restricted tag string | restricted tag struct | description |
-//! | --: | :--: | :-- |
+*/
 """.encode())
-  #fill the table with info
-  for tag_string, type_name, description, inner_type in tags:
-    out.write(f"""//! | `"{tag_string}"` | `{type_name}({inner_type})` | {description} |\n""".encode())
-  out.write(b"""
-use super::metadata::{MetaDataTag, TagError, PubContainer, private_container::PrivContainer};
-use std::str::FromStr;\n
-""")
   
   #next we add them to the restricted tags list
   num_tags = len(tags)
@@ -104,9 +91,30 @@ impl MetaDataTag for {type_name} {{
   fn to_string(&self) -> String {{ format!("{{}}", self.0)}}
 }}\n""".encode())
   
-  #Now we generate the MetaDataContainer trait
+  #some imports
+  out.write(b"""
+use super::metadata::{MetaDataTag, TagError, PubContainer, private_container::PrivContainer};
+use std::str::FromStr;
+""")
+  
+  #we generate the documentation for the `MetaDataContainer` trait
   out.write(f"""
-pub trait MetaDataContainer: PrivContainer + PubContainer {{""".encode());
+/// The `MetaDataContainer` trait specifies all the methods that a metadata
+/// container must implement. This includes special methods for accessing all
+/// restricted metadata keys. The restricted metadata tags are listed in the trait
+/// level documentation down below.  
+/// 
+/// The currently restricted tags are:
+///
+/// | restricted tag string | restricted tag type | description |
+/// | --: | :--: | :-- |
+""".encode())
+  #fill the table with info
+  for tag_string, type_name, description, inner_type in tags:
+    out.write(f"""/// | `"{tag_string}"` | `{type_name}({inner_type})` | {description} |\n""".encode())
+  
+  #Now we generate the MetaDataContainer trait
+  out.write(f"""pub trait MetaDataContainer: PrivContainer + PubContainer {{""".encode());
   for tag_string, type_name, _, inner_type in tags:
     out.write(f"""
 fn remove_{tag_string}(&mut self) -> Result<{inner_type}, TagError> {{

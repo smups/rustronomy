@@ -17,7 +17,7 @@
     along with rustronomy.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-use crate::universal_containers::{metadata::PubContainer, Table, MetaDataContainer};
+use crate::universal_containers::{metadata::PubContainer, MetaDataContainer, Table};
 
 #[test]
 fn metadata_test() {

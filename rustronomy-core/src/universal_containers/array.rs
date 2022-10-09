@@ -51,7 +51,7 @@ impl<U: Num> PrivContainer for DataArray<U> {
   }
 
   fn has_tag_str(&self, key: &str) -> bool {
-      self.meta.contains_key(key)
+    self.meta.contains_key(key)
   }
 }
 
