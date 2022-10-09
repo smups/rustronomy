@@ -80,10 +80,14 @@ use std::str::FromStr;\n
     tag_string, type_name, _, inner_type = tag_data[0], tag_data[1], tag_data[2], tag_data[3]
     out.write(f"""
 #[derive(Debug)]
-pub struct {type_name}({inner_type});
+struct {type_name}({inner_type});
 
 impl From<{inner_type}> for {type_name} {{
   fn from({tag_string}: {inner_type}) -> Self {{{type_name}({tag_string})}}
+}}
+
+impl From<{type_name}> for {inner_type} {{
+  fn from({tag_string}: {type_name}) -> Self {{{tag_string}.0}}
 }}
 
 impl MetaDataTag for {type_name} {{
@@ -105,7 +109,21 @@ impl MetaDataTag for {type_name} {{
 pub trait MetaDataContainer: PrivContainer + PubContainer {{""".encode());
   for tag_string, type_name, _, inner_type in tags:
     out.write(f"""
-fn remove_{tag_string}(&mut self, key: &str) -> Result<{type_name}, TagError> {{ self.remove_tag(key) }}
-fn insert_{tag_string}(&mut self, {tag_string}: {inner_type}) -> Result<Option<{type_name}>, TagError> {{ self.insert_tag({tag_string}.into()) }}
+fn remove_{tag_string}(&mut self, key: &str) -> Result<{inner_type}, TagError> {{
+  match self.remove_tag::<{type_name}>(key) {{
+    Ok(tag) => Ok(tag.into()),
+    Err(err) => Err(err)
+  }}
+}}
+fn insert_{tag_string}(&mut self, {tag_string}: {inner_type}) -> Result<Option<{inner_type}>, TagError> {{
+  match self.insert_tag::<{type_name}>({tag_string}.into()) {{
+    Ok(Some(tag)) => Ok(Some(tag.into())),
+    Ok(None) => Ok(None),
+    Err(err) => Err(err)
+  }}
+}}
+fn has_{tag_string}(&self) -> bool {{
+  self.has_tag::<{type_name}>()
+}}
 """.encode())
   out.write(b"\n}")

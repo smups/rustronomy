@@ -49,6 +49,10 @@ impl<U: Num> PrivContainer for Image<U> {
   fn insert_tag_str(&mut self, parsed_tag: &str, key: &str) -> Option<String> {
     self.meta.insert(key.to_string(), parsed_tag.to_string())
   }
+
+  fn has_tag_str(&self, key: &str) -> bool {
+    self.meta.contains_key(key)
+}
 }
 
 impl<U: Num> PubContainer for Image<U> {}

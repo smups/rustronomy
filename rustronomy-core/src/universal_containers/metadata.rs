@@ -32,7 +32,7 @@ use std::{fmt::Debug, str::FromStr};
 
 pub use super::tags::MetaDataContainer;
 
-pub trait MetaDataTag: Sized + From<Self::ValueType>
+pub trait MetaDataTag: Sized + From<Self::ValueType> + Into<Self::ValueType>
 where
   Self::ValueType: FromStr,
   <Self::ValueType as FromStr>::Err: std::fmt::Debug,
@@ -90,10 +90,24 @@ pub(crate) mod private_container {
         None => Ok(None),
       }
     }
+
+    fn has_tag_str(&self, key: &str) -> bool;
+    fn has_tag<T>(&self) -> bool
+    where
+      T: MetaDataTag,
+      <<T as MetaDataTag>::ValueType as FromStr>::Err: std::fmt::Debug,
+    {
+      return self.has_tag_str(T::KEY)
+    }
   }
 }
 
 pub trait PubContainer: self::private_container::PrivContainer {
+
+  fn has_generic_tag(&self, key: &str) -> bool {
+    self.has_tag_str(key)
+  }
+
   fn remove_generic_tag<T>(&mut self, key: &str) -> Result<T, TagError>
   where
     T: FromStr,
