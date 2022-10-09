@@ -38,12 +38,12 @@ pub mod image;
 pub mod metadata;
 pub mod table;
 
-mod metadata2;
+mod tags;
 
 // Handy re-exports (v0.2.1 and higher)
 pub use array::DataArray;
 pub use image::Image;
-pub use metadata::{MetaDataContainer, MetaDataTag};
+pub use metadata::{MetaDataContainer, MetaDataTag, PubContainer};
 pub use table::{Col, Table};
 
 // utility for formatting byte sizes

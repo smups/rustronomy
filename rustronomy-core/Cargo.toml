@@ -27,12 +27,9 @@ authors = ["Raúl Wolters <rawolters11@gmail.com>"]
 description = "core dependency for rustronomy crates providing interoperable types"
 keywords = ["astronomy", "astrophysics", "rustronomy"]
 categories = ["science"]
-build = "src/build.rs"
 
 [dependencies]
 ndarray = "0.15"
+chrono = "0.4"
 num-traits = "0.2"
 indexmap = "1"
-
-[build-dependencies]
-csv = "1"

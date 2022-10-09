@@ -16,3 +16,11 @@
     You should have received a copy of the GNU General Public License
     along with rustronomy.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+use crate::universal_containers::{Table, MetaDataContainer, metadata::PubContainer};
+
+#[test]
+fn test() {
+    let mut tbl = Table::new();
+    tbl.insert_generic_tag("author", "jan misli".to_string());
+}
