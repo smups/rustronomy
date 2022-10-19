@@ -99,3 +99,12 @@ impl<U: Num + Dimension> Display for DataArray<U> {
     writeln!(f, ">===============================================================================")
   }
 }
+
+impl<U: Num> From<super::Image<U>> for DataArray<U> {
+  fn from(img: super::Image<U>) -> Self {
+    DataArray{
+      data: img.data.into_dimensionality().unwrap(),
+      meta: img.meta
+    }
+  }
+}
