@@ -93,3 +93,31 @@ impl<U: Num> Display for Image<U> {
     writeln!(f, ">===============================================================================")
   }
 }
+
+impl<U: Num> TryFrom<super::DataArray<U>> for Image<U> {
+  type Error = ConversionErr;
+
+  fn try_from(array: super::DataArray<U>) -> Result<Self, Self::Error> {
+    use ndarray::Dimension;
+
+    //First we check if the array is indeed 2d
+    if (&array.data).dim().size() != 2 {
+      return Err(ConversionErr((&array.data).dim().size()))
+    }
+    
+    //We're ok, so we can just return the new image
+    Ok(Image{
+      data: array.data.into_dimensionality::<ndarray::Ix2>().unwrap(),
+      meta: array.meta
+    })
+  }
+}
+
+#[derive(Debug)]
+pub struct ConversionErr(usize);
+impl std::fmt::Display for ConversionErr {
+  fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+      write!(f, "cannot convert DataArray with {} axes to an Image. Number of axes must be exactly two.", self.0)
+    }
+}
+impl std::error::Error for ConversionErr {}
