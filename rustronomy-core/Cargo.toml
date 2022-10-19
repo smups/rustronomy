@@ -17,10 +17,10 @@
 
 [package]
 name = "rustronomy-core"
-version = "0.3.0"
+version = "0.4.0"
 edition = "2021"
 readme = "./README.md"
-license = "GPL-3.0-or-later"
+license = "EUPL-1.2"
 repository = "https://github.com/smups/rustronomy/"
 homepage = "https://github.com/smups/rustronomy/"
 authors = ["Raúl Wolters <rawolters11@gmail.com>"]
