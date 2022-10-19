@@ -30,9 +30,7 @@ use std::{
 use ndarray::Array2;
 use num_traits::Num;
 
-use super::metadata::{
-  private_container::PrivContainer, MetaDataContainer, PubContainer,
-};
+use super::metadata::{private_container::PrivContainer, MetaDataContainer, PubContainer};
 
 #[derive(Debug, Clone)]
 /// Image container consisting of a 2D array of type `T` and metadata tags
@@ -102,14 +100,11 @@ impl<U: Num> TryFrom<super::DataArray<U>> for Image<U> {
 
     //First we check if the array is indeed 2d
     if (&array.data).dim().size() != 2 {
-      return Err(ConversionErr((&array.data).dim().size()))
+      return Err(ConversionErr((&array.data).dim().size()));
     }
-    
+
     //We're ok, so we can just return the new image
-    Ok(Image{
-      data: array.data.into_dimensionality::<ndarray::Ix2>().unwrap(),
-      meta: array.meta
-    })
+    Ok(Image { data: array.data.into_dimensionality::<ndarray::Ix2>().unwrap(), meta: array.meta })
   }
 }
 
@@ -117,7 +112,11 @@ impl<U: Num> TryFrom<super::DataArray<U>> for Image<U> {
 pub struct ConversionErr(usize);
 impl std::fmt::Display for ConversionErr {
   fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-      write!(f, "cannot convert DataArray with {} axes to an Image. Number of axes must be exactly two.", self.0)
-    }
+    write!(
+      f,
+      "cannot convert DataArray with {} axes to an Image. Number of axes must be exactly two.",
+      self.0
+    )
+  }
 }
 impl std::error::Error for ConversionErr {}

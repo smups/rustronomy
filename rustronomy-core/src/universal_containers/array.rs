@@ -31,9 +31,7 @@ use std::{
 use ndarray::{Array, Dimension, IxDyn};
 use num_traits::Num;
 
-use super::metadata::{
-  private_container::PrivContainer, MetaDataContainer, PubContainer,
-};
+use super::metadata::{private_container::PrivContainer, MetaDataContainer, PubContainer};
 
 #[derive(Debug, Clone)]
 pub struct DataArray<T: Num> {
@@ -102,9 +100,6 @@ impl<U: Num + Dimension> Display for DataArray<U> {
 
 impl<U: Num> From<super::Image<U>> for DataArray<U> {
   fn from(img: super::Image<U>) -> Self {
-    DataArray{
-      data: img.data.into_dimensionality().unwrap(),
-      meta: img.meta
-    }
+    DataArray { data: img.data.into_dimensionality().unwrap(), meta: img.meta }
   }
 }
