@@ -37,13 +37,17 @@ use super::metadata::{
 
 #[derive(Debug, Clone)]
 pub struct DataArray<T: Num> {
-  data: Array<T, IxDyn>,
-  meta: HashMap<String, String>,
+  pub(crate) data: Array<T, IxDyn>,
+  pub(crate) meta: HashMap<String, String>,
 }
 
 impl<U: Num> PrivContainer for DataArray<U> {
   fn remove_tag_str(&mut self, key: &str) -> Option<String> {
     self.meta.remove(key)
+  }
+
+  fn remove_all_tags(&mut self) -> Vec<(String, String)> {
+    self.meta.drain().collect()
   }
 
   fn insert_tag_str(&mut self, parsed_tag: &str, key: &str) -> Option<String> {

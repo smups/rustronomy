@@ -98,6 +98,10 @@ impl PrivContainer for Table {
     self.meta.remove(key)
   }
 
+  fn remove_all_tags(&mut self) -> Vec<(String, String)> {
+    self.meta.drain().collect()
+  }
+
   fn insert_tag_str(&mut self, parsed_tag: &str, key: &str) -> Option<String> {
     self.meta.insert(key.to_string(), parsed_tag.to_string())
   }

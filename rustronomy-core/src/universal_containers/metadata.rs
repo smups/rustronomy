@@ -85,6 +85,9 @@ pub(crate) mod private_container {
   use std::str::FromStr;
 
   pub trait PrivContainer {
+  
+    //(1) funcs to remove tags
+    fn remove_all_tags(&mut self) -> Vec<(String, String)>;
     fn remove_tag_str(&mut self, key: &str) -> Option<String>;
     fn remove_tag<T>(&mut self) -> Result<T, TagError>
     where
@@ -99,7 +102,13 @@ pub(crate) mod private_container {
         None => Err(TagError::TagNotFoundError(T::KEY.to_string())),
       }
     }
-
+    
+    //(2) funcs to insert tags
+    fn insert_all_tags(&mut self, tags: &[(String, String)]) {
+      tags.iter().for_each(|(key, value)| {
+        self.insert_tag_str(value, key);
+      })
+    }
     fn insert_tag_str(&mut self, parsed_tag: &str, key: &str) -> Option<String>;
     fn insert_tag<T>(&mut self, tag: T) -> Result<Option<T>, TagError>
     where

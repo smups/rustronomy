@@ -37,13 +37,17 @@ use super::metadata::{
 #[derive(Debug, Clone)]
 /// Image container consisting of a 2D array of type `T` and metadata tags
 pub struct Image<T: Num> {
-  data: Array2<T>,
-  meta: HashMap<String, String>,
+  pub(crate) data: Array2<T>,
+  pub(crate) meta: HashMap<String, String>,
 }
 
 impl<U: Num> PrivContainer for Image<U> {
   fn remove_tag_str(&mut self, key: &str) -> Option<String> {
     self.meta.remove(key)
+  }
+
+  fn remove_all_tags(&mut self) -> Vec<(String, String)> {
+    self.meta.drain().collect()
   }
 
   fn insert_tag_str(&mut self, parsed_tag: &str, key: &str) -> Option<String> {
