@@ -1,20 +1,22 @@
 /*
-  Copyright (C) 2022 Raúl Wolters
+  Copyright© 2022 Raúl Wolters(1)
 
   This file is part of rustronomy-core.
 
-  rustronomy is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
+  rustronomy is free software: you can redistribute it and/or modify it under
+  the terms of the European Union Public License version 1.2 or later, as
+  published by the European Commission.
 
-  rustronomy is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
+  rustronomy is distributed in the hope that it will be useful, but WITHOUT ANY
+  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+  A PARTICULAR PURPOSE. See the European Union Public License for more details.
 
-  You should have received a copy of the GNU General Public License
-  along with rustronomy.  If not, see <http://www.gnu.org/licenses/>.
+  You should have received a copy of the EUPL in an/all official language(s) of
+  the European Union along with rustronomy.  If not, see 
+  <https://ec.europa.eu/info/european-union-public-licence_en/>.
+
+  (1) Resident of the Kingdom of the Netherlands; agreement between licensor and
+  licensee subject to Dutch law as per article 15 of the EUPL.
 */
 
 //! This module provides high-level API's for commonly used storage objects
@@ -38,21 +40,23 @@ pub mod image;
 pub mod metadata;
 pub mod table;
 
+mod tags;
+
 // Handy re-exports (v0.2.1 and higher)
 pub use array::DataArray;
 pub use image::Image;
-pub use metadata::{MetaDataContainer, MetaDataTag};
+pub use metadata::{MetaDataContainer, MetaDataTag, PubContainer};
 pub use table::{Col, Table};
 
 // utility for formatting byte sizes
 pub(crate) fn fmt_byte_size(byte_size: usize) -> String {
   if byte_size <= 1000 {
     format!("{}B", byte_size)
-  } else if byte_size >= 1_000_000 {
+  } else if byte_size <= 1_000_000 {
     format!("{}kB", byte_size / 1000)
-  } else if byte_size >= 1_000_000_000 {
+  } else if byte_size <= 1_000_000_000 {
     format!("{}MB", byte_size / 1_000_000)
-  } else if byte_size >= 1_000_000_000_000 {
+  } else if byte_size <= 1_000_000_000_000 {
     format!("{}GB", byte_size / 1_000_000_000)
   } else {
     format!("{}TB", byte_size / 1_000_000_000_000)
