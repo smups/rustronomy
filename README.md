@@ -28,13 +28,13 @@ Sugessted Features:
 - ...and many more crates
 
 # License
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![License: EUPL v1.2](https://img.shields.io/badge/License-EUPLv1.2-blue.svg)](https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12)
 
-All crates in the Rustronomy ecosystem are licensed under the GPLv3 (or higher)
+All crates in the Rustronomy ecosystem are licensed under the EUPLv1.2 (or higher)
 license.
 >**Rustronomy is explicitly not licensed under the dual
 Apache/MIT license common to the Rust ecosystem. Instead it is licensed under
-the terms of the [GNU GPLv3](https://www.gnu.org/licenses/gpl-3.0.html)**.
+the terms of the [European Union Public License v1.2](https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12)**.
 
 Rustronomy is a science project and embraces the values of open science and free
 and open software. Closed and paid scientific software suites hinder the
@@ -42,12 +42,6 @@ development of new technologies and research methods, as well as diverting much-
 needed public funds away from researchers to large publishing and software
 companies.
 
->Rustronomy-fits is free software.
-It is licensed under the GNU GPL version 3 or later.
-That means you are free to use this program for any purpose;
-free to study and modify this program to suit your needs;
-and free to share this program or your modifications with anyone.
-If you share this program or your modifications
-you must grant the recipients the same freedoms.
-To be more specific: you must share the source code under the same license. For details see https://www.gnu.org/licenses/gpl-3.0.html or the LICENSE file in this
-github repository.
+See the [LICENSE.md](../LICENSE.md) file for the EUPL text in all 22 official
+languages of the EU, and [LICENSE-EN.txt](../LICENSE-EN.txt) for a plain text
+English version of the license.

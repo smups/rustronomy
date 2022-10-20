@@ -16,13 +16,16 @@
 #
 #  (1) Resident of the Kingdom of the Netherlands; agreement between licensor and
 #  licensee subject to Dutch law as per article 15 of the EUPL.
-
-# Why 2 space tabs? Rust requires so much indentation that 4 space tabs often
-# restrict the length of code that fits on one line.
 #
-# 2 space tabs are not a formal requirement for rustfmt, crate authors can use
-# whatever they like, as long as they do so through configuring rustfmt
-tab_spaces = 2
-
-#allow for one-liners to take up a full line
-use_small_heuristics = "Max"
+#General tags
+author,Author,author,String
+date,Date,data creation date,chrono::DateTime<chrono::Utc>
+last_modified,LastModified,date file was last modified,chrono::DateTime<chrono::Utc>
+organisation,Organisation,data was created by,String
+reference,Reference,reference publication for data,String
+reference_doi,ReferenceDOI,doi of reference publication,String
+#General Astronomy tags
+telescope,Telescope,telescope,String
+instrument,Instrument,instrument,String
+object,Object,observed object,String
+exposure_time,ExposureTime,exposure time in ms,u64
