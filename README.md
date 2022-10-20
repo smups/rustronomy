@@ -1,7 +1,7 @@
 ![rustronomy_dark_banner](https://github.com/smups/rustronomy/blob/main/logos/Rustronomy_github_banner_dark.png?raw=true#gh-light-mode-only)
 ![rustronomy_light_banner](https://github.com/smups/rustronomy/blob/main/logos/Rustronomy_github_banner_light.png#gh-dark-mode-only)
 # The Rustronomy Project - an astrophysics toolkit written in Rust
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![License: EUPL v1.2](https://img.shields.io/badge/License-EUPLv1.2-blue.svg)](https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12)
 
 Rustronomy is an astrophysics Rust project aimed at providing astrophysicists with the tools needed to perform lightning-fast statistical analysis and computational modelling, powered by the Rust programming language. Rust makes low-level programming accessible to non-computer scientists. Over the last few years more and more scientific computing tools written in rust have popped up: we can now make very nice plots with [plotters](https://github.com/38/plotters), perform lightning-fast array calculations using [ndarray](https://github.com/rust-ndarray/ndarray) and even write Rust code in Jupyter notebooks since the introduction of a [rust kernel by google](https://github.com/google/evcxr).
 

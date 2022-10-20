@@ -1,7 +1,7 @@
 ![rustronomy_dark_banner](https://github.com/smups/rustronomy/blob/main/logos/Rustronomy_github_banner_dark.png?raw=true#gh-light-mode-only)
 ![rustronomy_light_banner](https://github.com/smups/rustronomy/blob/main/logos/Rustronomy_github_banner_light.png#gh-dark-mode-only)
 # The Rustronomy Project - an astrophysics toolkit written in Rust
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![License: EUPL v1.2](https://img.shields.io/badge/License-EUPLv1.2-blue.svg)](https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12)
 [![Crates.io](https://img.shields.io/crates/v/rustronomy-core)](https://crates.io/crates/rustronomy-core)
 ![](https://img.shields.io/crates/d/rustronomy-core)
 ### _this is the homepage of rustronomy-core, the shared core dependency for all rustronomy crates_
