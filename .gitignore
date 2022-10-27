@@ -1,4 +1,6 @@
 rustronomy-core/target
 rustronomy-core/Cargo.lock
+rustronomy-macro/target
+rustronomy-macro/Cargo.lock
 
 .vscode/
