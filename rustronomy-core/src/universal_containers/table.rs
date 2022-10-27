@@ -109,6 +109,10 @@ impl PrivContainer for Table {
   fn has_tag_str(&self, key: &str) -> bool {
     self.meta.contains_key(key)
   }
+
+  fn clone_tags(&self) -> Vec<(String, String)> {
+    self.meta.iter().map(|(k, v)| (k.clone(), v.clone())).collect()
+  }
 }
 
 impl PubContainer for Table {}

@@ -57,6 +57,10 @@ impl<U: Num> PrivContainer for DataArray<U> {
   fn has_tag_str(&self, key: &str) -> bool {
     self.meta.contains_key(key)
   }
+
+  fn clone_tags(&self) -> Vec<(String, String)> {
+    self.meta.iter().map(|(k, v)| (k.clone(), v.clone())).collect()
+  }
 }
 
 impl<U: Num> PubContainer for DataArray<U> {}

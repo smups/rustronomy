@@ -29,6 +29,8 @@
 
 use std::{fmt::Debug, str::FromStr};
 
+use self::private_container::PrivContainer;
+
 pub use super::tags::MetaDataContainer;
 
 /// The `MetaDataTag` trait specifies methods that must be implemented by a type
@@ -132,6 +134,9 @@ pub(crate) mod private_container {
     {
       return self.has_tag_str(T::KEY);
     }
+
+    //(3) funcs to clone tags
+    fn clone_tags(&self) -> Vec<(String, String)>;
   }
 }
 
@@ -140,6 +145,12 @@ pub(crate) mod private_container {
 /// specified in the function call is one of the reserved keys. See the
 /// `MetaDataContainer` type for a list of reserved tags.
 pub trait PubContainer: self::private_container::PrivContainer {
+  fn clone_metadata(&self) -> super::meta_only::MetaOnly {
+    let mut meta = super::meta_only::MetaOnly::new();
+    meta.insert_all_tags(&self.clone_tags());
+    return meta;
+  }
+
   fn has_generic_tag(&self, key: &str) -> bool {
     self.has_tag_str(key)
   }

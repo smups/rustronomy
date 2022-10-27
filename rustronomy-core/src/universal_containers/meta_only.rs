@@ -33,6 +33,12 @@ use super::metadata::{private_container::PrivContainer, MetaDataContainer, PubCo
 #[derive(Debug, Clone)]
 pub struct MetaOnly(HashMap<String, String>);
 
+impl MetaOnly {
+  pub fn new() -> Self {
+    MetaOnly(HashMap::new())
+  }
+}
+
 impl PrivContainer for MetaOnly {
   fn remove_all_tags(&mut self) -> Vec<(String, String)> {
     self.0.drain().collect()
@@ -49,9 +55,17 @@ impl PrivContainer for MetaOnly {
   fn has_tag_str(&self, key: &str) -> bool {
     self.0.contains_key(key)
   }
+
+  fn clone_tags(&self) -> Vec<(String, String)> {
+    self.0.iter().map(|(k, v)| (k.clone(), v.clone())).collect()
+  }
 }
 
-impl PubContainer for MetaOnly {}
+impl PubContainer for MetaOnly {
+  fn clone_metadata(&self) -> super::meta_only::MetaOnly {
+    self.clone()
+  }
+}
 impl MetaDataContainer for MetaOnly {}
 
 impl Display for MetaOnly {
