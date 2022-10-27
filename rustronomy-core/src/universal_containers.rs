@@ -39,6 +39,7 @@ pub mod array;
 pub mod image;
 pub mod metadata;
 pub mod table;
+pub mod meta_only;
 
 mod tags;
 
