@@ -12,7 +12,7 @@
   A PARTICULAR PURPOSE. See the European Union Public License for more details.
 
   You should have received a copy of the EUPL in an/all official language(s) of
-  the European Union along with rustronomy.  If not, see 
+  the European Union along with rustronomy.  If not, see
   <https://ec.europa.eu/info/european-union-public-licence_en/>.
 
   (1) Resident of the Kingdom of the Netherlands; agreement between licensor and

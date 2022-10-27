@@ -4,6 +4,10 @@
 _breaking releases are marked with ❗️, feature updates are marked with 🌟 and
 bug-fix updates are marked with 👾_
 
+## v0.4.2 metadata-only container (🌟)
+This version adds a new metadata-only container, called `MetaOnly`. Metadata can
+now be cloned from other containers.
+
 ## v0.4.1 updated license information (👾)
 This version changes the license of rustronomy from the GPLv3 to the EUPLv1.2 (a
 compatible license).
