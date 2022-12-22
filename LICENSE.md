@@ -1,8 +1,10 @@
-# <center> EUROPEAN UNION PUBLIC LICENSE </center>
-## <center> [🇧🇬](#публичен-лиценз-на-европейския-съюз-версия-12ПУБЛИЧЕН)[🇨🇿](#veřejná-licence-evropské-unie-v-12)[🇩🇰](#den-europæiske-unions-offentlige-licens-v-12-eupl)[🇩🇪/🇦🇹](#open-source-lizenz-für-die-europäische-union-v-12)[🇪🇪](#euroopa-liidu-tarkvara-vaba-kasutuse-litsents-v-12)[🇬🇷](#άδεια-δημοσιας-χρησης-για-την-ευρωπαϊκη-ένωση-v-12)[🇬🇧](#european-union-public-licence-v-12)[🇪🇸](#licencia-pública-de-la-unión-europea-v-12)[🇫🇷/🇧🇪](#licence-publique-de-lunion-européenne-v-12)[🇮🇹](#licenza-pubblica-dellunione-europea-v-12)[🇱🇻](#eiropas-savienības-sabiedriskā-licence-12-redakcija)[🇱🇹](#europos-sąjungos-viešoji-licencija-v-12)[🇭🇺](#európai-uniós-nyilvános-licenc-12-verzió)[🇲🇹](#liċenzja-pubblika-tal-unjoni-ewropea-v-12)[🇳🇱/🇧🇪](#openbare-licentie-van-de-europese-unie-v-12)[🇵🇱](#licencja-publiczna-unii-europejskiej-wersja-12)[🇵🇹](#licença-pública-da-união-europeia-v-12)[🇷🇴](#licența-publică-a-uniunii-europene-v-12)[🇸🇰](#verejná-licencia-európskej-únie-v-12)[🇸🇮](#javna-licenca-evropske-unije-v-12)[🇫🇮](#euroopan-unionin-yleinen-lisenssi-v-12)[🇸🇪](#european-union-public-licence-licens-till-öppen-källkod-från-europeiska-unionen-v-12)[🇭🇷](#javna-licenca-evropske-unije-v-12)</center>
+# EUROPEAN UNION PUBLIC LICENSE 
+*select your preferred language*
 
-## <center> JAVNA LICENCIJA EUROPSKE UNIJE v. 1.2. </center>
-> EUPL © Europska unija 2007., 2016.
+## [🇧🇬](#публичен-лиценз-на-европейския-съюз-версия-12ПУБЛИЧЕН)[🇨🇿](#veřejná-licence-evropské-unie-v-12)[🇩🇰](#den-europæiske-unions-offentlige-licens-v-12-eupl)[🇩🇪/🇦🇹](#open-source-lizenz-für-die-europäische-union-v-12)[🇪🇪](#euroopa-liidu-tarkvara-vaba-kasutuse-litsents-v-12)[🇬🇷](#άδεια-δημοσιας-χρησης-για-την-ευρωπαϊκη-ένωση-v-12)[🇬🇧](#european-union-public-licence-v-12)[🇪🇸](#licencia-pública-de-la-unión-europea-v-12)[🇫🇷/🇧🇪](#licence-publique-de-lunion-européenne-v-12)[🇮🇹](#licenza-pubblica-dellunione-europea-v-12)[🇱🇻](#eiropas-savienības-sabiedriskā-licence-12-redakcija)[🇱🇹](#europos-sąjungos-viešoji-licencija-v-12)[🇭🇺](#európai-uniós-nyilvános-licenc-12-verzió)[🇲🇹](#liċenzja-pubblika-tal-unjoni-ewropea-v-12)[🇳🇱/🇧🇪](#openbare-licentie-van-de-europese-unie-v-12)[🇵🇱](#licencja-publiczna-unii-europejskiej-wersja-12)[🇵🇹](#licença-pública-da-união-europeia-v-12)[🇷🇴](#licența-publică-a-uniunii-europene-v-12)[🇸🇰](#verejná-licencia-európskej-únie-v-12)[🇸🇮](#javna-licenca-evropske-unije-v-12)[🇫🇮](#euroopan-unionin-yleinen-lisenssi-v-12)[🇸🇪](#european-union-public-licence-licens-till-öppen-källkod-från-europeiska-unionen-v-12)[🇭🇷](#javna-licenca-evropske-unije-v-12)
+
+## JAVNA LICENCIJA EUROPSKE UNIJE v. 1.2.
+> EUPL © Europska unija 2007, 2016.
 Javna licencija Europske unije („EUPL”) odnosi se na djela (kako su definirana u nastavku) koja se stavljaju na raspolaganje u skladu s uvjetima ove licencije. Zabranjena je svaka uporaba djela koja nije odobrena ovom licencijom (ako je ta uporaba obuhvaćena pravom koje ima nositelj autorskog prava za to djelo). Djelo se stavlja na raspolaganje u skladu s uvjetima ove licencije ako je davatelj licencije (kako je definiran u nastavku) nakon obavijesti o autorskim pravima za to djelo stavio sljedeću obavijest:
 Licencirano u skladu s uvjetima EUPL-a
 ili je na bilo koji drugi način izrazio spremnost davanja licence u skladu s uvjetima EUPL-a.
@@ -10,7 +12,7 @@ ili je na bilo koji drugi način izrazio spremnost davanja licence u skladu s uv
 U ovoj licenciji sljedeći pojmovi imaju sljedeća značenja:
 - „licencija”:ova licencija,
 - „originalno djelo”:djelo ili softver koje davatelj licencije distribuira ili stavlja na raspolaganje u skladu s ovom licencijom, dostupno u obliku izvornog ili izvršnog koda, ovisno o slučaju,
-- „izvedena djela”:djela ili softver koje bi davatelj licencije mogao proizvesti na temelju originalnog djela ili njegovih izmjena. Ovom licencijom nije utvrđena dopuštena mjera izmjene originalnog djela i ovisnost o njemu potrebna kako bi se određeno djelo smatralo izvedenim djelom. Ta je mjera utvrđena zakonom o autorskom pravu primjenjivim u zemlji iz članka 15.,
+- „izvedena djela”:djela ili softver koje bi davatelj licencije mogao proizvesti na temelju originalnog djela ili njegovih izmjena. Ovom licencijom nije utvrđena dopuštena mjera izmjene originalnog djela i ovisnost o njemu potrebna kako bi se određeno djelo smatralo izvedenim djelom. Ta je mjera utvrđena zakonom o autorskom pravu primjenjivim u zemlji iz članka 15,
 - „djelo”:originalno djelo ili njegova izvedena djela,
 - „izvorni kôd”:djelo u formatu koji je čitljiv ljudima te najpogodniji za proučavanje i izmjenu,
 - „izvršni kôd”:svaki kôd, koji je u načelu sastavljen, namijenjen da ga računalo izvršava kao program,
@@ -65,19 +67,19 @@ Ne dovodeći u pitanje poseban ugovor koje su stranke sklopile, ova je licencija
 - belgijskim pravom ako davatelj licencije nema sjedište, boravak odnosno registrirani ured u državi članici Europske unije.
 Dodatak
 „Kompatibilne licencije” u skladu s člankom 5. EUPL-a:
-- GNU General Public License (GPL) v. 2., v. 3.,
-- GNU Affero General Public License (AGPL) v. 3.,
-- Open Software License (OSL) v. 2.1., v. 3.0.,
-- Eclipse Public License (EPL) v. 1.0.,
-- CeCILL v. 2.0., v. 2.1.,
-- Mozilla Public Licence (MPL) v. 2.,
-- GNU Lesser General Public Licence (LGPL) v. 2.1., v. 3.,
+- GNU General Public License (GPL) v. 2, v. 3,
+- GNU Affero General Public License (AGPL) v. 3,
+- Open Software License (OSL) v. 2.1, v. 3.0,
+- Eclipse Public License (EPL) v. 1.0,
+- CeCILL v. 2.0, v. 2.1,
+- Mozilla Public Licence (MPL) v. 2,
+- GNU Lesser General Public Licence (LGPL) v. 2.1, v. 3,
 - Creative Commons Attribution-ShareAlike v. 3.0. Unported (CC BY-SA 3.0) za djela koja nisu softver,
-- Javna licencija Europske unije (EUPL) v. 1.1., v. 1.2.,
+- Javna licencija Europske unije (EUPL) v. 1.1, v. 1.2,
 - Javna licencija Québeca otvorenoga koda – uzajamnost (LiLiQ-R) ili snažna uzajamnost (LiLiQ-R+).
 Europska unija može ažurirati dodatak u pogledu novih verzija prethodno navedenih licencija, a da pritom ne objavi novu verziju EUPL-a, uz uvjet da se tim licencijama pružaju prava zajamčena člankom 2. ove licencije, a obuhvaćeni izvorni kôd štiti od isključivog pripisivanja,
 Sve ostale izmjene i dopune dodatka zahtijevaju novu verziju EUPL-a. 19.5.2017. L 128/64 Službeni list Europske unije HR
-## <center> EUROPEAN UNION PUBLIC LICENCE (LICENS TILL ÖPPEN KÄLLKOD FRÅN EUROPEISKA UNIONEN) v. 1.2 </center>
+## EUROPEAN UNION PUBLIC LICENCE (LICENS TILL ÖPPEN KÄLLKOD FRÅN EUROPEISKA UNIONEN) v. 1.2 
 > EUPL © the European Union 2007, 2016
 Denna licens till öppen källkod från Europeiska unionen (EUPL), avser det verk (enligt definitionen nedan) som tillhandahålls på de villkor som anges i licensen. All användning av verket, som inte är tillåten enligt denna licens, är förbjuden (i den mån användningen i fråga omfattas av en rättighet som tillkommer innehavaren av upphovsrätten till verket). Verket tillhandahålls enligt villkoren i denna licens när licensgivaren (enligt definitionen nedan) har placerat följande meddelande omedelbart efter upphovsrättsmeddelandet avseende originalverket:
 Licensierat enligt EUPL
@@ -152,7 +154,7 @@ Tillägg
 - Québec Free and Open-Source Licence – Reciprocity (LiLiQ-R) or Strong Reciprocity (LiLiQ-R+).
 Europeiska kommissionen får uppdatera detta tillägg med senare versioner av ovannämnda licenser utan att ta fram en ny version av EUPL, så länge som kommissionen tillhandahåller de rättigheter som beviljas i punkt 2 i denna licens och skyddar den källkod som omfattas från exklusiv rätt.
 För alla andra ändringar i eller tillägg till detta tillägg krävs att en ny EUPL-version tas fram.
-## <center> EUROOPAN UNIONIN YLEINEN LISENSSI v. 1.2 </center>
+## EUROOPAN UNIONIN YLEINEN LISENSSI v. 1.2 
 >EUPL © Euroopan unioni 2007, 2016
 Tätä Euroopan unionin yleistä lisenssiä (”EUPL”) sovelletaan teokseen (sellaisina kuin se määritellään jäljempänä), joka toimitetaan tämän lisenssin ehdoilla. Teoksen kaikki muu kuin tämän lisenssin nojalla sallittu käyttö on kielletty (siltä osin kuin tällainen käyttö on suojattu teoksen tekijänoikeuden haltijan oikeuksilla). Teos toimitetaan tämän lisenssin ehdoilla silloin kun lisenssinantaja (sellaisena kuin se määritellään jäljempänä) on asettanut seuraavan ilmoituksen välittömästi teoksen tekijänoikeusilmoituksen perään:
 Lisensoitu EUPL:n nojalla
@@ -226,7 +228,7 @@ EUPL:n 5 kohdan mukaisia ”yhteensopivia lisenssejä” ovat seuraavat:
 - Québec Free and Open-Source Licence – Reciprocity (LiLiQ-R) or Strong Reciprocity (LiLiQ-R+).
 Euroopan komissio voi päivittää tätä lisäystä edellä mainittujen lisenssien myöhempiin versioihin laatimatta uutta versiota EUPL:stä, kunhan niillä tarjotaan tämän lisenssin 2 kohdassa myönnetyt oikeudet ja suojataan niiden piiriin kuuluva lähdekoodi yksinomaiseen oikeuteen perustuvalta käytöltä.
 Kaikki muut tämän lisäyksen muutokset tai siihen tehtävät lisäykset edellyttävät uuden EUPL-version laatimista. 19.5.2017 L 128/64 Euroopan unionin virallinen lehti FI
-## <center> JAVNA LICENCA EVROPSKE UNIJE v. 1.2 </center>
+## JAVNA LICENCA EVROPSKE UNIJE v. 1.2 
 >EUPL © Evropska unija 2007, 2016
 Ta javna licenca Evropske unije (v nadaljnjem besedilu: EUPL) se uporablja za delo (kakor je opredeljeno spodaj), zagotovljeno pod pogoji iz te licence. Vsaka uporaba dela, ki ni dovoljena s to licenco, je prepovedana (kolikor je ta uporaba zajeta v pravici imetnika avtorske pravice tega dela). Delo je zagotovljeno pod pogoji iz te licence, če je dajalec licence (kakor je opredeljeno spodaj) dodal naslednje obvestilo takoj za obvestilom o avtorski pravici za delo:
 Licencirano po EUPL
@@ -302,7 +304,7 @@ Dodatek
 - Javna licenca Québeca – vzajemnost (LiLiQ–R) ali močna vzajemnost (LiLiQ–R+).
 Evropska komisija lahko ta dodatek dopolni s poznejšimi različicami zgoraj navedenih licenc, ne da bi pri tem ustvarila novo različico EUPL, če te različice zagotavljajo pravice iz člena 2 te licence in izvirno kodo, ki je njen predmet, varujejo pred izključno prisvojitvijo.
 Vsakršna druga sprememba ali dopolnilo k temu dodatku zahteva novo različico EUPL.
-## <center> VEREJNÁ LICENCIA EURÓPSKEJ ÚNIE v. 1.2 </center>
+## VEREJNÁ LICENCIA EURÓPSKEJ ÚNIE v. 1.2 
 >EUPL © Európska únia, 2007, 2016
 Táto verejná licencia Európskej únie („EUPL“) sa vzťahuje na diela (ako sú definované ďalej), ktoré sú poskytnuté podľa podmienok tejto licencie. Akékoľvek použitie diela v rozpore s podmienkami tejto licencie sa zakazuje (v rozsahu, v akom sa na takéto použitie vzťahuje ochrana právami nositeľa autorských práv k dielu). Dielo sa poskytuje podľa podmienok tejto licencie vtedy, ak poskytovateľ licencie (ako je definovaný ďalej) umiestnil nasledujúcu doložku hneď za upozornením o autorskoprávnej ochrane diela (tzv. doložkou o autorských právach):
 Licencia poskytnutá podľa EUPL
@@ -378,7 +380,7 @@ Dodatok
 - Québec Free and Open-Source Licence – Reciprocity (LiLiQ-R) or Strong Reciprocity (LiLiQ-R+).
 Európska komisia môže tento dodatok aktualizovať, aby zahŕňal neskoršie verzie uvedených licencií, bez zavedenia novej verzie EUPL, pokiaľ uvedené licencie zabezpečujú práva udelené článkom 2 tejto licencie a chránia zdrojový kód, ktorý je jej predmetom, pred výhradným privlastnením.
 Všetky ostatné zmeny alebo doplnenia tohto dodatku si vyžadujú novú verziu EUPL.
-## <center> LICENȚA PUBLICĂ A UNIUNII EUROPENE V. 1.2 </center>
+## LICENȚA PUBLICĂ A UNIUNII EUROPENE V. 1.2 
 > EUPL© Uniunea Europeană 2007, 2016
 Prezenta licență publică a Uniunii Europene („EUPL”) se aplică produselor (astfel cum sunt definite mai jos) care fac obiectul prezentei licențe. Orice utilizare a produsului, alta decât cea autorizată în temeiul prezentei licențe, este interzisă (în măsura în care o astfel de utilizare intră sub incidența unui drept al deținătorului drepturilor de autor asupra produsului). Produsul este furnizat în conformitate cu prevederile prezentei licențe în cazul în care licențiatorul (astfel cum este definit mai jos) a introdus următoarea mențiune imediat după mențiunea referitoare la dreptul de autor pentru produs:
 Licențiat în baza EUPL
@@ -454,7 +456,7 @@ Apendice
 - Québec Free and Open-Source Licence – Reciprocity (LiLiQ-R) or Strong Reciprocity (LiLiQ-R+).
 Comisia Europeană poate actualiza prezentul apendice, pentru a include versiunile ulterioare ale licențelor menționate mai sus, fără a da naștere unei noi versiuni ale EUPL, atât timp cât statele membre asigură drepturile acordate în temeiul articolului 2 din prezenta licență, precum și protejarea de însușirea exclusivă a codului sursă acoperit.
 Toate celelalte modificări sau completări la prezentul apendice necesită producerea unei noi versiuni a EUPL.
-## <center> LICENÇA PÚBLICA DA UNIÃO EUROPEIA v. 1.2 </center>
+## LICENÇA PÚBLICA DA UNIÃO EUROPEIA v. 1.2 
 >EUPL © União Europeia 2007, 2016
 A presente licença pública da União Europeia («EUPL») aplica-se a qualquer obra (como definido abaixo) que seja fornecido nos termos da presente licença. É proibida qualquer utilização da obra diferente da autorizada nos termos da presente licença (na medida em que tal utilização esteja abrangida por um direito do titular dos direitos de autor da obra). A obra é fornecida nos termos da presente licença caso o licenciante (como definido abaixo) tenha colocado o seguinte aviso imediatamente após a informação sobre os direitos de autor respeitantes à obra:
 Licenciada nos termos da EUPL
@@ -529,7 +531,7 @@ As «licenças compatíveis» a que se refere o ponto 5 da EUPL são:
 - Québec Free and Open-Source Licence - Reciprocity (LiLiQ-R) or Strong Reciprocity (LiLiQ-R+).
 A Comissão pode atualizar o presente apêndice a fim de incluir novas versões das licenças supra, sem a produção de uma nova versão da EUPL, desde que tais versões concedam os direitos conferidos pelo ponto 2 da presente licença e protejam o código-fonte abrangido de apropriação exclusiva.
 Todas as outras alterações ou aditamentos ao presente apêndice exigem a produção de uma nova versão da EUPL.
-## <center> LICENCJA PUBLICZNA UNII EUROPEJSKIEJ wersja 1.2 </center>
+## LICENCJA PUBLICZNA UNII EUROPEJSKIEJ wersja 1.2 
 >EUPL © Unia Europejska 2007, 2016
 Niniejsza licencja publiczna Unii Europejskiej („EUPL”) stosowana jest w odniesieniu do utworu (w rozumieniu definicji poniżej) udostępnianego na warunkach niniejszej licencji. Każde wykorzystanie utworu inne niż dozwolone na mocy niniejszej licencji jest zakazane (w zakresie, w jakim takie wykorzystanie wchodzi w zakres prawa przysługującego posiadaczowi praw autorskich do utworu). Utwór jest udostępniany na warunkach niniejszej licencji, jeżeli licencjodawca (w rozumieniu definicji poniżej) umieści następującą wzmiankę bezpośrednio po informacji o prawach autorskich do utworu:
 Na licencji EUPL
@@ -605,7 +607,7 @@ Załącznik
 - Québec Free and Open-Source Licence – Reciprocity (LiLiQ-R) lub Strong Reciprocity (LiLiQ-R+).
 Komisja Europejska może zaktualizować ten załącznik, aby uwzględnić w nim późniejsze wersje wyżej wymienionych licencji bez sporządzania nowej wersji EUPL, o ile te nowe wersje przyznają prawa przewidziane w pkt 2 niniejszej licencji oraz chronią kod źródłowy wchodzący w jej zakres przed wyłącznym przywłaszczeniem.
 Wszelkie inne zmiany lub uzupełnienia niniejszego załącznika wymagają sporządzenia nowej wersji EUPL. 19.5.2017 L 128/64 Dziennik Urzędowy Unii Europejskiej PL
-## <center> OPENBARE LICENTIE VAN DE EUROPESE UNIE v. 1.2. </center>
+## OPENBARE LICENTIE VAN DE EUROPESE UNIE v. 1.2. 
 >EUPL © Europese Unie 2007, 2016
 Deze openbare licentie van de Europese Unie („EUPL”) is van toepassing op het werk (zoals hieronder gedefinieerd) dat onder de voorwaarden van deze licentie wordt verstrekt. Elk gebruik van het werk dat niet door deze licentie is toegestaan, is verboden (voor zover dit gebruik valt onder een recht van de houder van het auteursrecht op het werk). Het werk wordt verstrekt onder de voorwaarden van deze licentie wanneer de licentiegever (zoals hieronder gedefinieerd), direct volgend op de kennisgeving inzake het auteursrecht op het werk, de volgende kennisgeving opneemt:
 In licentie gegeven krachtens de EUPL
@@ -680,7 +682,7 @@ Aanhangsel
 - Québec Free and Open-Source Licence - Reciprocity (LiLiQ-R) of Strong Reciprocity (LiLiQ-R+).
 De Europese Commissie kan dit aanhangsel actualiseren in geval van latere versies van de bovengenoemde licenties zonder dat er een nieuwe EUPL-versie wordt ontwikkeld, zolang die versies de uit hoofde van artikel 2 van deze licentie verleende rechten verlenen en ze de betrokken broncode beschermen tegen exclusieve toe-eigening.
 Voor alle andere wijzigingen van of aanvullingen op dit aanhangsel is de ontwikkeling van een nieuwe EUPL-versie vereist.
-## <center> LIĊENZJA PUBBLIKA TAL-UNJONI EWROPEA v. 1.2 </center>
+## LIĊENZJA PUBBLIKA TAL-UNJONI EWROPEA v. 1.2 
 >EUPL © L-Unjoni Ewropea 2007, 2016
 Din il-Liċenzja Pubblika tal-Unjoni Ewropea (l-“EUPL”) tapplika għax-Xogħol (kif definit hawn taħt) li jiġi pprovdut skont it-termini ta' din il-Liċenzja. Kwalunkwe użu tax-Xogħol, għajr kif awtorizzat permezz ta' din il-Liċenzja, huwa pprojbit (sakemm tali użu ma jkunx kopert bid-drittijiet tal-awtur tax-Xogħol). Ix-Xogħol huwa pprovdut skont ir-rekwiżiti ta' din il-Liċenzja meta l-Awtorità li toħroġ il-Liċenzja (kif definita hawn taħt) tkun ħarġet l-avviż li ġej immedjatament wara li jkun inħareġ l-avviż tad-drittijiet tal-awtur għax-Xogħol:
 Mogħti liċenzja f'konformità mal-EUPL
@@ -756,7 +758,7 @@ Appendiċi
 - Québec Free and Open-Source Licence - Reciprocity (LiLiQ-R) jew Strong Reciprocity (LiLiQ-R+).
 Il-Kummissjoni Ewropea tista' taġġorna dan l-Appendiċi għal verżjonijiet sussegwenti tal-liċenzji hawn fuq imsemmija mingħajr ma tipproduċi verżjoni ġdida tal-EUPL, sakemm jiġu pprovduti d-drittijiet garantiti fl-Artikolu 2 ta' din il-Liċenzja u jiġi protett minn approprjazzjoni esklużiva l-Kodiċi Sors kopert.
 Kull tibdil jew żieda ulterjuri għal dan l-Appendiċi jeħtieġ produzzjoni ta' verżjoni ġdida tal-EUPL. 19.5.2017 L 128/64 Il-Ġurnal Uffiċjali tal-Unjoni Ewropea MT
-## <center> EURÓPAI UNIÓS NYILVÁNOS LICENC 1.2. verzió </center>
+## EURÓPAI UNIÓS NYILVÁNOS LICENC 1.2. verzió 
 >EUPL © Európai Unió 2007, 2016
 Az Európai Uniós Nyilvános Licencet (a továbbiakban: „EUPL”) az annak rendelkezései szerint rendelkezésre bocsátott (az alábbiakban meghatározott) Művekre kell alkalmazni. A Művek e Licencben engedélyezettől eltérő felhasználása tilos (amennyiben az adott Mű szerzői jogi tulajdonosának valamely joga e felhasználásra kiterjed). A Művet e Licenc rendelkezései szerint bocsátják rendelkezésre, ha (az alábbi meghatározás szerinti) Licenciaadó a Műre vonatkozó szerzői jogi nyilatkozat után közvetlenül feltüntette az alábbi közleményt:
 Licenc az EUPL szerint
@@ -832,7 +834,7 @@ Az EUPL 5. cikke szerinti „Kompatibilis licencek”:
 - Québec Free and Open-Source Licence – Reciprocity (LiLiQ-R) or Strong Reciprocity (LiLiQ-R+).
 E Függeléket az Európai Bizottság a fent említett licencek későbbi verzióival naprakésszé teheti anélkül, hogy új EUPL-verziót kellene készítenie, feltéve, hogy a szóban forgó licencek biztosítják az e Licenc 2. cikkében foglalt jogokat, és védelmet nyújtanak az érintett Forráskód kizárólagos felhasználása ellen.
 A Függelék minden egyéb jellegű módosítása vagy bővítése új EUPL-verzió kiadását teszi szükségessé.
-## <center> EUROPOS SĄJUNGOS VIEŠOJI LICENCIJA v. 1.2 </center>
+## EUROPOS SĄJUNGOS VIEŠOJI LICENCIJA v. 1.2 
 > EUPL © Europos Sąjunga, 2007, 2016
 Ši Europos Sąjungos viešoji licencija (toliau – EUPL) taikoma kūriniui (kaip apibrėžta toliau), kuriuo naudotis leidžiama šioje licencijoje nustatytomis sąlygomis. Kūrinį naudoti kitaip, nei numatyta šioje licencijoje, draudžiama (tiek, kiek tokiam naudojimui taikomos kūrinio autoriaus teisių turėtojo teisės). Kūrinį leidžiama naudoti šioje licencijoje nustatytomis sąlygomis, kai licenciaras (kaip apibrėžta toliau) po kūrinio autoriaus teisių nuorodos pateikia šią nuorodą:
  Licencijuota pagal EUPL
@@ -905,7 +907,7 @@ Pagal EUPL 5 straipsnį analogiškos licencijos yra:
 - Québec Free and Open-Source Licence – Reciprocity (LiLiQ-R) arba Strong Reciprocity (LiLiQ-R+).
 Siekdama priedėlyje nurodyti naujesnes pirma išvardytų licencijų redakcijas, Europos Komisija jį gali atnaujinti nerengdama naujos EUPL redakcijos, jei tose naujesnėse redakcijose numatomos pagal šios licencijos 2 straipsnį suteiktos teisės, o pirminis kodas apsaugomas nuo pasisavinimo pasinaudojant išimtinėmis teisėmis.
 Dėl visų kitų šio priedėlio pakeitimų ar papildymų būtina parengti naują EUPL redakciją. 2017 5 19 L 128/64 Europos Sąjungos oficialusis leidinys LT
-## <center> EIROPAS SAVIENĪBAS SABIEDRISKĀ LICENCE 1.2. redakcija </center>
+## EIROPAS SAVIENĪBAS SABIEDRISKĀ LICENCE 1.2. redakcija 
 >EUPL © Eiropas Savienība, 2007, 2016
 Eiropas Savienības sabiedriskā licence (EUPL) attiecas uz darbu (saskaņā ar turpmāk sniegto definīciju), kas izmantojams saskaņā ar šīs licences noteikumiem. Darbu ir atļauts izmantot tikai šajā licencē paredzētajā veidā (ciktāl uz šādu lietojumu attiecas darba autortiesību subjekta tiesības). Darbs ir izmantojams saskaņā ar šīs licences noteikumiem, ja licenciārs (saskaņā ar turpmāk sniegto definīciju) pēc darba autortiesību zīmes ir pievienojis šādu norādi:
 Licencēts saskaņā ar EUPL
@@ -977,11 +979,11 @@ Papildinājums
 - Mozilla Public Licence (MPL) v. 2,
 - GNU Lesser General Public Licence (LGPL) v. 2.1, v. 3,
 - Creative Commons Attribution-ShareAlike v. 3.0 Unported (CC BY-SA 3.0) attiecībā uz darbiem, kas nav programmatūra,
-- Eiropas Savienības sabiedriskā licence (EUPL), 1.1., 1.2. redakcija,
+- Eiropas Savienības sabiedriskā licence (EUPL), 1.1, 1.2. redakcija,
 - Québec Free and Open-Source Licence – Reciprocity (LiLiQ-R) vai Strong Reciprocity (LiLiQ-R+).
 Eiropas Komisija var atjaunināt šo pielikumu, lai iekļautu tajā iepriekš minēto licenču jaunākas redakcijas, nepieņemot jaunu EUPL redakciju, ja ar attiecīgajām licencēm tiek piešķirtas šīs licences 2. pantā noteiktās tiesības un netiek pieļauts, ka pirmkods, uz kuru attiecas licence, nonāk ekskluzīvā piederībā.
 Lai šajā pielikumā varētu izdarīt citas izmaiņas vai papildinājumus, ir jāveido jauna EUPL redakcija. 19.5.2017. L 128/64 Eiropas Savienības Oficiālais Vēstnesis LV
-## <center> LICENZA PUBBLICA DELL'UNIONE EUROPEA v. 1.2 </center>
+## LICENZA PUBBLICA DELL'UNIONE EUROPEA v. 1.2 
 > EUPL © Unione europea 2007, 2016
 La presente Licenza Pubblica dell'Unione europea («EUPL») si applica a tutte le opere, come definite di seguito, fornite alle condizioni di cui alla presente licenza. È vietata l'utilizzazione dell'opera in forme diverse da quelle autorizzate dalla presente licenza (nella misura in cui tale utilizzazione sia riservata in via esclusiva al titolare dei diritti d'autore sull'opera). L'opera è fornita alle condizioni della presente licenza se il licenziante (come definito di seguito) ha posto la seguente dicitura immediatamente dopo l'avviso sui diritti d'autore sull'opera:
 Concesso in licenza a norma dell'EUPL
@@ -1056,7 +1058,7 @@ Appendice
 - Québec Free and Open-Source Licence - Reciprocity (LiLiQ-R) or Strong Reciprocity (LiLiQ-R+).
 La Commissione può aggiornare la presente Appendice per tener conto delle versioni più recenti delle licenze summenzionate senza produrre una nuova versione dell'EUPL, purché esse garantiscano i diritti concessi dall'articolo 2 della presente licenza e proteggano il codice sorgente coperto dall'appropriazione esclusiva.
 Tutte le altre modifiche o aggiunte a tale Appendice richiedono la produzione di una nuova versione dell'EUPL.
-## <center> LICENCE PUBLIQUE DE L'UNION EUROPÉENNE v. 1.2 </center>
+## LICENCE PUBLIQUE DE L'UNION EUROPÉENNE v. 1.2 
 >EUPL © Union européenne 2007, 2016
 La présente licence publique de l'Union européenne («EUPL») s'applique à toute œuvre (telle que définie ci-dessous) fournie aux conditions prévues par la présente licence. Toute utilisation de l'œuvre autre que ce qu'autorise la présente licence est interdite (dans la mesure où pareille utilisation est couverte par un droit du titulaire des droits d'auteur sur l'œuvre). L'œuvre est fournie aux conditions prévues par la présente licence quand le donneur de licence (tel que défini ci-dessous) a placé la mention suivante immédiatement après la déclaration relative au droit d'auteur sur l'œuvre:
 Sous licence EUPL
@@ -1131,7 +1133,7 @@ Aux fins de l'article 5 de l'EUPL, les licences compatibles sont les suivantes:
 - Licence libre du Québec - Réciprocité (LiLiQ-R) ou Réciprocité forte (LiLiQ-R+)
 La Commission européenne pourra actualiser le présent appendice afin d'y inclure des versions ultérieures des licences ci-dessus sans produire de nouvelle version de l'EUPL, dès lors que ces versions prévoient la concession des droits visés à l'article 2 de la présente licence et empêchent l'appropriation exclusive du code source couvert.
 Tout autre changement ou ajout au présent appendice requiert la production d'une nouvelle version de l'EUPL.
-## <center> LICENCIA PÚBLICA DE LA UNIÓN EUROPEA v. 1.2 </center>
+## LICENCIA PÚBLICA DE LA UNIÓN EUROPEA v. 1.2 
 >EUPL © Unión Europea 2007, 2016
 La presente Licencia Pública de la Unión Europea (EUPL, por su sigla en inglés), se aplica a la obra (según se define más adelante) suministrada en las condiciones fijadas en la presente licencia. Queda prohibido cualquier uso de la obra distinto del autorizado por la presente licencia (en la medida en que tal uso esté protegido por un derecho del titular de los derechos de autor de la obra). La obra se suministra en las condiciones fijadas en la presente licencia cuando el licenciante (según se define más adelante) haya colocado la siguiente advertencia inmediatamente después de la mención a los derechos de autor de la obra:
 Licencia cedida con arreglo a la EUPL
@@ -1207,7 +1209,7 @@ Son «licencias compatibles» con arreglo al artículo 5 de la EUPL:
 - Québec Free and Open-Source Licence - Reciprocity (LiLiQ-R) or Strong Reciprocity (LiLiQ-R+).
 La Comisión Europea podrá actualizar el presente apéndice a versiones posteriores de las licencias mencionadas sin presentar una nueva versión de la EUPL, siempre que contemplen los derechos reconocidos en el artículo 2 de la presente licencia y protejan de la apropiación exclusiva el código fuente cubierto.
 Cualquier otra modificación o adición al presente apéndice exigirá la presentación de una nueva versión de la EUPL. 19.5.2017 L 128/64 Diario Oficial de la Unión Europea ES
-## <center> EUROPEAN UNION PUBLIC LICENCE v. 1.2 </center>
+## EUROPEAN UNION PUBLIC LICENCE v. 1.2 
 >EUPL © the European Union 2007, 2016
 This European Union Public Licence (the ‘EUPL’) applies to the Work (as defined
 below) which is provided under the terms of this Licence. Any use of the Work,
@@ -1423,7 +1425,7 @@ the rights granted in Article 2 of this Licence and protect the covered Source
 Code from exclusive appropriation.
 All other changes or additions to this Appendix require the production of a new
 EUPL version.
-## <center> ΆΔΕΙΑ ΔΗΜΟΣΙΑΣ ΧΡΗΣΗΣ ΓΙΑ ΤΗΝ ΕΥΡΩΠΑΪΚΗ ΈΝΩΣΗ v. 1.2 </center>
+## ΆΔΕΙΑ ΔΗΜΟΣΙΑΣ ΧΡΗΣΗΣ ΓΙΑ ΤΗΝ ΕΥΡΩΠΑΪΚΗ ΈΝΩΣΗ v. 1.2 
 >EUPL © Ευρωπαϊκή Ένωση 2007, 2016
 Η παρούσα άδεια δημόσιας χρήσης για την Ευρωπαϊκή Ένωση (η «EUPL») ισχύει για κάθε έργο (όπως ορίζεται παρακάτω) που καθίσταται διαθέσιμο υπό τους όρους της παρούσας άδειας. Απαγορεύεται κάθε άλλη χρήση του έργου πλην εκείνων που προβλέπονται δυνάμει της παρούσας άδειας (στον βαθμό που η εν λόγω χρήση καλύπτεται από δικαίωμα, επί του έργου, του κατόχου της πνευματικής ιδιοκτησίας). Το έργο καθίσταται διαθέσιμο βάσει των όρων της παρούσας άδειας όταν ο χορηγός της άδειας (όπως ορίζεται παρακάτω) έχει θέσει την ακόλουθη σημείωση αμέσως μετά την ανακοίνωση σχετικά με τα πνευματικά δικαιώματα για το έργο:
  Αδειοδοτείται υπό τους όρους της EUPL
@@ -1495,7 +1497,7 @@ EUPL version.
 - Québec Free and Open-Source Licence - αμοιβαιότητα (LiLiQ-R) ή ισχυρή αμοιβαιότητα (LiLiQ-R+)
 Η Ευρωπαϊκή Επιτροπή δύναται να επικαιροποιεί το εν λόγω προσάρτημα με μεταγενέστερες εκδόσεις των παραπάνω αδειών, χωρίς να παράγει νέα έκδοση της EUPL, εφόσον οι άδειες παρέχουν τα δικαιώματα που αναγνωρίζονται στο άρθρο 2 της παρούσας άδειας και προστατεύουν τον καλυπτόμενο από αυτές πηγαίο κώδικα από αποκλειστική ιδιοποίηση.
 Όλες οι άλλες αλλαγές ή προσθήκες στο παρόν προσάρτημα απαιτούν τη δημιουργία νέας έκδοσης EUPL. 19.5.2017 L 128/64 Επίσηµη Εφηµερίδα της Ευρωπαϊκής Ένωσης EL
-## <center> EUROOPA LIIDU TARKVARA VABA KASUTUSE LITSENTS v. 1.2 </center>
+## EUROOPA LIIDU TARKVARA VABA KASUTUSE LITSENTS v. 1.2 
 >EUPL © Euroopa Liit 2007, 2016
 Euroopa Liidu tarkvara vaba kasutuse litsents („EUPL“) kehtib allpool määratletud teose suhtes, mida levitatakse vastavalt käesoleva litsentsi tingimustele. Teost on keelatud kasutada muul viisil kui vastavalt käesoleva litsentsi tingimustele niivõrd, kuivõrd sellise kasutamise suhtes kehtivad teose autoriõiguse omaja õigused). Teost levitatakse vastavalt käesoleva litsentsi tingimustele, kui allpool määratletud litsentsiandja paneb vahetult teose autoriõiguse märke järele järgmise märke:
  Litsentsitud EUPL alusel
@@ -1571,7 +1573,7 @@ Euroopa Liidu tarkvara vaba kasutuse litsentsi artiklis 5 osutatud „ühilduvad
 - Québec Free and Open-Source Licence – Reciprocity (LiLiQ-R) or Strong Reciprocity (LiLiQ-R+).
 Euroopa Komisjon võib käesolevat lisa ajakohastada loetletud litsentside hilisemate versioonidega ilma, et peaks selleks koostama EUPLi uue versiooni, eeldusel et nende litsentsidega tagatakse käesoleva litsentsi artiklis 2 sätestatud õigused ja kaitstakse hõlmatud lähtekoodi eksklusiivse omastamise eest.
 Kõigi muude käesoleva liite muudatuste või täienduste jaoks on vaja koostada EUPLi uus versioon.
-## <center> OPEN-SOURCE-LIZENZ FÜR DIE EUROPÄISCHE UNION v. 1.2 </center>
+## OPEN-SOURCE-LIZENZ FÜR DIE EUROPÄISCHE UNION v. 1.2 
 >EUPL © Europäische Union 2007, 2016
 Diese Open-Source-Lizenz für die Europäische Union („EUPL“) gilt für Werke (im Sinne der nachfolgenden Begriffsbestimmung), die unter EUPL-Bedingungen zur Verfügung gestellt werden. Das Werk darf nur in der durch diese Lizenz gestatteten Form genutzt werden (insoweit eine solche Nutzung dem Urheber vorbehalten ist).
 Das Werk wird unter den Bedingungen dieser Lizenz zur Verfügung gestellt, wenn der Lizenzgeber (im Sinne der nachfolgenden Begriffsbestimmung) den folgenden Hinweis unmittelbar hinter dem Urheberrechtshinweis dieses Werks anbringt:
@@ -1652,7 +1654,7 @@ Anlage
 - Québec Free and Open-Source Licence - Reciprocity (LiLiQ-R) oder Strong Reciprocity (LiLiQ-R+)
 Die Europäische Kommission kann diesen Anhang aktualisieren, um neuere Fassungen der obigen Lizenzen aufzunehmen, ohne hierfür eine neue Fassung der EUPL auszuarbeiten, solange diese Lizenzen die in Artikel 2 gewährten Rechte gewährleisten und den erfassten Quellcode vor ausschließlicher Aneignung schützen.
 Alle sonstigen Änderungen oder Ergänzungen dieses Anhangs bedürfen der Ausarbeitung einer neuen Version der EUPL.
-## <center> DEN EUROPÆISKE UNIONS OFFENTLIGE LICENS v. 1.2 EUPL </center>
+## DEN EUROPÆISKE UNIONS OFFENTLIGE LICENS v. 1.2 EUPL 
 >© Den Europæiske Union 2007, 2016
 Den Europæiske Unions Offentlige Licens (»EUPL«) gælder for det værk (som defineret nedenfor), der stilles til rådighed i henhold til vilkårene i denne licens. Enhver anden brug af værket end den, der gives tilladelse til i denne licens, er forbudt (for så vidt som denne brug er omfattet af de rettigheder, der tilkommer indehaveren af ophavsretten til værket).
 Værket stilles til rådighed på vilkårene i denne licens, når licensgiveren (som defineret nedenfor) har gjort følgende anmærkning umiddelbart efter ophavsretsnotitsen om værket:
@@ -1730,7 +1732,7 @@ Tillæg
 - Québec Free and Open-Source Licence - Reciprocity (LiLiQ-R) eller Strong Reciprocity (LiLiQ-R+)
 Europa-Kommissionen vil eventuelt ajourføre dette tillæg med senere versioner af ovennævnte licenser uden at udarbejde en ny version af Den Europæiske Unions Offentlige Licens, så længe disse versioner af licensen sikrer de rettigheder, der gives i artikel 2 i nærværende licens, og beskytter den omfattede kildekode fra monopol.
 Alle andre ændringer eller tilføjelser til dette tillæg kræver forelæggelse af en ny version af Den Europæiske Unions Offentlige Licens.
-## <center> VEŘEJNÁ LICENCE EVROPSKÉ UNIE v. 1.2 </center>
+## VEŘEJNÁ LICENCE EVROPSKÉ UNIE v. 1.2 
 >EUPL © Evropská unie 2007, 2016
 Tato veřejná licence Evropské unie („EUPL“) se vztahuje na dílo (ve smyslu níže uvedených definic), které se poskytuje podle podmínek této licence. Použití díla v rozporu s touto licencí je zakázáno (v míře, v jaké se na uvedené použití vztahuje právo držitele autorských práv k dílu).
 Dílo se poskytuje podle podmínek této licence, pokud poskytovatel licence (ve smyslu níže uvedených definic) bezprostředně za doložku o autorských právech k dílu umístil toto upozornění:
@@ -1812,7 +1814,7 @@ Dodatek
 - Québec Free and Open-Source Licence – Reciprocity (LiLiQ-R) or Strong Reciprocity (LiLiQ-R+)
 Evropská komise může tento dodatek aktualizovat, aby zahrnoval pozdější verze uvedených licencí, bez zavedení nové verze EUPL, pokud uvedené licence zajišťují práva udělená článkem 2 této licence a chrání zdrojový kód, který je jejím předmětem, před výhradním přivlastněním.
 Všechny ostatní změny nebo doplnění k tomuto dodatku vyžadují novou verzi EUPL.
-## <center> ПУБЛИЧЕН ЛИЦЕНЗ НА ЕВРОПЕЙСКИЯ СЪЮЗ версия 1.2 </center>
+## ПУБЛИЧЕН ЛИЦЕНЗ НА ЕВРОПЕЙСКИЯ СЪЮЗ версия 1.2 
 >EUPL © Европейски съюз 2007, 2016
 Настоящият публичен лиценз на Европейския съюз (EUPL) се прилага към произведението (както е определено по-долу), което се предоставя при условията на този лиценз. Всяко ползване на произведението, различно от това, което е позволено от настоящия лиценз, e забранено (до степента, в която такова ползване е предмет на правата на притежателя на авторското право върху произведението). Произведението се предоставя при условията на настоящия лиценз, когато лицензодателят (както е определено по-долу) е поставил следния текст непосредствено след надписа за авторското право върху произведението:
 Лицензирано при условията на EUPL
