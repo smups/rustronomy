@@ -49,6 +49,8 @@ pub use image::Image;
 pub use metadata::{MetaDataContainer, MetaDataTag, PubContainer};
 pub use table::{Col, Table};
 
+mod metav2;
+
 // utility for formatting byte sizes
 pub(crate) fn fmt_byte_size(byte_size: usize) -> String {
   if byte_size <= 1000 {
