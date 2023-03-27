@@ -42,6 +42,7 @@ pub mod metadata;
 pub mod table;
 
 mod tags;
+mod tagsv2;
 
 // Handy re-exports (v0.2.1 and higher)
 pub use array::DataArray;
@@ -50,6 +51,9 @@ pub use metadata::{MetaDataContainer, MetaDataTag, PubContainer};
 pub use table::{Col, Table};
 
 mod metav2;
+
+// Re-exports (v0.3)
+pub use metav2::{MetaTag, MetaTagClone};
 
 // utility for formatting byte sizes
 pub(crate) fn fmt_byte_size(byte_size: usize) -> String {
