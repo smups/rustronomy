@@ -25,7 +25,7 @@
 
 use std::{
   collections::HashMap,
-  fmt::{self, Debug, Display, Formatter}
+  fmt::{self, Debug, Display, Formatter},
 };
 
 use super::metadata::{private_container::PrivContainer, MetaDataContainer, PubContainer};
