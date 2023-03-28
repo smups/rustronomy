@@ -1,4 +1,4 @@
-#  Copyright© 2022 Raúl Wolters(1)
+#  Copyright© 2023 Raúl Wolters(1)
 #
 #  This file is part of rustronomy-core.
 #
@@ -25,7 +25,7 @@ cwd = os.getcwd()
 
 # input csv file for generating tag structs
 tag_input = "/rustronomy-core/resources/tags.csv"
-tag_output = "/rustronomy-core/src/universal_containers/tags.rs"
+tag_output = "/rustronomy-core/src/meta/auto.rs"
 
 #read input csv file:
 # col0: tag string
@@ -38,7 +38,7 @@ tags = np.loadtxt(cwd + tag_input, comments="#", dtype=str, delimiter=',')
 with open(cwd + tag_output, "wb") as out:
   #start by printing the header:
   out.write(f"""/*
-  Copyright© 2022 Raúl Wolters(1)
+  Copyright© 2023 Raúl Wolters(1)
 
   This file is part of rustronomy-core.
 
@@ -58,86 +58,20 @@ with open(cwd + tag_output, "wb") as out:
   licensee subject to Dutch law as per article 15 of the EUPL.
 */
 
+use std::fmt::{{Display, Debug, Formatter, Result}};
+use super::MetaTag;
+
 """.encode())
-  
-  #next we add them to the restricted tags list
-  num_tags = len(tags)
-  out.write(f"pub const RESTRICTED_TAGS: [&str;{num_tags}] = [\n".encode())
-  for tag_string,_,_,_ in tags:
-    out.write(f"""  "{tag_string}",\n""".encode())
-  out.seek(-2, 2)
-  out.write(b"\n];\n")
-  
-  #finally we define the actual structs
-  for tag_data in tags:
-    tag_string, type_name, _, inner_type = tag_data[0], tag_data[1], tag_data[2], tag_data[3]
-    out.write(f"""
-#[derive(Debug)]
-struct {type_name}({inner_type});
 
-impl From<{inner_type}> for {type_name} {{
-  fn from({tag_string}: {inner_type}) -> Self {{{type_name}({tag_string})}}
-}}
-
-impl From<{type_name}> for {inner_type} {{
-  fn from({tag_string}: {type_name}) -> Self {{{tag_string}.0}}
-}}
-
-impl MetaDataTag for {type_name} {{
-  const KEY: &'static str = "{tag_string}";
-  type ValueType = {inner_type};
-
-  fn parse_str(text: &str) -> Result<Self, <Self::ValueType as FromStr>::Err> {{
-    match text.parse::<{inner_type}>() {{
-      Ok({tag_string}) => Ok({tag_string}.into()),
-      Err(err) => Err(err)
-    }}
-  }}
-  
-  fn to_string(&self) -> String {{ format!("{{}}", self.0)}}
-}}\n""".encode())
-  
-  #some imports
-  out.write(b"""
-use super::metadata::{MetaDataTag, TagError, PubContainer, private_container::PrivContainer};
-use std::str::FromStr;
-""")
-  
-  #we generate the documentation for the `MetaDataContainer` trait
-  out.write(f"""
-/// The `MetaDataContainer` trait specifies all the methods that a metadata
-/// container must implement. This includes special methods for accessing all
-/// restricted metadata keys. The restricted metadata tags are listed in the trait
-/// level documentation down below.  
-/// 
-/// The currently restricted tags are:
-///
-/// | restricted tag string | restricted tag type | description |
-/// | --: | :--: | :-- |
-""".encode())
-  #fill the table with info
-  for tag_string, type_name, description, inner_type in tags:
-    out.write(f"""/// | `"{tag_string}"` | `{type_name}({inner_type})` | {description} |\n""".encode())
-  
-  #Now we generate the MetaDataContainer trait
-  out.write(f"""pub trait MetaDataContainer: PrivContainer + PubContainer {{""".encode());
-  for tag_string, type_name, _, inner_type in tags:
-    out.write(f"""
-fn remove_{tag_string}(&mut self) -> Result<{inner_type}, TagError> {{
-  match self.remove_tag::<{type_name}>() {{
-    Ok(tag) => Ok(tag.into()),
-    Err(err) => Err(err)
+  for type_name, inner_type, doc_str, fmt_str in tags:
+    out.write(f"""#[derive(Debug, Clone, PartialEq)]
+/// {doc_str}
+pub struct {type_name}({inner_type});
+impl MetaTag for {type_name} {{}}
+impl Display for {type_name} {{
+  fn fmt(&self, f: &mut Formatter<'_>) -> Result {{
+    writeln!(f, "[{fmt_str}]: \\"{{}}\\"", self.0)
   }}
 }}
-fn insert_{tag_string}(&mut self, {tag_string}: {inner_type}) -> Result<Option<{inner_type}>, TagError> {{
-  match self.insert_tag::<{type_name}>({tag_string}.into()) {{
-    Ok(Some(tag)) => Ok(Some(tag.into())),
-    Ok(None) => Ok(None),
-    Err(err) => Err(err)
-  }}
-}}
-fn has_{tag_string}(&self) -> bool {{
-  self.has_tag::<{type_name}>()
-}}
+
 """.encode())
-  out.write(b"\n}")
