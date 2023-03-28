@@ -38,8 +38,6 @@ use std::{
 
 use indexmap::IndexMap;
 
-pub use crate::meta::*;
-
 #[derive(Debug, Clone)]
 #[non_exhaustive]
 /// columns are the constituent parts of tables. They consist of vectors holding
@@ -89,13 +87,12 @@ impl Col {
 pub struct Table {
   //Indexmap to provide easy iteration
   data: IndexMap<String, Col>,
-  meta: super::MetaOnly,
 }
 
 impl Table {
   /// creates an empty table without metadata
   pub fn new() -> Table {
-    Table { data: IndexMap::new(), meta: super::MetaOnly::new() }
+    Table { data: IndexMap::new() }
   }
 
   #[inline]
@@ -162,22 +159,7 @@ impl Display for Table {
       writeln!(f, "    size: {}", super::fmt_byte_size(col.size()))?;
     }
     #[cfg_attr(rustfmt, rustfmt_skip)]
-    writeln!(f, ">----------------------------------<|METADATA|>--------------------------------<")?;
-    #[cfg_attr(rustfmt, rustfmt_skip)]
-    writeln!(f, "                                  (strong tags)                                 ")?;
-    for tag in self.meta.iter_typed_tags() {
-      writeln!(f, "{tag}")?;
-    }
-    #[cfg_attr(rustfmt, rustfmt_skip)]
-    writeln!(f, "                                   (weak tags)                                  ")?;
-    for tag in self.meta.iter_string_fmt() {
-      writeln!(f, "{tag}")?;
-    }
-    #[cfg_attr(rustfmt, rustfmt_skip)]
     writeln!(f, ">==============================================================================<")
   }
 }
 
-impl MetaDataContainer for Table {
-  impl_meta_container!{}
-}

@@ -36,12 +36,10 @@
   note: module-level documentation is supplied in the modules themselves.
 */
 mod meta_only;
-mod array;
 mod table;
 
 // Handy re-exports (v0.2.1 and higher)
 pub use meta_only::MetaOnly;
-pub use array::DataArray;
 pub use table::{Col, Table};
 
 // utility for formatting byte sizes
