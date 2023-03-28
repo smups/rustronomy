@@ -35,25 +35,14 @@
 /* (Module structure)
   note: module-level documentation is supplied in the modules themselves.
 */
-pub mod array;
-pub mod image;
-pub mod meta_only;
-pub mod metadata;
-pub mod table;
-
-mod tags;
-mod tagsv2;
+mod meta_only;
+mod array;
+mod table;
 
 // Handy re-exports (v0.2.1 and higher)
+pub use meta_only::MetaOnly;
 pub use array::DataArray;
-pub use image::Image;
-pub use metadata::{MetaDataContainer, MetaDataTag, PubContainer};
 pub use table::{Col, Table};
-
-mod metav2;
-
-// Re-exports (v0.3)
-pub use metav2::{MetaTag, MetaTagClone};
 
 // utility for formatting byte sizes
 pub(crate) fn fmt_byte_size(byte_size: usize) -> String {

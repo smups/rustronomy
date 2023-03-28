@@ -25,7 +25,7 @@ cwd = os.getcwd()
 
 # input csv file for generating tag structs
 tag_input = "/rustronomy-core/resources/tags.csv"
-tag_output = "/rustronomy-core/src/universal_containers/tagsv2.rs"
+tag_output = "/rustronomy-core/src/meta/auto.rs"
 
 #read input csv file:
 # col0: tag string

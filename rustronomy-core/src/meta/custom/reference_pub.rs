@@ -1,6 +1,6 @@
 use chrono::Datelike;
+use crate::meta::MetaTag;
 
-use super::metav2::MetaTag;
 
 #[derive(Debug, Clone)]
 struct ReferencePublication {
@@ -19,6 +19,7 @@ struct ReferencePublication {
   pub email: Option<String>,
 }
 
+impl MetaTag for ReferencePublication {}
 impl std::fmt::Display for ReferencePublication {
   fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
     writeln!(f, "[Reference Publication]: ")?;
@@ -55,5 +56,3 @@ impl std::fmt::Display for ReferencePublication {
     Ok(())
   }
 }
-
-impl MetaTag for ReferencePublication {}

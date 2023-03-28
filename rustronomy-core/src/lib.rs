@@ -30,6 +30,7 @@
 
 //Module Strucutre (module description is given in the module definition files)
 pub mod universal_containers;
+pub mod meta;
 
 #[cfg(test)]
 mod test;

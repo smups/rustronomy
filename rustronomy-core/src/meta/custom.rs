@@ -1,5 +1,5 @@
 /*
-  Copyright© 2022 Raúl Wolters(1)
+  Copyright© 2023 Raúl Wolters(1)
 
   This file is part of rustronomy-core.
 
@@ -19,24 +19,5 @@
   licensee subject to Dutch law as per article 15 of the EUPL.
 */
 
-//! This module specifies a generic array container. In contrast to an Image, an
-//! Array may have any number of axes. This comes at some allocation cost, see the
-//! ndarray docs for details.
-
-use std::{
-  fmt::{self, Debug, Display, Formatter}
-};
-
-use ndarray as nd;
-
-use crate::meta::*;
-
-#[derive(Debug, Clone, PartialEq)]
-pub struct DataArray<T> {
-  pub(crate) data: nd::Array<T, nd::IxDyn>,
-  pub(crate) meta: super::MetaOnly,
-}
-
-impl<R> MetaDataContainer for DataArray<R> where R: Debug + Clone {
-  impl_meta_container!{}
-}
+mod reference_pub;
+pub use reference_pub::*;
