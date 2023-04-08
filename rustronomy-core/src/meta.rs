@@ -1,5 +1,5 @@
 /*
-  Copyright© 2022 Raúl Wolters(1)
+  Copyright© 2023 Raúl Wolters(1)
 
   This file is part of rustronomy-core.
 
@@ -18,6 +18,48 @@
   (1) Resident of the Kingdom of the Netherlands; agreement between licensor and
   licensee subject to Dutch law as per article 15 of the EUPL.
 */
+
+//! This module defines all the traits and types used by `rustronomy` to enable
+//! cross-format metadata. Crates in the rustronomy can translate these types
+//! into format-specific representations. This way, metadata can be transferred
+//! from one storage format to another.
+//! 
+//! ## A quick overview of the `rustronomy` metadata system
+//! The rustronomy metadata system is built from two fundamental traits:
+//! - `MetaTag` is implemented by types that specify metadata
+//! - `MetaContainer` is implemented by types that contain metadata.
+//! 
+//! In addition to the "typed" metadata constructed from rust types implementing the
+//! `MetaTag` trait, rustronomy also supports "untyped" (or "stringly-typed")
+//! metadata consisting of simple `String` (key, value) pairs. `MetaContainer`
+//! has methods for interacting with both.
+//! 
+//! ## Strongly-typed metadata vs stringly-typed metadata
+//! The most important distinction between the typed metadata and the simple
+//! (key, value) string pairs is how rustronomy crates implementing specific
+//! storage formats are expected to handle them:
+//! - *Strongly typed* metadata tags are to be encoded into a format-specific
+//! representation that conveys their meaning in a machine-readable manner, if
+//! this is supported by the specific format.
+//! - *Stringly typed* metadata key-value pairs are to be interpreted as simple
+//! key-value pairs.
+//! As an example, the metadata struct `Author` is encoded by `rustronomy-fits`
+//! using the FITS `AUTHOR` keyword, whereas a string metadata entry with the
+//! key `"Author"` wouldn't be parsed in any special way.
+//! 
+//! Furthermore, if a key-value string pair were to conflict with a strongly typed
+//! metadata entry, storage format implementations may ignore the conflicting
+//! string entry: strongly-typed entries take precedence over stringly-typed ones.
+//! 
+//! ## built-in metadata tags
+//! In addition to these two traits, a bunch of pre-made types that implement the
+//! `MetaTag` trait can be found in the `tags` module, all of which are
+//! transferable between data storage formats.
+//! 
+//! The strongly-typed metadata system is *in principle* user-extendable. You can
+//! implement `MetaTag` for you own custom metadata tags, but there is no
+//! guarantee that these tags will be respected or parsed properly by
+//! implementations (since they are most likely not aware of your custom data type). 
 
 //Types that already implement MetaTag
 mod auto;
