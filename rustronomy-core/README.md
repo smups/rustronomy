@@ -7,10 +7,12 @@
 ### _this is the homepage of rustronomy-core, the shared core dependency for all rustronomy crates_
 The `rustronomy-core` crate provides types and traits that ensure interoperability between rustronomy crates. This crate should be updated very infrequently since all other rustronomy crates depend on its public API and breaking changes would require a large rewrite. Therefore, the functionality provided by `rustronomy-core` should be kept to a minimum. 
 
-# Functionality [(read the docs)](https://docs.rs/rustronomy-core/0.4.0/rustronomy_core/)
-Currently, `rustronomy-core` only provides shared data containers. Shared data 
-containers are used as common data-container types between rustronomy crates 
-and support metadata.
+# Functionality [(read the docs)](https://docs.rs/rustronomy-core/)
+`rustronomy-core` currently provides traits and structs for working with
+cross-storage-format metadata, as well as an unstable data container to be used
+for representing table-like (textual) data.
+
+See module docs for more info.
 
 # License
 [![License: EUPL v1.2](https://img.shields.io/badge/License-EUPLv1.2-blue.svg)](https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12)
