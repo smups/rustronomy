@@ -36,6 +36,3 @@ pub mod meta;
 pub mod prelude {
   pub use super::meta::{MetaDataContainer, MetaTag, MetaTagClone};
 }
-
-#[cfg(test)]
-mod test;
