@@ -34,5 +34,5 @@ pub mod universal_containers;
 
 /// Glob-importing this module brings into scope useful traits
 pub mod prelude {
-  pub use super::meta::{MetaDataContainer, MetaTag, MetaTagClone};
+  pub use super::meta::{MetaContainer, MetaTag, MetaTagClone};
 }

@@ -25,7 +25,7 @@
 
 use std::{any::TypeId, collections::HashMap};
 
-use crate::meta::{MetaDataContainer, MetaTag};
+use crate::meta::{MetaContainer, MetaTag};
 
 #[derive(Clone, Default)]
 /// Basic hashmap based metadata container, containing only metadata.
@@ -94,7 +94,7 @@ impl std::fmt::Debug for MetaOnly {
   }
 }
 
-impl MetaDataContainer for MetaOnly {
+impl MetaContainer for MetaOnly {
   fn insert_tag<T: MetaTag + Clone>(&mut self, tag: &T) -> Option<T> {
     self.typed_tags.insert(tag.type_id(), Box::new(tag.clone()))?.as_ref().downcast()
   }

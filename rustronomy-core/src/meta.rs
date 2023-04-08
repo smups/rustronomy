@@ -123,7 +123,7 @@ impl dyn MetaTag {
 /// Strongly typed metadata are the key to how rustronomy can transfer metadata
 /// between incompatible data storage formats. Implementers of data storage
 /// formats should take special care in storing this kind of metadata.
-pub trait MetaDataContainer: Clone + Debug {
+pub trait MetaContainer: Clone + Debug {
   /// Inserts strongly typed tag with type `T` into the container. If the
   /// container already had this type of metadata, its previous value will be
   /// returned.
