@@ -12,15 +12,15 @@
   A PARTICULAR PURPOSE. See the European Union Public License for more details.
 
   You should have received a copy of the EUPL in an/all official language(s) of
-  the European Union along with rustronomy.  If not, see 
+  the European Union along with rustronomy.  If not, see
   <https://ec.europa.eu/info/european-union-public-licence_en/>.
 
   (1) Resident of the Kingdom of the Netherlands; agreement between licensor and
   licensee subject to Dutch law as per article 15 of the EUPL.
 */
 
-use std::fmt::{Display, Debug, Formatter, Result};
 use super::MetaTag;
+use std::fmt::{Debug, Display, Formatter, Result};
 
 #[derive(Debug, Clone, PartialEq)]
 /// Author responsible for data container
@@ -101,4 +101,3 @@ impl Display for ExposureTime {
     writeln!(f, "[Exposure time (ms)]: \"{}\"", self.0)
   }
 }
-

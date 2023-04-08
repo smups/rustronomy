@@ -214,5 +214,5 @@ macro_rules! impl_meta_container {
     fn has_string_metadata(&self) -> bool {
       self.meta.has_string_metadata()
     }
-  }
-} 
+  };
+}

@@ -23,9 +23,9 @@
 //! used by other libraries to construct additional containers, or to directly
 //! pass metadata.
 
-use std::{collections::HashMap, any::TypeId};
+use std::{any::TypeId, collections::HashMap};
 
-use crate::meta::{MetaTag, MetaDataContainer};
+use crate::meta::{MetaDataContainer, MetaTag};
 
 #[derive(Clone, Default)]
 /// Basic hashmap based metadata container, containing only metadata.

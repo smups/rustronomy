@@ -29,8 +29,8 @@
 //! See the module docs down below for more details regarding specific API's.
 
 //Module Strucutre (module description is given in the module definition files)
-pub mod universal_containers;
 pub mod meta;
+pub mod universal_containers;
 
 /// Glob-importing this module brings into scope useful traits
 pub mod prelude {

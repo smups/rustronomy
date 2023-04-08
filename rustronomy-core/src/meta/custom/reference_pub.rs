@@ -1,6 +1,5 @@
-use chrono::Datelike;
 use crate::meta::MetaTag;
-
+use chrono::Datelike;
 
 #[derive(Debug, Clone)]
 struct ReferencePublication {
