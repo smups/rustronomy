@@ -22,7 +22,7 @@
 use crate::meta::MetaTag;
 use chrono::Datelike;
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq)]
 struct ReferencePublication {
   pub title: String,
   pub authors: String,
