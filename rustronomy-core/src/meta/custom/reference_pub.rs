@@ -22,21 +22,51 @@
 use crate::meta::MetaTag;
 use chrono::Datelike;
 
-#[derive(Debug, Clone, PartialEq, Default)]
+use getset::{Getters, Setters, MutGetters};
+
+#[derive(Debug, Clone, PartialEq, Default, Getters, Setters, MutGetters)]
+#[getset(get = "pub", set = "pub", get_mut = "pub")]
+/// Struct representing a reference to an (academic) publication describing the
+/// data inside the container. To be used as a rustronomy `MetaTag`.
+/// 
+/// # Optional fields
+/// This struct contains a lot of optional data which may be accessed using the
+/// `self.xyz()`, `self.xyz_mut()` and `self.set_xyz()` methods. Currently,
+/// the following optional metadata is supported (more may be added in the future):
+/// - `affiliation` affiliation of the authors
+/// - `journal`, `number`, `volume`, `pages` to direct users to the publication 
+/// - `doi` [Digital Object Identifier](https://www.doi.org/)
+/// - `url` url to publication (e.g. arXiv or publisher site)
+/// - `date` date of publishing
+/// - `email` contact info for author handling correspondence
+/// 
+/// *Note: these struct fields have to be private because changing the number of
+/// public struct fields is currently a breaking change in Rust. This is why getters
+/// and setters are used here.*
 struct ReferencePublication {
-  pub title: String,
-  pub authors: String,
-  pub affiliation: Option<String>,
+  title: String,
+  authors: String,
+  affiliation: Option<String>,
 
-  pub journal: Option<String>,
-  pub number: Option<u16>,
-  pub volume: Option<u16>,
-  pub pages: Option<(u16, u16)>,
-  pub doi: Option<String>,
-  pub url: Option<String>,
-  pub date: Option<chrono::NaiveDate>,
+  journal: Option<String>,
+  number: Option<u16>,
+  volume: Option<u16>,
+  pages: Option<(u16, u16)>,
+  doi: Option<String>,
+  url: Option<String>,
+  date: Option<chrono::NaiveDate>,
 
-  pub email: Option<String>,
+  email: Option<String>,
+}
+
+impl ReferencePublication {
+  /// Constructs a `ReferencePublication` with all optional fields set to `None`
+  pub fn new(title: &str, authors: &str) -> Self {
+    let mut out = ReferencePublication::default();
+    out.title = title.to_string();
+    out.authors = authors.to_string();
+    out
+  }
 }
 
 impl MetaTag for ReferencePublication {}
