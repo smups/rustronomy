@@ -1,5 +1,5 @@
 /*
-  Copyright© 2022 Raúl Wolters(1)
+  Copyright© 2023 Raúl Wolters(1)
 
   This file is part of rustronomy-core.
 
@@ -19,20 +19,5 @@
   licensee subject to Dutch law as per article 15 of the EUPL.
 */
 
-#![doc(
-  html_logo_url = "https://raw.githubusercontent.com/smups/rustronomy/main/logos/Rustronomy_ferris.png?raw=true"
-)]
-//! This crate defines the shared API for all rustronomy-project crates.
-//! Its purpose is to provide the necessary traits and types to ensure
-//! interoperability within the rustronomy project.
-//!
-//! See the module docs down below for more details regarding specific API's.
-
-//Module Strucutre (module description is given in the module definition files)
-pub mod meta;
-pub mod universal_containers;
-
-/// Glob-importing this module brings into scope useful traits
-pub mod prelude {
-  pub use super::meta::{MetaContainer, MetaTag, MetaTagClone};
-}
+mod reference_pub;
+pub use reference_pub::*;

@@ -35,18 +35,11 @@
 /* (Module structure)
   note: module-level documentation is supplied in the modules themselves.
 */
-pub mod array;
-pub mod image;
-pub mod meta_only;
-pub mod metadata;
-pub mod table;
-
-mod tags;
+mod meta_only;
+mod table;
 
 // Handy re-exports (v0.2.1 and higher)
-pub use array::DataArray;
-pub use image::Image;
-pub use metadata::{MetaDataContainer, MetaDataTag, PubContainer};
+pub use meta_only::MetaOnly;
 pub use table::{Col, Table};
 
 // utility for formatting byte sizes

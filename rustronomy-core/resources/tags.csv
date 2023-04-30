@@ -17,15 +17,15 @@
 #  (1) Resident of the Kingdom of the Netherlands; agreement between licensor and
 #  licensee subject to Dutch law as per article 15 of the EUPL.
 #
+# Outer Type, Inner Type, Documentation String, Format String 
+#
 #General tags
-author,Author,author,String
-date,Date,data creation date,chrono::DateTime<chrono::Utc>
-last_modified,LastModified,date file was last modified,chrono::DateTime<chrono::Utc>
-organisation,Organisation,data was created by,String
-reference,Reference,reference publication for data,String
-reference_doi,ReferenceDOI,doi of reference publication,String
+Author,String,Author responsible for data container,Author
+CreationDate,chrono::DateTime<chrono::Utc>,Date of data collection,Creation date
+LastModified,chrono::DateTime<chrono::Utc>,Date container was last modified,Last modified date
+Organisation,String,Organisation responsible for data container,Organisation
 #General Astronomy tags
-telescope,Telescope,telescope,String
-instrument,Instrument,instrument,String
-object,Object,observed object,String
-exposure_time,ExposureTime,exposure time in ms,u64
+Telescope,String,Telescope used to collect data (astronomy-specific),Telescope
+Instrument,String,Instrument used to collect data (astronomy-specific),Instrument
+Object,String,Observation target (astronomy-specific),Target object
+ExposureTime,u64,Exposure time in ms (astronomy-specific),Exposure time (ms)

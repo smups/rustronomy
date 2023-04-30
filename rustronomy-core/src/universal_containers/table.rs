@@ -32,23 +32,11 @@
 //! one has been supplied.
 
 use std::{
-  collections::HashMap,
   fmt::{self, Debug, Display, Formatter},
   mem,
 };
 
 use indexmap::IndexMap;
-
-use super::metadata::{private_container::PrivContainer, MetaDataContainer, PubContainer};
-
-#[derive(Debug, Clone)]
-/// the table data container. Consists of named columns and metadata tags. See
-/// the module-level documentation for more details.
-pub struct Table {
-  //Indexmap to provide easy iteration
-  data: IndexMap<String, Col>,
-  meta: HashMap<String, String>,
-}
 
 #[derive(Debug, Clone)]
 #[non_exhaustive]
@@ -93,35 +81,18 @@ impl Col {
   }
 }
 
-impl PrivContainer for Table {
-  fn remove_tag_str(&mut self, key: &str) -> Option<String> {
-    self.meta.remove(key)
-  }
-
-  fn remove_all_tags(&mut self) -> Vec<(String, String)> {
-    self.meta.drain().collect()
-  }
-
-  fn insert_tag_str(&mut self, parsed_tag: &str, key: &str) -> Option<String> {
-    self.meta.insert(key.to_string(), parsed_tag.to_string())
-  }
-
-  fn has_tag_str(&self, key: &str) -> bool {
-    self.meta.contains_key(key)
-  }
-
-  fn clone_tags(&self) -> Vec<(String, String)> {
-    self.meta.iter().map(|(k, v)| (k.clone(), v.clone())).collect()
-  }
+#[derive(Debug, Clone)]
+/// the table data container. Consists of named columns and metadata tags. See
+/// the module-level documentation for more details.
+pub struct Table {
+  //Indexmap to provide easy iteration
+  data: IndexMap<String, Col>,
 }
-
-impl PubContainer for Table {}
-impl MetaDataContainer for Table {}
 
 impl Table {
   /// creates an empty table without metadata
   pub fn new() -> Table {
-    Table { data: IndexMap::new(), meta: HashMap::new() }
+    Table { data: IndexMap::new() }
   }
 
   #[inline]
@@ -167,37 +138,27 @@ impl Table {
 
 impl Display for Table {
   fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-    writeln!(
-      f,
-      ">=============================<|RUSTRONOMY TABLE 🦀🌌|>============================"
-    )?;
-    writeln!(f, ">number of colums: {}", self.data.len())?;
-    write!(f, ">shape: (")?;
+    #[cfg_attr(rustfmt, rustfmt_skip)]
+    writeln!(f, ">=============================<|RUSTRONOMY TABLE 🦀🌌|>===========================<")?;
+    writeln!(f, "number of colums: {}", self.data.len())?;
+    write!(f, "shape: (")?;
     for (_name, val) in self.data.iter() {
       write!(f, "{},", val.len())?;
     }
     write!(f, "\u{0008})\n")?;
     write!(
       f,
-      ">total size: {}",
+      "total size: {}",
       super::fmt_byte_size(self.data.iter().map(|(_name, col)| col.size()).sum())
     )?;
-    writeln!(
-      f,
-      ">-----------------------------------<|COLUMNS|>----------------------------------"
-    )?;
+    #[cfg_attr(rustfmt, rustfmt_skip)]
+    writeln!(f, ">-----------------------------------<|COLUMNS|>---------------------------------<")?;
     for (col_name, col) in self.data.iter() {
-      writeln!(f, ">[{}]", col_name)?;
-      writeln!(f, ">    number of elements: {}", col.len())?;
-      writeln!(f, ">    size: {}", super::fmt_byte_size(col.size()))?;
+      writeln!(f, "[{}]", col_name)?;
+      writeln!(f, "    number of elements: {}", col.len())?;
+      writeln!(f, "    size: {}", super::fmt_byte_size(col.size()))?;
     }
-    writeln!(
-      f,
-      ">----------------------------------<|METADATA|>---------------------------------"
-    )?;
-    for (tag, val) in self.meta.iter() {
-      writeln!(f, ">\"{tag}\": {val}")?;
-    }
-    writeln!(f, ">===============================================================================")
+    #[cfg_attr(rustfmt, rustfmt_skip)]
+    writeln!(f, ">==============================================================================<")
   }
 }
