@@ -4,6 +4,15 @@
 _breaking releases are marked with ❗️, feature updates are marked with 🌟 and
 bug-fix updates are marked with 👾_
 
+## v0.5.0 second rework of metadata system (❗️)
+After further experimentation I have decided to rework the metadata system once
+again. The previous system was essentially an overcomplicated key-value system
+with certain keys being designated for specific purposes. This update brings true
+typed metadata support. One of the advantages that this system brings is that the
+user is no longer burdened by annoying key restrictions for metadata.
+
+See the v0.5.0 docs for more details on the new system.
+
 ## v0.4.2 metadata-only container (🌟)
 This version adds a new metadata-only container, called `MetaOnly`. Metadata can
 now be cloned from other containers.

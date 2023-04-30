@@ -80,6 +80,12 @@ use std::{
   fmt::{Debug, Display},
 };
 
+/*
+  A lot of the following code took inspiration/was copied from the anymap crate.
+
+  Creds to them for coming up with most of the workarounds presented here.
+*/
+
 /// Core trait that must be implemented by all structs representing metadata.
 ///
 /// This trait requires implementers to also implement `MetaTagClone`, which is
