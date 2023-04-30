@@ -66,7 +66,7 @@ use super::MetaTag;
   for type_name, inner_type, doc_str, fmt_str in tags:
     out.write(f"""#[derive(Debug, Clone, PartialEq)]
 /// {doc_str}
-pub struct {type_name}({inner_type});
+pub struct {type_name}(pub {inner_type});
 impl MetaTag for {type_name} {{}}
 impl Display for {type_name} {{
   fn fmt(&self, f: &mut Formatter<'_>) -> Result {{
