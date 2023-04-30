@@ -12,19 +12,19 @@
   A PARTICULAR PURPOSE. See the European Union Public License for more details.
 
   You should have received a copy of the EUPL in an/all official language(s) of
-  the European Union along with rustronomy.  If not, see
+  the European Union along with rustronomy.  If not, see 
   <https://ec.europa.eu/info/european-union-public-licence_en/>.
 
   (1) Resident of the Kingdom of the Netherlands; agreement between licensor and
   licensee subject to Dutch law as per article 15 of the EUPL.
 */
 
+use std::fmt::{Display, Debug, Formatter, Result};
 use super::MetaTag;
-use std::fmt::{Debug, Display, Formatter, Result};
 
 #[derive(Debug, Clone, PartialEq)]
 /// Author responsible for data container
-pub struct Author(String);
+pub struct Author(pub String);
 impl MetaTag for Author {}
 impl Display for Author {
   fn fmt(&self, f: &mut Formatter<'_>) -> Result {
@@ -34,7 +34,7 @@ impl Display for Author {
 
 #[derive(Debug, Clone, PartialEq)]
 /// Date of data collection
-pub struct CreationDate(chrono::DateTime<chrono::Utc>);
+pub struct CreationDate(pub chrono::DateTime<chrono::Utc>);
 impl MetaTag for CreationDate {}
 impl Display for CreationDate {
   fn fmt(&self, f: &mut Formatter<'_>) -> Result {
@@ -44,7 +44,7 @@ impl Display for CreationDate {
 
 #[derive(Debug, Clone, PartialEq)]
 /// Date container was last modified
-pub struct LastModified(chrono::DateTime<chrono::Utc>);
+pub struct LastModified(pub chrono::DateTime<chrono::Utc>);
 impl MetaTag for LastModified {}
 impl Display for LastModified {
   fn fmt(&self, f: &mut Formatter<'_>) -> Result {
@@ -54,7 +54,7 @@ impl Display for LastModified {
 
 #[derive(Debug, Clone, PartialEq)]
 /// Organisation responsible for data container
-pub struct Organisation(String);
+pub struct Organisation(pub String);
 impl MetaTag for Organisation {}
 impl Display for Organisation {
   fn fmt(&self, f: &mut Formatter<'_>) -> Result {
@@ -64,7 +64,7 @@ impl Display for Organisation {
 
 #[derive(Debug, Clone, PartialEq)]
 /// Telescope used to collect data (astronomy-specific)
-pub struct Telescope(String);
+pub struct Telescope(pub String);
 impl MetaTag for Telescope {}
 impl Display for Telescope {
   fn fmt(&self, f: &mut Formatter<'_>) -> Result {
@@ -74,7 +74,7 @@ impl Display for Telescope {
 
 #[derive(Debug, Clone, PartialEq)]
 /// Instrument used to collect data (astronomy-specific)
-pub struct Instrument(String);
+pub struct Instrument(pub String);
 impl MetaTag for Instrument {}
 impl Display for Instrument {
   fn fmt(&self, f: &mut Formatter<'_>) -> Result {
@@ -84,7 +84,7 @@ impl Display for Instrument {
 
 #[derive(Debug, Clone, PartialEq)]
 /// Observation target (astronomy-specific)
-pub struct Object(String);
+pub struct Object(pub String);
 impl MetaTag for Object {}
 impl Display for Object {
   fn fmt(&self, f: &mut Formatter<'_>) -> Result {
@@ -94,10 +94,11 @@ impl Display for Object {
 
 #[derive(Debug, Clone, PartialEq)]
 /// Exposure time in ms (astronomy-specific)
-pub struct ExposureTime(u64);
+pub struct ExposureTime(pub u64);
 impl MetaTag for ExposureTime {}
 impl Display for ExposureTime {
   fn fmt(&self, f: &mut Formatter<'_>) -> Result {
     writeln!(f, "[Exposure time (ms)]: \"{}\"", self.0)
   }
 }
+
