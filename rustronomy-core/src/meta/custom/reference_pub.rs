@@ -43,7 +43,7 @@ use getset::{Getters, Setters, MutGetters};
 /// *Note: these struct fields have to be private because changing the number of
 /// public struct fields is currently a breaking change in Rust. This is why getters
 /// and setters are used here.*
-struct ReferencePublication {
+pub struct ReferencePublication {
   title: String,
   authors: String,
   affiliation: Option<String>,
