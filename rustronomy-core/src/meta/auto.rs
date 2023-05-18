@@ -101,4 +101,3 @@ impl Display for ExposureTime {
     write!(f, "[Exposure time (ms)]: \"{}\"", self.0)
   }
 }
-

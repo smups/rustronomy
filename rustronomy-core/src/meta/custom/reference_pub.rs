@@ -73,13 +73,13 @@ impl MetaTag for ReferencePublication {}
 impl std::fmt::Display for ReferencePublication {
   fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
     writeln!(f, "[Reference Publication]: ")?;
-    writeln!(f, ">\"{}\"", self.title)?;
-    writeln!(f, ">Authors: {}", self.authors)?;
+    writeln!(f, "    \"{}\"", self.title)?;
+    write!(f, "    Authors: {}", self.authors)?;
     if let Some(af) = &self.affiliation {
-      writeln!(f, ">Affiliation: {af}")?
+      write!(f, "\n    Affiliation: {af}")?
     };
     if let Some(journal) = &self.journal {
-      write!(f, ">In \"{journal}\", ")?
+      write!(f, "\n    In \"{journal}\", ")?
     };
     if let Some(volume) = self.volume {
       write!(f, "Vol.{volume}, ")?
@@ -93,15 +93,14 @@ impl std::fmt::Display for ReferencePublication {
     if let Some(date) = self.date {
       write!(f, "({})", date.year())?
     };
-    writeln!(f, "")?;
     if let Some(url) = &self.url {
-      writeln!(f, ">URL: {url}")?
+      write!(f, "\n    URL: {url}")?
     };
     if let Some(doi) = &self.doi {
-      writeln!(f, ">DOI: {doi}")?
+      write!(f, "\n    DOI: {doi}")?
     };
     if let Some(email) = &self.email {
-      write!(f, ">Contact: {email}")?
+      write!(f, "\n    Contact: {email}")?
     };
     Ok(())
   }
