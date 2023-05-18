@@ -213,3 +213,13 @@ fn test_partialeq_dummy_meta() {
   meta1.remove_tag::<DummyTag>();
   assert_eq!(&meta1, &meta2);
 }
+
+#[test]
+fn test_tag_display() {
+  use crate::meta::tags::*;
+  let mut meta = MetaOnly::new();
+  meta.insert_tag(&Author("test".to_string()));
+  meta.insert_tag(&ReferencePublication::new("test_title", "test_author"));
+  meta.insert_tag(&ExposureTime(12000));
+  println!("{meta:?}");
+}
