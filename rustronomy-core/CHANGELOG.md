@@ -4,6 +4,10 @@
 _breaking releases are marked with ❗️, feature updates are marked with 🌟 and
 bug-fix updates are marked with 👾_
 
+## v0.5.1 improved formatting (👾)
+This minor update fixes a bug in the display formatting of the `MetaOnly` struct,
+as well as improved formatting for the `ReferencePublication` struct.
+
 ## v0.5.0 second rework of metadata system (❗️)
 After further experimentation I have decided to rework the metadata system once
 again. The previous system was essentially an overcomplicated key-value system
