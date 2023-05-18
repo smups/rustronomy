@@ -28,7 +28,7 @@ pub struct Author(pub String);
 impl MetaTag for Author {}
 impl Display for Author {
   fn fmt(&self, f: &mut Formatter<'_>) -> Result {
-    writeln!(f, "[Author]: \"{}\"", self.0)
+    write!(f, "[Author]: \"{}\"", self.0)
   }
 }
 
@@ -38,7 +38,7 @@ pub struct CreationDate(pub chrono::DateTime<chrono::Utc>);
 impl MetaTag for CreationDate {}
 impl Display for CreationDate {
   fn fmt(&self, f: &mut Formatter<'_>) -> Result {
-    writeln!(f, "[Creation date]: \"{}\"", self.0)
+    write!(f, "[Creation date]: \"{}\"", self.0)
   }
 }
 
@@ -48,7 +48,7 @@ pub struct LastModified(pub chrono::DateTime<chrono::Utc>);
 impl MetaTag for LastModified {}
 impl Display for LastModified {
   fn fmt(&self, f: &mut Formatter<'_>) -> Result {
-    writeln!(f, "[Last modified date]: \"{}\"", self.0)
+    write!(f, "[Last modified date]: \"{}\"", self.0)
   }
 }
 
@@ -58,7 +58,7 @@ pub struct Organisation(pub String);
 impl MetaTag for Organisation {}
 impl Display for Organisation {
   fn fmt(&self, f: &mut Formatter<'_>) -> Result {
-    writeln!(f, "[Organisation]: \"{}\"", self.0)
+    write!(f, "[Organisation]: \"{}\"", self.0)
   }
 }
 
@@ -68,7 +68,7 @@ pub struct Telescope(pub String);
 impl MetaTag for Telescope {}
 impl Display for Telescope {
   fn fmt(&self, f: &mut Formatter<'_>) -> Result {
-    writeln!(f, "[Telescope]: \"{}\"", self.0)
+    write!(f, "[Telescope]: \"{}\"", self.0)
   }
 }
 
@@ -78,7 +78,7 @@ pub struct Instrument(pub String);
 impl MetaTag for Instrument {}
 impl Display for Instrument {
   fn fmt(&self, f: &mut Formatter<'_>) -> Result {
-    writeln!(f, "[Instrument]: \"{}\"", self.0)
+    write!(f, "[Instrument]: \"{}\"", self.0)
   }
 }
 
@@ -88,7 +88,7 @@ pub struct Object(pub String);
 impl MetaTag for Object {}
 impl Display for Object {
   fn fmt(&self, f: &mut Formatter<'_>) -> Result {
-    writeln!(f, "[Target object]: \"{}\"", self.0)
+    write!(f, "[Target object]: \"{}\"", self.0)
   }
 }
 
@@ -98,7 +98,7 @@ pub struct ExposureTime(pub u64);
 impl MetaTag for ExposureTime {}
 impl Display for ExposureTime {
   fn fmt(&self, f: &mut Formatter<'_>) -> Result {
-    writeln!(f, "[Exposure time (ms)]: \"{}\"", self.0)
+    write!(f, "[Exposure time (ms)]: \"{}\"", self.0)
   }
 }
 

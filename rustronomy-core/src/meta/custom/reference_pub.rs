@@ -101,7 +101,7 @@ impl std::fmt::Display for ReferencePublication {
       writeln!(f, ">DOI: {doi}")?
     };
     if let Some(email) = &self.email {
-      writeln!(f, ">Contact: {email}")?
+      write!(f, ">Contact: {email}")?
     };
     Ok(())
   }

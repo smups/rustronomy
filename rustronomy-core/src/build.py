@@ -70,7 +70,7 @@ pub struct {type_name}(pub {inner_type});
 impl MetaTag for {type_name} {{}}
 impl Display for {type_name} {{
   fn fmt(&self, f: &mut Formatter<'_>) -> Result {{
-    writeln!(f, "[{fmt_str}]: \\"{{}}\\"", self.0)
+    write!(f, "[{fmt_str}]: \\"{{}}\\"", self.0)
   }}
 }}
 
