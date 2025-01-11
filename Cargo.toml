@@ -19,3 +19,4 @@
 
 [workspace]
 members = ["rustronomy-core", "rustronomy-macro"]
+resolver = "2"
